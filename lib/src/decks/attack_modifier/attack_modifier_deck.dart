@@ -11,6 +11,8 @@ class AttackModifierDeck {
   static const BASE_NUMBER_OF_MINUS_ONE_MODIFIERS = 5;
 
   List _cardsInDeck = [];
+  List _drawPile = [];
+  List _discardPile = [];
   final List _cardsDrawn = [];
   bool needsShuffling = false;
   int _blessCardCount = 0;
@@ -30,23 +32,27 @@ class AttackModifierDeck {
     }
 
     _cardsInDeck.add(DamageChangeCard(2, false));
-
     _cardsInDeck.add(DamageChangeCard(-2, false));
-
     _cardsInDeck.add(NullDamageCard());
-
     _cardsInDeck.add(DoubleDamageCard());
+
+    _drawPile = [..._cardsInDeck];
   }
 
   void shuffle() {
     // Needs reworking, since if you have to shuffle due to running out of cards
     // then you shouldn't includee the cards drawn this round (which are currently
     // included in _cardsDrawn)
-    _cardsInDeck = _cardsInDeck + _cardsDrawn;
-    _cardsInDeck.shuffle();
+    _drawPile = [..._cardsInDeck];
+    _drawPile.shuffle();
+    _discardPile = [];
   }
 
   void addCard(card) {
+    //TODO should shuffle the the deck after adding a card (i.e. perk), but if you're in the
+    // middle of a scenario and adding bless/curse, then you should only add to and shuffle
+    // the draw pile
+
     _cardsInDeck.add(card);
 
     if (card is BlessCard) {
@@ -74,6 +80,10 @@ class AttackModifierDeck {
     }
   }
 
+  bool contains(AttackModifierCard card) {
+    return _cardsInDeck.contains(card);
+  }
+
   bool isBlessed() {
     return _blessCardCount > 0;
   }
@@ -83,11 +93,11 @@ class AttackModifierDeck {
   }
 
   AttackModifierCard draw() {
-    if (_cardsInDeck.isEmpty) {
+    if (_drawPile.isEmpty) {
       shuffle();
     }
 
-    AttackModifierCard cardDrawn = _cardsInDeck.removeAt(0);
+    AttackModifierCard cardDrawn = _drawPile.removeAt(0);
     if (!_cardIsSingleUse(cardDrawn)) {
       _cardsDrawn.add(cardDrawn);
     }
