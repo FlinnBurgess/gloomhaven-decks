@@ -1,5 +1,3 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+A flutter app for managing decks in the board game, Gloomhaven.
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+Early iterations of the app will focus on attack modifier decks, later iterations may grow to include other decks, such as objective cards.
