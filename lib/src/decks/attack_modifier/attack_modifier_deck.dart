@@ -20,7 +20,7 @@ class AttackModifierDeck {
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard(0, false));
+      _cardsInDeck.add(DamageChangeCard.zero());
     }
 
     for (var i = 0; i < BASE_NUMBER_OF_PLUS_ONE_MODIFIERS; i++) {
