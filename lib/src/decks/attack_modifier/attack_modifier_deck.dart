@@ -24,15 +24,15 @@ class AttackModifierDeck {
     }
 
     for (var i = 0; i < BASE_NUMBER_OF_PLUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard(1, false));
+      _cardsInDeck.add(DamageChangeCard.plusOne());
     }
 
     for (var i = 0; i < BASE_NUMBER_OF_MINUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard(-1, false));
+      _cardsInDeck.add(DamageChangeCard.minusOne());
     }
 
-    _cardsInDeck.add(DamageChangeCard(2, false));
-    _cardsInDeck.add(DamageChangeCard(-2, false));
+    _cardsInDeck.add(DamageChangeCard.plusTwo());
+    _cardsInDeck.add(DamageChangeCard.minusTwo());
     _cardsInDeck.add(NullDamageCard());
     _cardsInDeck.add(DoubleDamageCard());
 
