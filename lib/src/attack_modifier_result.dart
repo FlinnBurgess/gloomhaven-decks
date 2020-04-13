@@ -25,7 +25,9 @@ class AttackModifierResult {
   }
 
   void addCondition(Condition condition) {
-    if (!conditions.contains(condition)) {
+    if (!conditions.contains(condition) ||
+        condition == Condition.bless ||
+        condition == Condition.curse) {
       conditions.add(condition);
     }
   }

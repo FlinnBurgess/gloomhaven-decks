@@ -1,4 +1,4 @@
-import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
+import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 
 class Perk {
@@ -7,18 +7,20 @@ class Perk {
 
   Function(AttackModifierDeck) apply;
   Function(AttackModifierDeck) unapply;
+  String description;
 
-  Perk.additive(List cards) {
-    apply = addCardsToDeck(cards);
-    unapply = removeCardsFromDeck(cards);
+  Perk.additive(List cards, this.description) {
+    apply = _addCardsToDeck(cards);
+    unapply = _removeCardsFromDeck(cards);
   }
 
-  Perk.subtractive(List cards) {
-    apply = removeCardsFromDeck(cards);
-    unapply = addCardsToDeck(cards);
+  Perk.subtractive(List cards, this.description) {
+    apply = _removeCardsFromDeck(cards);
+    unapply = _addCardsToDeck(cards);
   }
 
-  Perk.replacement(List cardsBeingReplaced, List replacementCards) {
+  Perk.replacement(
+      List cardsBeingReplaced, List replacementCards, this.description) {
     //TODO replacement is conditional (possibly not?) on the card being there in the first place
 
     apply = (AttackModifierDeck attackModifierDeck) {
@@ -40,13 +42,27 @@ class Perk {
     };
   }
 
-  Function removeCardsFromDeck(List cards) {
+  Perk.removeFourZeros() {
+    Perk.subtractive([
+      DamageChangeCard.zero(),
+      DamageChangeCard.zero(),
+      DamageChangeCard.zero(),
+      DamageChangeCard.zero()
+    ], 'Remove four +0 cards');
+  }
+
+  Perk.removeTwoMinusOnes() {
+    Perk.subtractive([DamageChangeCard.minusOne(), DamageChangeCard.minusOne()],
+        'Remove two -1 cards');
+  }
+
+  Function _removeCardsFromDeck(List cards) {
     return (AttackModifierDeck attackModifierDeck) => {
           for (var card in cards) {attackModifierDeck.removeCard(card)}
         };
   }
 
-  Function addCardsToDeck(List cards) {
+  Function _addCardsToDeck(List cards) {
     return (AttackModifierDeck attackModifierDeck) => {
           for (var card in cards) {attackModifierDeck.addCard(card)}
         };
