@@ -1,3 +1,6 @@
+import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
+import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
+import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
@@ -40,6 +43,21 @@ class NightShroud {
       [
         Perk.additive(
             [DamageChangeCard.withCondition(1, Condition.invisible, false)]),
+        Perk.ONE_PERK_AVAILABLE
+      ],
+      [
+        Perk.additive([
+          ConditionCard(Condition.muddle, true),
+          ConditionCard(Condition.muddle, true),
+          ConditionCard(Condition.muddle, true)
+        ]),
+        Perk.TWO_PERKS_AVAILABLE
+      ],
+      [
+        Perk.additive([
+          AttackEffectCard(AttackEffect.heal, 1, true),
+          AttackEffectCard(AttackEffect.heal, 1, true),
+        ]),
         Perk.ONE_PERK_AVAILABLE
       ]
     ];
