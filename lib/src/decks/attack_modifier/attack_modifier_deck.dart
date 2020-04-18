@@ -10,7 +10,7 @@ class AttackModifierDeck {
   static const BASE_NUMBER_OF_PLUS_ONE_MODIFIERS = 5;
   static const BASE_NUMBER_OF_MINUS_ONE_MODIFIERS = 5;
 
-  List _cardsInDeck = [];
+  final List _cardsInDeck = [];
   List _drawPile = [];
   List _discardPile = [];
   final List _cardsDrawn = [];
@@ -90,6 +90,10 @@ class AttackModifierDeck {
 
   bool isCursed() {
     return _curseCardCount > 0;
+  }
+
+  void discardCards(cards) {
+    _discardPile += cards;
   }
 
   AttackModifierCard draw() {

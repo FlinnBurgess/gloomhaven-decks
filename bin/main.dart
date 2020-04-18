@@ -1,10 +1,20 @@
-import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
-import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
+import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/ui/characters/character_list_page/character_list_page.dart';
+import 'package:gloomhaven_decks/src/ui/home_page/home_page.dart';
+import 'package:provider/provider.dart';
 
-void main(List<String> arguments) {
-  var deck = AttackModifierDeck();
-  deck.shuffle();
-  var modifierCard = deck.draw();
-  var result = AttackModifierResult();
-  modifierCard.applyEffect(result);
+void main() {
+  runApp(ChangeNotifierProvider(
+      create: (context) => Characters(), child: GloomhavenDeckTracker()));
+}
+
+class GloomhavenDeckTracker extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Gloomhaven Deck Tracker',
+      home: HomePage(),
+    );
+  }
 }
