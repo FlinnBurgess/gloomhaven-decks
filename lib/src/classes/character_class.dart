@@ -1,6 +1,7 @@
 import 'package:gloomhaven_decks/src/classes/brute/brute.dart';
 import 'package:gloomhaven_decks/src/classes/cragheart/cragheart.dart';
 import 'package:gloomhaven_decks/src/classes/mindthief/mindthief.dart';
+import 'package:gloomhaven_decks/src/classes/nightshroud/nightshroud.dart';
 import 'package:gloomhaven_decks/src/classes/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/classes/spellweaver/spellweaver.dart';
 import 'package:gloomhaven_decks/src/classes/tinkerer/tinkerer.dart';
@@ -18,6 +19,7 @@ abstract class CharacterClass {
     'Scoundrel',
     'Spellweaver',
     'Tinkerer',
+    'NightShroud'
   ];
 
   static CharacterClass createCharacterClass(className, name) {
@@ -34,6 +36,8 @@ abstract class CharacterClass {
         return Spellweaver(name);
       case 'Tinkerer':
         return Tinkerer(name);
+      case 'NightShroud':
+        return NightShroud(name);
       default:
         return null;
     }
