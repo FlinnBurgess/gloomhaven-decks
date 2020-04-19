@@ -22,8 +22,11 @@ class Perk {
     unapply = _addCardsToDeck(cards);
   }
 
-  Perk.replacement(List<AttackModifierCard> cardsBeingReplaced, List<AttackModifierCard> replacementCards,
-      this.perksAvailable, this.description) {
+  Perk.replacement(
+      List<AttackModifierCard> cardsBeingReplaced,
+      List<AttackModifierCard> replacementCards,
+      this.perksAvailable,
+      this.description) {
     apply = (AttackModifierDeck attackModifierDeck) {
       attackModifierDeck.replaceCards(cardsBeingReplaced, replacementCards);
     };
@@ -40,6 +43,10 @@ class Perk {
   Perk.removeTwoMinusOnes(int perksAvailable)
       : this.subtractive(DamageChangeCard.minusOne().times(2), perksAvailable,
             'Remove two -1 cards');
+
+  Perk.addTwoPlusOnes(int perksAvailable)
+      : this.additive(DamageChangeCard.plusOne().times(2), perksAvailable,
+            'Add two +1 cards');
 
   Function _removeCardsFromDeck(List cards) {
     return (AttackModifierDeck attackModifierDeck) => {

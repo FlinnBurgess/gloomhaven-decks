@@ -1,5 +1,6 @@
-import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
+import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
+import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
@@ -15,6 +16,13 @@ class DamageChangeCard extends AttackModifierCard {
   DamageChangeCard.withCondition(
       int damageChange, Condition condition, bool isRolling)
       : super(damageChangeWithConditionEffect(damageChange, condition),
+            isRolling);
+
+  DamageChangeCard.withAttackEffect(int damageChange, AttackEffect attackEffect,
+      int attackEffectAmount, bool isRolling)
+      : super(
+            damageChangeWithAttackEffect(
+                damageChange, attackEffect, attackEffectAmount),
             isRolling);
 
   static DamageChangeCard minusOne() {
@@ -55,5 +63,13 @@ Function(AttackModifierResult) damageChangeWithConditionEffect(
   return (AttackModifierResult result) {
     result.applyDamageDifference(amount);
     result.addCondition(condition);
+  };
+}
+
+Function(AttackModifierResult) damageChangeWithAttackEffect(
+    damageChange, attackEffect, attackEffectAmount) {
+  return (AttackModifierResult result) {
+    result.applyDamageDifference(damageChange);
+    result.addAttackEffect(attackEffect, attackEffectAmount);
   };
 }
