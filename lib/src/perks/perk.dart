@@ -23,24 +23,13 @@ class Perk {
 
   Perk.replacement(List cardsBeingReplaced, List replacementCards,
       this.perksAvailable, this.description) {
-    //TODO replacement is conditional (possibly not?) on the card being there in the first place
 
     apply = (AttackModifierDeck attackModifierDeck) {
-      for (var card in cardsBeingReplaced) {
-        attackModifierDeck.removeCard(card);
-      }
-      for (var card in replacementCards) {
-        attackModifierDeck.addCard(card);
-      }
+      attackModifierDeck.replaceCards(cardsBeingReplaced, replacementCards);
     };
 
     unapply = (AttackModifierDeck attackModifierDeck) {
-      for (var card in cardsBeingReplaced) {
-        attackModifierDeck.addCard(card);
-      }
-      for (var card in replacementCards) {
-        attackModifierDeck.removeCard(card);
-      }
+      attackModifierDeck.replaceCards(replacementCards, cardsBeingReplaced);
     };
   }
 

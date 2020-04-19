@@ -40,7 +40,7 @@ class AttackModifierDeck {
   }
 
   void shuffle() {
-    // Needs reworking, since if you have to shuffle due to running out of cards
+    // TODO Needs reworking, since if you have to shuffle due to running out of cards
     // then you shouldn't includee the cards drawn this round (which are currently
     // included in _cardsDrawn)
     _drawPile = [..._cardsInDeck];
@@ -82,6 +82,22 @@ class AttackModifierDeck {
 
   bool contains(AttackModifierCard card) {
     return _cardsInDeck.contains(card);
+  }
+
+  void replaceCards(List<AttackModifierCard> cardsBeingReplaced,
+      List<AttackModifierCard> replacementCards) {
+    if (_containsAll(cardsBeingReplaced)) {
+      cardsBeingReplaced.forEach((card) => _cardsInDeck.remove(card));
+      replacementCards.forEach((card) => _cardsInDeck.add(card));
+    }
+  }
+
+  bool _containsAll(List<AttackModifierCard> cards) {
+    bool containsAllCards = true;
+    var deckCopy = [..._cardsInDeck];
+
+    cards.forEach((card) => containsAllCards = deckCopy.remove(card));
+    return containsAllCards;
   }
 
   bool isBlessed() {
