@@ -4,10 +4,12 @@ import 'package:gloomhaven_decks/src/classes/mindthief/mindthief.dart';
 import 'package:gloomhaven_decks/src/classes/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/classes/spellweaver/spellweaver.dart';
 import 'package:gloomhaven_decks/src/classes/tinkerer/tinkerer.dart';
+import 'package:gloomhaven_decks/src/perks/perk.dart';
 
 abstract class CharacterClass {
   String name;
   bool isActive = true;
+  List<Perk> perks;
 
   static final CLASS_LIST = [
     'Brute',

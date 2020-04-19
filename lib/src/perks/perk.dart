@@ -7,20 +7,22 @@ class Perk {
 
   Function(AttackModifierDeck) apply;
   Function(AttackModifierDeck) unapply;
+  int perksAvailable;
+  int perksUsed = 0;
   String description;
 
-  Perk.additive(List cards, this.description) {
+  Perk.additive(List cards, this.perksAvailable, this.description) {
     apply = _addCardsToDeck(cards);
     unapply = _removeCardsFromDeck(cards);
   }
 
-  Perk.subtractive(List cards, this.description) {
+  Perk.subtractive(List cards, this.perksAvailable, this.description) {
     apply = _removeCardsFromDeck(cards);
     unapply = _addCardsToDeck(cards);
   }
 
-  Perk.replacement(
-      List cardsBeingReplaced, List replacementCards, this.description) {
+  Perk.replacement(List cardsBeingReplaced, List replacementCards,
+      this.perksAvailable, this.description) {
     //TODO replacement is conditional (possibly not?) on the card being there in the first place
 
     apply = (AttackModifierDeck attackModifierDeck) {
@@ -42,18 +44,18 @@ class Perk {
     };
   }
 
-  Perk.removeFourZeros() {
+  Perk.removeFourZeros(int perksAvailable) {
     Perk.subtractive([
       DamageChangeCard.zero(),
       DamageChangeCard.zero(),
       DamageChangeCard.zero(),
       DamageChangeCard.zero()
-    ], 'Remove four +0 cards');
+    ], perksAvailable, 'Remove four +0 cards');
   }
 
-  Perk.removeTwoMinusOnes() {
+  Perk.removeTwoMinusOnes(int perksAvailable) {
     Perk.subtractive([DamageChangeCard.minusOne(), DamageChangeCard.minusOne()],
-        'Remove two -1 cards');
+        perksAvailable, 'Remove two -1 cards');
   }
 
   Function _removeCardsFromDeck(List cards) {
