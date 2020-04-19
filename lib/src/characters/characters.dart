@@ -12,8 +12,12 @@ class Characters extends ChangeNotifier {
   }
 
   void deleteCharacter(CharacterClass character) {
-    debugPrint("Removing " + character.toString());
     _characters.remove(character);
+    notifyListeners();
+  }
+
+  void toggleCharacterActiveState(CharacterClass character) {
+    character.toggleActiveState();
     notifyListeners();
   }
 }

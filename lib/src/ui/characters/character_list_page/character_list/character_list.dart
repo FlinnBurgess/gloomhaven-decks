@@ -32,17 +32,27 @@ class CharacterList extends StatelessWidget {
 
   List<Widget> _getCharacterList(Characters characters) => characters.characters
       .map<Widget>((character) => Row(
+    mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              IconButton(
-                onPressed: () => characters.deleteCharacter(character),
-                icon: Icon(Icons.remove),
+              Column(
+                children: <Widget>[
+                  Text('Active'),
+                  Checkbox(
+                    value: character.isActive,
+                    onChanged: (value) => characters.toggleCharacterActiveState(character),
+                  )
+                ],
               ),
               RaisedButton(
                 onPressed: () => null,
                 child: Text(character.name +
                     " the " +
                     character.runtimeType.toString()),
-              )
+              ),
+              IconButton(
+                onPressed: () => characters.deleteCharacter(character),
+                icon: Icon(Icons.remove),
+              ),
             ],
           ))
       .toList();

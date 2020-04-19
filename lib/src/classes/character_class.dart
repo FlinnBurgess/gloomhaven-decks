@@ -7,7 +7,8 @@ import 'package:gloomhaven_decks/src/classes/tinkerer/tinkerer.dart';
 
 abstract class CharacterClass {
   String name;
-  
+  bool isActive = true;
+
   static final CLASS_LIST = [
     'Brute',
     'Cragheart',
@@ -34,5 +35,9 @@ abstract class CharacterClass {
       default:
         return null;
     }
+  }
+
+  void toggleActiveState() {
+    isActive = !isActive;
   }
 }
