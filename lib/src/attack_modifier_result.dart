@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
@@ -5,8 +6,8 @@ import 'conditions/condition.dart';
 
 class AttackModifierResult {
   int attackModification = 0;
-  List infusions;
-  List conditions;
+  List infusions = [];
+  List conditions = [];
   var isNull = false;
   int healAmount = 0;
   int addTargetAmount = 0;
@@ -51,4 +52,19 @@ class AttackModifierResult {
         return;
     }
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is AttackModifierResult &&
+              runtimeType == other.runtimeType &&
+              attackModification == other.attackModification &&
+              DeepCollectionEquality().equals(infusions, other.infusions) &&
+              DeepCollectionEquality().equals(conditions, other.conditions) &&
+              isNull == other.isNull &&
+              healAmount == other.healAmount &&
+              addTargetAmount == other.addTargetAmount &&
+              pierceAmount == other.pierceAmount &&
+              pullAmount == other.pullAmount &&
+              pushAmount == other.pushAmount;
 }

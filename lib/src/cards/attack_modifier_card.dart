@@ -18,4 +18,15 @@ abstract class AttackModifierCard {
     }
     return listOfCards;
   }
+
+  @override
+  bool operator ==(other) {
+    AttackModifierResult thisResult = AttackModifierResult();
+    AttackModifierResult othersResult = AttackModifierResult();
+    this.applyEffect(thisResult);
+    other.applyEffect(othersResult);
+    return identical(this, other) || (other.runtimeType == this.runtimeType && thisResult == othersResult);
+  }
+
+
 }

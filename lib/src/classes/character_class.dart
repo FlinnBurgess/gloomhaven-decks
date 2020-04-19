@@ -5,12 +5,14 @@ import 'package:gloomhaven_decks/src/classes/nightshroud/nightshroud.dart';
 import 'package:gloomhaven_decks/src/classes/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/classes/spellweaver/spellweaver.dart';
 import 'package:gloomhaven_decks/src/classes/tinkerer/tinkerer.dart';
+import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
 abstract class CharacterClass {
   String name;
   bool isActive = true;
   List<Perk> perks;
+  AttackModifierDeck attackModifierDeck;
 
   static final CLASS_LIST = [
     'Brute',

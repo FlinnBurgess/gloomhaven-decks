@@ -20,14 +20,16 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
       for (int i = 0; i < perk.perksUsed; i++) {
         perkOptions.add(Checkbox(value: true, onChanged: (value) {
           setState(() {
-            perk.perksUsed--;
+            this.widget.character.attackModifierDeck.unapplyPerk(perk);
             perk.perksAvailable++;
+            perk.perksUsed--;
           });
         }));
       }
       for (int i = 0; i < perk.perksAvailable; i++) {
         perkOptions.add(Checkbox(value: false, onChanged: (value) {
           setState(() {
+            this.widget.character.attackModifierDeck.applyPerk(perk);
             perk.perksAvailable--;
             perk.perksUsed++;
           });

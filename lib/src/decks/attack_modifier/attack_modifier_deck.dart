@@ -4,13 +4,14 @@ import 'package:gloomhaven_decks/src/cards/curse_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/cards/double_damage_card.dart';
 import 'package:gloomhaven_decks/src/cards/null_damage_card.dart';
+import 'package:gloomhaven_decks/src/perks/perk.dart';
 
 class AttackModifierDeck {
   static const BASE_NUMBER_OF_ZERO_MODIFIERS = 6;
   static const BASE_NUMBER_OF_PLUS_ONE_MODIFIERS = 5;
   static const BASE_NUMBER_OF_MINUS_ONE_MODIFIERS = 5;
 
-  final List _cardsInDeck = [];
+  final List<AttackModifierCard> _cardsInDeck = [];
   List _drawPile = [];
   List _discardPile = [];
   final List _cardsDrawn = [];
@@ -37,6 +38,14 @@ class AttackModifierDeck {
     _cardsInDeck.add(DoubleDamageCard());
 
     _drawPile = [..._cardsInDeck];
+  }
+
+  void applyPerk(Perk perk) {
+    perk.apply(this);
+  }
+
+  void unapplyPerk(Perk perk) {
+    perk.unapply(this);
   }
 
   void shuffle() {

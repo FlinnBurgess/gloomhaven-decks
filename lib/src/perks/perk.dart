@@ -1,3 +1,4 @@
+import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 
@@ -21,7 +22,7 @@ class Perk {
     unapply = _addCardsToDeck(cards);
   }
 
-  Perk.replacement(List cardsBeingReplaced, List replacementCards,
+  Perk.replacement(List<AttackModifierCard> cardsBeingReplaced, List<AttackModifierCard> replacementCards,
       this.perksAvailable, this.description) {
     apply = (AttackModifierDeck attackModifierDeck) {
       attackModifierDeck.replaceCards(cardsBeingReplaced, replacementCards);
