@@ -28,25 +28,17 @@ class NightShroud {
           [DamageChangeCard.withCondition(1, Condition.invisible, false)],
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [INVISIBLE] card'),
-      Perk.additive([
-        ConditionCard(Condition.muddle, true),
-        ConditionCard(Condition.muddle, true),
-        ConditionCard(Condition.muddle, true)
-      ], Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.additive([
-        AttackEffectCard(AttackEffect.heal, 1, true),
-        AttackEffectCard(AttackEffect.heal, 1, true),
-      ], Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [HEAL+1] cards'),
-      Perk.additive([
-        ConditionCard(Condition.curse, true),
-        ConditionCard(Condition.curse, true),
-      ], Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
+      Perk.additive(ConditionCard(Condition.muddle, true).times(3),
+          Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
+      Perk.additive(AttackEffectCard(AttackEffect.heal, 1, true).times(2),
+          Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [HEAL+1] cards'),
+      Perk.additive(ConditionCard(Condition.curse, true).times(2),
+          Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
       Perk.additive([AttackEffectCard(AttackEffect.addTarget, 1, true)],
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
-      Perk.additive([
-        DamageChangeCard.minusOne(),
-        DamageChangeCard.minusOne(),
-      ], Perk.ONE_PERK_AVAILABLE,
+      Perk.additive(
+          DamageChangeCard.minusOne().times(2),
+          Perk.ONE_PERK_AVAILABLE,
           'Ignore negative scenario effects and add two +1 cards'),
     ];
   }

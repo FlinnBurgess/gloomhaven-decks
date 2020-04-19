@@ -10,4 +10,12 @@ abstract class AttackModifierCard {
     effect(result);
     return result;
   }
+
+  List<AttackModifierCard> times(int count) {
+    var listOfCards = [];
+    for (int i = 0; i < count; i++) {
+      listOfCards.add(this);
+    }
+    return listOfCards;
+  }
 }

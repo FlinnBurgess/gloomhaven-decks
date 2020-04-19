@@ -45,17 +45,13 @@ class Perk {
   }
 
   Perk.removeFourZeros(int perksAvailable) {
-    Perk.subtractive([
-      DamageChangeCard.zero(),
-      DamageChangeCard.zero(),
-      DamageChangeCard.zero(),
-      DamageChangeCard.zero()
-    ], perksAvailable, 'Remove four +0 cards');
+    Perk.subtractive(DamageChangeCard.zero().times(4), perksAvailable,
+        'Remove four +0 cards');
   }
 
   Perk.removeTwoMinusOnes(int perksAvailable) {
-    Perk.subtractive([DamageChangeCard.minusOne(), DamageChangeCard.minusOne()],
-        perksAvailable, 'Remove two -1 cards');
+    Perk.subtractive(DamageChangeCard.minusOne().times(2), perksAvailable,
+        'Remove two -1 cards');
   }
 
   Function _removeCardsFromDeck(List cards) {
