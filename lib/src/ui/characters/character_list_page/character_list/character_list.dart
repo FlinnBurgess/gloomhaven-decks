@@ -14,7 +14,7 @@ class CharacterList extends StatelessWidget {
           options.add(Text(
               "You don't have any characters at the moment! Try adding a new one."));
         } else {
-          options += _getCharacterList(characters.characters);
+          options += _getCharacterList(characters);
         }
 
         options.add(RaisedButton(
@@ -30,11 +30,20 @@ class CharacterList extends StatelessWidget {
     );
   }
 
-  List<Widget> _getCharacterList(characters) => characters
-      .map<Widget>((character) => RaisedButton(
-    onPressed: () => null,
-    child: Text(
-        character.name + " the " + character.runtimeType.toString()),
-  ))
+  List<Widget> _getCharacterList(Characters characters) => characters.characters
+      .map<Widget>((character) => Row(
+            children: <Widget>[
+              IconButton(
+                onPressed: () => characters.deleteCharacter(character),
+                icon: Icon(Icons.remove),
+              ),
+              RaisedButton(
+                onPressed: () => null,
+                child: Text(character.name +
+                    " the " +
+                    character.runtimeType.toString()),
+              )
+            ],
+          ))
       .toList();
 }

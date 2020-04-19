@@ -6,6 +6,8 @@ import 'package:gloomhaven_decks/src/classes/spellweaver/spellweaver.dart';
 import 'package:gloomhaven_decks/src/classes/tinkerer/tinkerer.dart';
 
 abstract class CharacterClass {
+  String name;
+  
   static final CLASS_LIST = [
     'Brute',
     'Cragheart',
