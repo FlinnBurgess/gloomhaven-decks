@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_list_page/character_list_page.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/DecksPage.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -14,11 +15,18 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             RaisedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CharacterListPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CharacterListPage()));
                 },
                 child: Text('Characters')),
-            RaisedButton(onPressed: null, child: Text('Decks')),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DecksPage()));
+                },
+                child: Text('Decks')),
             RaisedButton(onPressed: null, child: Text('Settings')),
           ],
         ),

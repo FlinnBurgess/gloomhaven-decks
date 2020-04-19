@@ -42,10 +42,12 @@ class AttackModifierDeck {
 
   void applyPerk(Perk perk) {
     perk.apply(this);
+    this.shuffle();
   }
 
   void unapplyPerk(Perk perk) {
     perk.unapply(this);
+    this.shuffle();
   }
 
   void shuffle() {
