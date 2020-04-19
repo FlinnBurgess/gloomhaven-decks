@@ -1,5 +1,6 @@
 import 'package:gloomhaven_decks/src/characters/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/characters/spellweaver/spellweaver.dart';
+import 'package:gloomhaven_decks/src/characters/sunkeeper/sunkeeper.dart';
 import 'package:gloomhaven_decks/src/characters/tinkerer/tinkerer.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
@@ -22,7 +23,8 @@ abstract class Character {
     'Scoundrel',
     'Spellweaver',
     'Tinkerer',
-    'NightShroud'
+    'Nightshroud',
+    'Sunkeeper'
   ];
 
   static Character createCharacter(className, name) {
@@ -39,8 +41,10 @@ abstract class Character {
         return Spellweaver(name);
       case 'Tinkerer':
         return Tinkerer(name);
-      case 'NightShroud':
-        return NightShroud(name);
+      case 'Nightshroud':
+        return Nightshroud(name);
+      case 'Sunkeeper':
+        return Sunkeeper(name);
       default:
         return null;
     }

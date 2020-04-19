@@ -8,12 +8,12 @@ import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
-class NightShroud extends Character {
+class Nightshroud extends Character {
   String name;
   AttackModifierDeck attackModifierDeck;
   List<Perk> perks;
 
-  NightShroud(this.name) {
+  Nightshroud(this.name) {
     attackModifierDeck = AttackModifierDeck();
     perks = [
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
