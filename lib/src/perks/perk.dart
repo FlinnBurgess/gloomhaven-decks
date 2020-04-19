@@ -3,11 +3,11 @@ import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.
 
 class Perk {
   static final ONE_PERK_AVAILABLE = 1;
-  static final TWO_PERKS_AVAILABLE = 1;
+  static final TWO_PERKS_AVAILABLE = 2;
 
   Function(AttackModifierDeck) apply;
   Function(AttackModifierDeck) unapply;
-  int perksAvailable;
+  int perksAvailable = 0;
   int perksUsed = 0;
   String description;
 
@@ -23,7 +23,6 @@ class Perk {
 
   Perk.replacement(List cardsBeingReplaced, List replacementCards,
       this.perksAvailable, this.description) {
-
     apply = (AttackModifierDeck attackModifierDeck) {
       attackModifierDeck.replaceCards(cardsBeingReplaced, replacementCards);
     };
@@ -33,15 +32,13 @@ class Perk {
     };
   }
 
-  Perk.removeFourZeros(int perksAvailable) {
-    Perk.subtractive(DamageChangeCard.zero().times(4), perksAvailable,
-        'Remove four +0 cards');
-  }
+  Perk.removeFourZeros(int perksAvailable)
+      : this.subtractive(DamageChangeCard.zero().times(4), perksAvailable,
+            'Remove four +0 cards');
 
-  Perk.removeTwoMinusOnes(int perksAvailable) {
-    Perk.subtractive(DamageChangeCard.minusOne().times(2), perksAvailable,
-        'Remove two -1 cards');
-  }
+  Perk.removeTwoMinusOnes(int perksAvailable)
+      : this.subtractive(DamageChangeCard.minusOne().times(2), perksAvailable,
+            'Remove two -1 cards');
 
   Function _removeCardsFromDeck(List cards) {
     return (AttackModifierDeck attackModifierDeck) => {

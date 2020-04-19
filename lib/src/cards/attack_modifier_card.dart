@@ -12,7 +12,7 @@ abstract class AttackModifierCard {
   }
 
   List<AttackModifierCard> times(int count) {
-    var listOfCards = [];
+    List<AttackModifierCard> listOfCards = [];
     for (int i = 0; i < count; i++) {
       listOfCards.add(this);
     }
