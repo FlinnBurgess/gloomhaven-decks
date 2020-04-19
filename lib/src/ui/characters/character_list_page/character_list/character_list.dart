@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/ui/characters/character_perk_page/character_perk_page.dart';
 import 'package:gloomhaven_decks/src/ui/characters/new_character_page/new_character_page.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class CharacterList extends StatelessWidget {
           options.add(Text(
               "You don't have any characters at the moment! Try adding a new one."));
         } else {
-          options += _getCharacterList(characters);
+          options += _getCharacterList(characters, context);
         }
 
         options.add(RaisedButton(
@@ -30,7 +31,7 @@ class CharacterList extends StatelessWidget {
     );
   }
 
-  List<Widget> _getCharacterList(Characters characters) => characters.characters
+  List<Widget> _getCharacterList(Characters characters, BuildContext context) => characters.characters
       .map<Widget>((character) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -44,7 +45,8 @@ class CharacterList extends StatelessWidget {
                 ],
               ),
               RaisedButton(
-                onPressed: () => null,
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CharacterPerkPage(character: character))),
                 child: Text(character.name +
                     " the " +
                     character.runtimeType.toString()),
