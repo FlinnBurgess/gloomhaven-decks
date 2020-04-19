@@ -51,7 +51,7 @@ class CharacterList extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () => characters.deleteCharacter(character),
-                icon: Icon(Icons.remove),
+                icon: Icon(Icons.clear),
               ),
             ],
           ))
