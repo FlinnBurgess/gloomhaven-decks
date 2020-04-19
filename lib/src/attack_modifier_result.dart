@@ -14,6 +14,7 @@ class AttackModifierResult {
   int pierceAmount = 0;
   int pullAmount = 0;
   int pushAmount = 0;
+  int shieldAmount = 0;
 
   void applyDamageDifference(int difference) {
     attackModification += difference;
@@ -50,6 +51,9 @@ class AttackModifierResult {
       case AttackEffect.pull:
         pullAmount += amount;
         return;
+      case AttackEffect.shield:
+        shieldAmount += amount;
+        break;
     }
   }
 
@@ -66,5 +70,6 @@ class AttackModifierResult {
               addTargetAmount == other.addTargetAmount &&
               pierceAmount == other.pierceAmount &&
               pullAmount == other.pullAmount &&
-              pushAmount == other.pushAmount;
+              pushAmount == other.pushAmount &&
+              shieldAmount == other.shieldAmount;
 }
