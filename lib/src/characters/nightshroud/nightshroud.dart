@@ -2,13 +2,13 @@ import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
-import 'package:gloomhaven_decks/src/classes/character_class.dart';
+import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
-class NightShroud extends CharacterClass {
+class NightShroud extends Character {
   String name;
   AttackModifierDeck attackModifierDeck;
   List<Perk> perks;

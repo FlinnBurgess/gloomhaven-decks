@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
-import 'package:gloomhaven_decks/src/classes/character_class.dart';
 import 'package:provider/provider.dart';
 
 class DecksPage extends StatelessWidget {
@@ -9,7 +9,7 @@ class DecksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<Characters>(
       builder: (context, characters, child) {
-        List<CharacterClass> activeCharacters = characters.characters
+        List<Character> activeCharacters = characters.characters
             .where((character) => character.isActive)
             .toList();
 

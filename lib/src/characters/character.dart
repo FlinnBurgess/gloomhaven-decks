@@ -1,14 +1,15 @@
-import 'package:gloomhaven_decks/src/classes/brute/brute.dart';
-import 'package:gloomhaven_decks/src/classes/cragheart/cragheart.dart';
-import 'package:gloomhaven_decks/src/classes/mindthief/mindthief.dart';
-import 'package:gloomhaven_decks/src/classes/nightshroud/nightshroud.dart';
-import 'package:gloomhaven_decks/src/classes/scoundrel/scoundrel.dart';
-import 'package:gloomhaven_decks/src/classes/spellweaver/spellweaver.dart';
-import 'package:gloomhaven_decks/src/classes/tinkerer/tinkerer.dart';
+import 'package:gloomhaven_decks/src/characters/scoundrel/scoundrel.dart';
+import 'package:gloomhaven_decks/src/characters/spellweaver/spellweaver.dart';
+import 'package:gloomhaven_decks/src/characters/tinkerer/tinkerer.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
-abstract class CharacterClass {
+import 'brute/brute.dart';
+import 'cragheart/cragheart.dart';
+import 'mindthief/mindthief.dart';
+import 'nightshroud/nightshroud.dart';
+
+abstract class Character {
   String name;
   bool isActive = true;
   List<Perk> perks;
@@ -24,7 +25,7 @@ abstract class CharacterClass {
     'NightShroud'
   ];
 
-  static CharacterClass createCharacterClass(className, name) {
+  static Character createCharacter(className, name) {
     switch (className) {
       case 'Brute':
         return Brute(name);

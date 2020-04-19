@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
-import 'package:gloomhaven_decks/src/classes/character_class.dart';
 import 'package:provider/provider.dart';
 
 class NewCharacterForm extends StatefulWidget {
@@ -13,7 +13,7 @@ class NewCharacterFormState extends State<NewCharacterForm> {
   String _selectedClass = 'Brute';
   String _newCharacterName;
 
-  final _classes = CharacterClass.CLASS_LIST;
+  final _classes = Character.CLASS_LIST;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,8 @@ class NewCharacterFormState extends State<NewCharacterForm> {
               RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    CharacterClass newCharacter =
-                    CharacterClass.createCharacterClass(
+                    Character newCharacter =
+                    Character.createCharacter(
                         _selectedClass, _newCharacterName);
 
                     characters.addCharacter(newCharacter);

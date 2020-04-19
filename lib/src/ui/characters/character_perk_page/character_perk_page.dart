@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gloomhaven_decks/src/classes/character_class.dart';
+import 'package:gloomhaven_decks/src/characters/character.dart';
 
 class CharacterPerkPage extends StatefulWidget {
-  final CharacterClass character;
+  final Character character;
 
   CharacterPerkPage({Key key, @required this.character}) : super(key: key);
 
