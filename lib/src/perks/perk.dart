@@ -13,7 +13,8 @@ class Perk {
   int perksUsed = 0;
   String description;
 
-  Perk.addCards(List cards, this.perksAvailable, this.description) {
+  Perk.addCards(List<AttackModifierCard> cards, this.perksAvailable,
+      this.description) {
     apply = _addCardsToDeck(cards);
     unapply = _removeCardsFromDeck(cards);
   }
@@ -32,11 +33,13 @@ class Perk {
       this.perksAvailable,
       this.description) {
     apply = (AttackModifierDeck attackModifierDeck) {
-      attackModifierDeck.replaceCards(cardsBeingReplaced, replacementCards);
+      return attackModifierDeck.replaceCards(
+          cardsBeingReplaced, replacementCards);
     };
 
     unapply = (AttackModifierDeck attackModifierDeck) {
-      attackModifierDeck.replaceCards(replacementCards, cardsBeingReplaced);
+      return attackModifierDeck.replaceCards(
+          replacementCards, cardsBeingReplaced);
     };
   }
 
@@ -56,29 +59,27 @@ class Perk {
             'Remove two -1 cards');
 
   Perk.addTwoPlusOnes(int perksAvailable)
-      : this.addCards(DamageChangeCard(1).times(2), perksAvailable,
-            'Add two +1 cards');
+      : this.addCards(
+      DamageChangeCard(1).times(2), perksAvailable, 'Add two +1 cards');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable)
-      : this.replaceCards(
-      [DamageChangeCard(-2)],
-      [DamageChangeCard(0)],
-            perksAvailable,
-            'Replace one -2 card with one +0 card');
+      : this.replaceCards([DamageChangeCard(-2)], [DamageChangeCard(0)],
+      perksAvailable, 'Replace one -2 card with one +0 card');
 
   Perk.addTwoRollingPlusOnes(int perksAvailable)
       : this.addCards(DamageChangeCard(1).rolling().times(2), perksAvailable,
             'Add two [ROLLING] +1 cards');
 
-  Function _removeCardsFromDeck(List cards) {
-    return (AttackModifierDeck attackModifierDeck) => {
-          for (var card in cards) {attackModifierDeck.removeCard(card)}
-        };
+  Function _removeCardsFromDeck(List<AttackModifierCard> cards) {
+    return (AttackModifierDeck attackModifierDeck) =>
+        attackModifierDeck.removeCards(cards);
   }
 
-  Function _addCardsToDeck(List cards) {
-    return (AttackModifierDeck attackModifierDeck) => {
-          for (var card in cards) {attackModifierDeck.addCard(card)}
-        };
+  Function _addCardsToDeck(List<AttackModifierCard> cards) {
+    return (AttackModifierDeck attackModifierDeck) {
+      attackModifierDeck.addCards(cards);
+
+      return true;
+    };
   }
 }

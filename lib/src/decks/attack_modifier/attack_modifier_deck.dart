@@ -40,14 +40,24 @@ class AttackModifierDeck {
     _drawPile = [..._cardsInDeck];
   }
 
-  void applyPerk(Perk perk) {
-    perk.apply(this);
-    this.shuffle();
+  bool applyPerk(Perk perk) {
+    bool successful = perk.apply(this);
+
+    if (successful) {
+      this.shuffle();
+    }
+
+    return successful;
   }
 
-  void unapplyPerk(Perk perk) {
-    perk.unapply(this);
-    this.shuffle();
+  bool unapplyPerk(Perk perk) {
+    bool successful = perk.unapply(this);
+
+    if (successful) {
+      this.shuffle();
+    }
+
+    return successful;
   }
 
   void shuffle() {
@@ -57,6 +67,10 @@ class AttackModifierDeck {
     _drawPile = [..._cardsInDeck];
     _drawPile.shuffle();
     _discardPile = [];
+  }
+
+  void addCards(List<AttackModifierCard> cards) {
+    cards.forEach((card) => addCard(card));
   }
 
   void addCard(card) {
@@ -75,12 +89,16 @@ class AttackModifierDeck {
     }
   }
 
-  void removeCard(card) {
-    var cardExisted = _cardsInDeck.remove(card);
-
-    if (!cardExisted) {
-      return;
+  bool removeCards(List<AttackModifierCard> cards) {
+    if (!_containsAll(cards)) {
+      return false;
     }
+    cards.forEach((card) => _removeCard(card));
+    return true;
+  }
+
+  void _removeCard(card) {
+    _cardsInDeck.remove(card);
 
     if (card is BlessCard) {
       _blessCardCount--;
@@ -91,16 +109,15 @@ class AttackModifierDeck {
     }
   }
 
-  bool contains(AttackModifierCard card) {
-    return _cardsInDeck.contains(card);
-  }
-
-  void replaceCards(List<AttackModifierCard> cardsBeingReplaced,
+  bool replaceCards(List<AttackModifierCard> cardsBeingReplaced,
       List<AttackModifierCard> replacementCards) {
     if (_containsAll(cardsBeingReplaced)) {
-      cardsBeingReplaced.forEach((card) => _cardsInDeck.remove(card));
-      replacementCards.forEach((card) => _cardsInDeck.add(card));
+      removeCards(cardsBeingReplaced);
+      addCards(replacementCards);
+      return true;
     }
+
+    return false;
   }
 
   bool _containsAll(List<AttackModifierCard> cards) {

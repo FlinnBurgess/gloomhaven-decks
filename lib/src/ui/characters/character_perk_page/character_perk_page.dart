@@ -18,24 +18,41 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
     this.widget.character.perks.forEach((perk) {
       List<Widget> perkOptions = [];
       for (int i = 0; i < perk.perksUsed; i++) {
-        perkOptions.add(Checkbox(value: true, onChanged: (value) {
-          setState(() {
-            this.widget.character.attackModifierDeck.unapplyPerk(perk);
-            perk.perksAvailable++;
-            perk.perksUsed--;
-          });
-        }));
+        perkOptions.add(Checkbox(
+            value: true,
+            onChanged: (value) {
+              bool successfullyUnapplied =
+              this.widget.character.attackModifierDeck.unapplyPerk(perk);
+              if (successfullyUnapplied) {
+                setState(() {
+                  perk.perksAvailable++;
+                  perk.perksUsed--;
+                });
+              } else {
+                showFailureMessage(context);
+              }
+            }));
       }
       for (int i = 0; i < perk.perksAvailable; i++) {
-        perkOptions.add(Checkbox(value: false, onChanged: (value) {
-          setState(() {
-            this.widget.character.attackModifierDeck.applyPerk(perk);
-            perk.perksAvailable--;
-            perk.perksUsed++;
-          });
-        }));
+        perkOptions.add(Checkbox(
+            value: false,
+            onChanged: (value) {
+              bool successfullyApplied = this.widget.character
+                  .attackModifierDeck.applyPerk(perk);
+              if (successfullyApplied) {
+                setState(() {
+                  perk.perksAvailable--;
+                  perk.perksUsed++;
+                });
+              } else {
+                showFailureMessage(context);
+              }
+            }));
       }
-      perkOptions.add(Padding(padding: EdgeInsets.fromLTRB(0, 17, 0, 0), child: Text(perk.description),));
+      perkOptions.add(Padding(
+        padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
+        child: Text(perk.description),
+      ));
       perkRows.add(Wrap(alignment: WrapAlignment.start, children: perkOptions));
     });
 
@@ -43,7 +60,9 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.widget.character.name + ' the ' + this.widget.character.runtimeType.toString()),
+        title: Text(this.widget.character.name +
+            ' the ' +
+            this.widget.character.runtimeType.toString()),
       ),
       body: Center(
         child: perkList,
@@ -51,4 +70,20 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
     );
   }
 
+  void showFailureMessage(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Failed to apply/unapply perk"),
+            content: Text(
+                "This is usually because you're trying to remove cards that aren't in your deck. Does this perk depend on another one?"),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text("Close"))
+            ],
+          );
+        });
+  }
 }
