@@ -18,7 +18,7 @@ class Cragheart extends Character {
 
     perks = [
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
-      Perk.replacement(
+      Perk.replaceCards(
           [DamageChangeCard.minusOne()],
           [DamageChangeCard.plusOne()],
           Perk.THREE_PERKS_AVAILABLE,

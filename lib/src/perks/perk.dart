@@ -26,7 +26,7 @@ class Perk {
     unapply = _addCardsToDeck(cards);
   }
 
-  Perk.replacement(
+  Perk.replaceCards(
       List<AttackModifierCard> cardsBeingReplaced,
       List<AttackModifierCard> replacementCards,
       this.perksAvailable,
@@ -53,7 +53,7 @@ class Perk {
             'Add two +1 cards');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable)
-      : this.replacement(
+      : this.replaceCards(
             [DamageChangeCard.minusTwo()],
             [DamageChangeCard.zero()],
             perksAvailable,

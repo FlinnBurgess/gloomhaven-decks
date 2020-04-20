@@ -19,7 +19,7 @@ class Sunkeeper extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),
-      Perk.replacement([DamageChangeCard.zero()], [DamageChangeCard.plusTwo()], Perk.ONE_PERK_AVAILABLE, 'Replace one +0 card with one +2 card'),
+      Perk.replaceCards([DamageChangeCard.zero()], [DamageChangeCard.plusTwo()], Perk.ONE_PERK_AVAILABLE, 'Replace one +0 card with one +2 card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.addCards(AttackEffectCard(AttackEffect.heal, 1, true).times(2), Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [HEAL 1] cards'),
       Perk.addCard(ConditionCard(Condition.stun, true), Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [STUN] card'),

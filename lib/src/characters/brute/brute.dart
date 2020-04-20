@@ -17,7 +17,7 @@ class Brute extends Character {
 
     perks = [
       Perk.removeTwoMinusOnes(Perk.ONE_PERK_AVAILABLE),
-      Perk.replacement(
+      Perk.replaceCards(
           [DamageChangeCard.minusOne()],
           [DamageChangeCard.plusOne()],
           Perk.ONE_PERK_AVAILABLE,

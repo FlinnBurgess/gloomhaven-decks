@@ -14,7 +14,7 @@ class Spellweaver extends Character {
   Spellweaver(this.name) {
     perks = [
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
-      Perk.replacement([DamageChangeCard.minusOne()], [DamageChangeCard.plusOne()], Perk.TWO_PERKS_AVAILABLE, 'Replace one -1 card with one +1 card'),
+      Perk.replaceCards([DamageChangeCard.minusOne()], [DamageChangeCard.plusOne()], Perk.TWO_PERKS_AVAILABLE, 'Replace one -1 card with one +1 card'),
       Perk.addTwoPlusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.addCard(DamageChangeCard.withCondition(0, Condition.stun, false), Perk.ONE_PERK_AVAILABLE, 'Add one +0 [STUN] card'),
       Perk.addCard(DamageChangeCard.withCondition(1, Condition.wound, false), Perk.ONE_PERK_AVAILABLE, 'Add one +1 [WOUND] card'),

@@ -20,7 +20,7 @@ class Nightshroud extends Character {
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.addCard(DamageChangeCard.withInfusion(-1, Infusion.dark, false),
           Perk.TWO_PERKS_AVAILABLE, 'Add one -1 and [dark infusion] card'),
-      Perk.replacement(
+      Perk.replaceCards(
           [DamageChangeCard.withInfusion(-1, Infusion.dark, false)],
           [DamageChangeCard.withInfusion(1, Infusion.dark, false)],
           Perk.TWO_PERKS_AVAILABLE,
