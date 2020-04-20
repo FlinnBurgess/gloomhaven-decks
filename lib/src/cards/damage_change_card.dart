@@ -5,44 +5,42 @@ import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
 class DamageChangeCard extends AttackModifierCard {
-  DamageChangeCard(int damageChange, bool isRolling)
-      : super(damageChangeEffect(damageChange), isRolling);
+  DamageChangeCard(int damageChange)
+      : super(damageChangeEffect(damageChange), false);
 
-  DamageChangeCard.withInfusion(
-      int damageChange, Infusion infusion, bool isRolling)
+  DamageChangeCard.withInfusion(int damageChange, Infusion infusion)
       : super(
-            damageChangeWithInfusionEffect(damageChange, infusion), isRolling);
+      damageChangeWithInfusionEffect(damageChange, infusion), false);
 
-  DamageChangeCard.withCondition(
-      int damageChange, Condition condition, bool isRolling)
+  DamageChangeCard.withCondition(int damageChange, Condition condition)
       : super(damageChangeWithConditionEffect(damageChange, condition),
-            isRolling);
+      false);
 
   DamageChangeCard.withAttackEffect(int damageChange, AttackEffect attackEffect,
-      int attackEffectAmount, bool isRolling)
+      int attackEffectAmount)
       : super(
             damageChangeWithAttackEffect(
                 damageChange, attackEffect, attackEffectAmount),
-            isRolling);
+      false);
 
   static DamageChangeCard minusOne() {
-    return DamageChangeCard(-1, false);
+    return DamageChangeCard(-1);
   }
 
   static DamageChangeCard zero() {
-    return DamageChangeCard(0, false);
+    return DamageChangeCard(0);
   }
 
   static DamageChangeCard plusOne() {
-    return DamageChangeCard(1, false);
+    return DamageChangeCard(1);
   }
 
   static DamageChangeCard plusTwo() {
-    return DamageChangeCard(2, false);
+    return DamageChangeCard(2);
   }
 
   static DamageChangeCard minusTwo() {
-    return DamageChangeCard(-2, false);
+    return DamageChangeCard(-2);
   }
 }
 

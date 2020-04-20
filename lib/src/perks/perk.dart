@@ -67,7 +67,7 @@ class Perk {
             'Replace one -2 card with one +0 card');
 
   Perk.addTwoRollingPlusOnes(int perksAvailable)
-      : this.addCards(DamageChangeCard(1, true).times(2), perksAvailable,
+      : this.addCards(DamageChangeCard(1).rolling().times(2), perksAvailable,
             'Add two [ROLLING] +1 cards');
 
   Function _removeCardsFromDeck(List cards) {

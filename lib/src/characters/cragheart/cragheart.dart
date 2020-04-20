@@ -29,11 +29,11 @@ class Cragheart extends Character {
           Perk.ONE_PERK_AVAILABLE,
           'Add one -2 card and two +2 cards'),
       Perk.addCard(
-          DamageChangeCard.withCondition(1, Condition.immobilize, false),
+          DamageChangeCard.withCondition(1, Condition.immobilize),
           Perk.TWO_PERKS_AVAILABLE,
           'Add one +1 [IMMOBILIZE] card'),
       Perk.addCard(
-          DamageChangeCard.withCondition(2, Condition.muddle, false),
+          DamageChangeCard.withCondition(2, Condition.muddle),
           Perk.TWO_PERKS_AVAILABLE,
           'Add one +2 [MUDDLE] card'),
       Perk.addCards(AttackEffectCard(AttackEffect.push, 2).times(2),

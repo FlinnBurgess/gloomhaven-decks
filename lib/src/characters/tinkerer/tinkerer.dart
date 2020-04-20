@@ -18,25 +18,20 @@ class Tinkerer extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),
       Perk.addTwoPlusOnes(Perk.ONE_PERK_AVAILABLE),
-      Perk.addCard(DamageChangeCard(3, false), Perk.ONE_PERK_AVAILABLE,
-          'Add one +3 card'),
+      Perk.addCard(
+          DamageChangeCard(3), Perk.ONE_PERK_AVAILABLE, 'Add one +3 card'),
       Perk.addCards(InfusionCard(Infusion.fire).times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [FIRE INFUSION] cards'),
       Perk.addCards(ConditionCard(Condition.muddle).times(3),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.addCard(DamageChangeCard.withCondition(1, Condition.wound, false),
+      Perk.addCard(DamageChangeCard.withCondition(1, Condition.wound),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +1 [WOUND] card'),
+      Perk.addCard(DamageChangeCard.withCondition(1, Condition.immobilize),
+          Perk.TWO_PERKS_AVAILABLE, 'Add one +1 [IMMOBILIZE] card'),
+      Perk.addCard(DamageChangeCard.withAttackEffect(1, AttackEffect.heal, 2),
+          Perk.TWO_PERKS_AVAILABLE, 'Add one +1 [HEAL 2] card'),
       Perk.addCard(
-          DamageChangeCard.withCondition(1, Condition.immobilize, false),
-          Perk.TWO_PERKS_AVAILABLE,
-          'Add one +1 [IMMOBILIZE] card'),
-      Perk.addCard(
-          DamageChangeCard.withAttackEffect(1, AttackEffect.heal, 2, false),
-          Perk.TWO_PERKS_AVAILABLE,
-          'Add one +1 [HEAL 2] card'),
-      Perk.addCard(
-          DamageChangeCard.withAttackEffect(
-              0, AttackEffect.addTarget, 1, false),
+          DamageChangeCard.withAttackEffect(0, AttackEffect.addTarget, 1),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +0 [ADD TARGET] card')
     ];

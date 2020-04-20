@@ -11,6 +11,11 @@ abstract class AttackModifierCard {
     return result;
   }
 
+  AttackModifierCard rolling() {
+    isRolling = true;
+    return this;
+  }
+
   List<AttackModifierCard> times(int count) {
     List<AttackModifierCard> listOfCards = [];
     for (int i = 0; i < count; i++) {

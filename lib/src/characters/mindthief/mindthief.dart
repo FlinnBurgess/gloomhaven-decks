@@ -23,7 +23,7 @@ class Mindthief extends Character {
           Perk.ONE_PERK_AVAILABLE,
           'Replace two +1 cards with two +2 cards'),
       Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),
-      Perk.addCard(DamageChangeCard.withInfusion(2, Infusion.ice, false),
+      Perk.addCard(DamageChangeCard.withInfusion(2, Infusion.ice),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.addCards(AttackEffectCard(AttackEffect.pull, 1).times(3),

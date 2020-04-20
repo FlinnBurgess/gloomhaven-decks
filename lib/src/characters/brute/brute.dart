@@ -23,7 +23,7 @@ class Brute extends Character {
           Perk.ONE_PERK_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.addTwoPlusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.addCard(DamageChangeCard(3, false), Perk.ONE_PERK_AVAILABLE,
+      Perk.addCard(DamageChangeCard(3), Perk.ONE_PERK_AVAILABLE,
           'Add one +3 card'),
       Perk.addCards(AttackEffectCard(AttackEffect.push, 1).times(3),
           Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [PUSH 1] cards'),
@@ -39,10 +39,10 @@ class Brute extends Character {
       Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1),
           Perk.TWO_PERKS_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
       Perk.addCard(
-          DamageChangeCard.withAttackEffect(1, AttackEffect.shield, 1, false),
+          DamageChangeCard.withAttackEffect(1, AttackEffect.shield, 1),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [SHIELD 1], Self card'),
-      Perk.addCard(DamageChangeCard(1, false), Perk.ONE_PERK_AVAILABLE,
+      Perk.addCard(DamageChangeCard(1), Perk.ONE_PERK_AVAILABLE,
           'Ignore negative item effects and add one +1 card')
     ];
   }
