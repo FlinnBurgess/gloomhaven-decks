@@ -37,8 +37,8 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         perkOptions.add(Checkbox(
             value: false,
             onChanged: (value) {
-              bool successfullyApplied = this.widget.character
-                  .attackModifierDeck.applyPerk(perk);
+              bool successfullyApplied =
+              this.widget.character.attackModifierDeck.applyPerk(perk);
               if (successfullyApplied) {
                 setState(() {
                   perk.perksAvailable--;
@@ -53,7 +53,9 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
         child: Text(perk.description),
       ));
-      perkRows.add(Wrap(alignment: WrapAlignment.start, children: perkOptions));
+      perkRows.add(Align(
+          alignment: Alignment.centerLeft,
+          child: Wrap(children: perkOptions)));
     });
 
     var perkList = Column(children: perkRows);

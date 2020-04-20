@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/attack_modifier_deck_tab.dart';
 import 'package:provider/provider.dart';
 
 class DecksPage extends StatelessWidget {
@@ -19,8 +20,9 @@ class DecksPage extends StatelessWidget {
                 ))
             .toList();
 
-        List<Text> characterDeckPages =
-            activeCharacters.map((character) => Text(character.name)).toList();
+        List<AttackModifierDeckTab> characterDeckPages =
+        activeCharacters.map((character) =>
+            AttackModifierDeckTab(character: character)).toList();
 
         return DefaultTabController(
           length: activeCharacters.length,

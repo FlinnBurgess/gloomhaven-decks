@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_list_page/character_list_page.dart';
-import 'package:gloomhaven_decks/src/ui/decks/decks_page/DecksPage.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/decks_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
