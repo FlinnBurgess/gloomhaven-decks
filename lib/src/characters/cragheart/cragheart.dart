@@ -23,24 +23,24 @@ class Cragheart extends Character {
           [DamageChangeCard.plusOne()],
           Perk.THREE_PERKS_AVAILABLE,
           'Replace one -1 card with one +1 card'),
-      Perk.additive(
+      Perk.addCards(
           DamageChangeCard.plusTwo().times(2) +
               DamageChangeCard.minusTwo().times(1),
           Perk.ONE_PERK_AVAILABLE,
           'Add one -2 card and two +2 cards'),
-      Perk.additive(
-          [DamageChangeCard.withCondition(1, Condition.immobilize, false)],
+      Perk.addCard(
+          DamageChangeCard.withCondition(1, Condition.immobilize, false),
           Perk.TWO_PERKS_AVAILABLE,
           'Add one +1 [IMMOBILIZE] card'),
-      Perk.additive(
-          [DamageChangeCard.withCondition(2, Condition.muddle, false)],
+      Perk.addCard(
+          DamageChangeCard.withCondition(2, Condition.muddle, false),
           Perk.TWO_PERKS_AVAILABLE,
           'Add one +2 [MUDDLE] card'),
-      Perk.additive(AttackEffectCard(AttackEffect.push, 2, true).times(2),
+      Perk.addCards(AttackEffectCard(AttackEffect.push, 2, true).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [PUSH 2] cards'),
-      Perk.additive(InfusionCard(Infusion.earth, true).times(2),
+      Perk.addCards(InfusionCard(Infusion.earth, true).times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards'),
-      Perk.additive(InfusionCard(Infusion.air, true).times(2),
+      Perk.addCards(InfusionCard(Infusion.air, true).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [AIR INFUSION] cards')
     ];
   }
