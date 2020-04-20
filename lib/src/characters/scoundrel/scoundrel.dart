@@ -25,7 +25,7 @@ class Scoundrel extends Character {
       Perk.replaceCard(DamageChangeCard.zero(), DamageChangeCard.plusTwo(),
           Perk.TWO_PERKS_AVAILABLE, 'Replace one +0 card with one +2 card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.addCards(AttackEffectCard(AttackEffect.pierce, 3, true).times(2),
+      Perk.addCards(AttackEffectCard(AttackEffect.pierce, 3).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PIERCE 3] cards'),
       Perk.addCards(ConditionCard(Condition.poison).times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [POISON] cards'),

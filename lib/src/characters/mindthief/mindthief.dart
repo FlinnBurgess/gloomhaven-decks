@@ -26,7 +26,7 @@ class Mindthief extends Character {
       Perk.addCard(DamageChangeCard.withInfusion(2, Infusion.ice, false),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.addCards(AttackEffectCard(AttackEffect.pull, 1, true).times(3),
+      Perk.addCards(AttackEffectCard(AttackEffect.pull, 1).times(3),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PULL 1] cards'),
       Perk.addCards(ConditionCard(Condition.muddle).times(3),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),

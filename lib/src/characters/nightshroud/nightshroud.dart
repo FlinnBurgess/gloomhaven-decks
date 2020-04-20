@@ -31,11 +31,11 @@ class Nightshroud extends Character {
           'Add one +1 [INVISIBLE] card'),
       Perk.addCards(ConditionCard(Condition.muddle).times(3),
           Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.addCards(AttackEffectCard(AttackEffect.heal, 1, true).times(2),
+      Perk.addCards(AttackEffectCard(AttackEffect.heal, 1).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [HEAL+1] cards'),
       Perk.addCards(ConditionCard(Condition.curse).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
-      Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1, true),
+      Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1),
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
       Perk.addCards(
           DamageChangeCard.minusOne().times(2),
