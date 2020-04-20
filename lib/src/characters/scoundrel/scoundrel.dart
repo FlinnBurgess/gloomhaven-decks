@@ -27,11 +27,11 @@ class Scoundrel extends Character {
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.addCards(AttackEffectCard(AttackEffect.pierce, 3, true).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PIERCE 3] cards'),
-      Perk.addCards(ConditionCard(Condition.poison, true).times(2),
+      Perk.addCards(ConditionCard(Condition.poison).times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [POISON] cards'),
-      Perk.addCards(ConditionCard(Condition.muddle, true).times(2),
+      Perk.addCards(ConditionCard(Condition.muddle).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [MUDDLE] cards'),
-      Perk.addCard(ConditionCard(Condition.invisible, true),
+      Perk.addCard(ConditionCard(Condition.invisible),
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [INVISIBLE] perk'),
     ];
   }

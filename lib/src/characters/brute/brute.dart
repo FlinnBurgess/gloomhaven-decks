@@ -29,11 +29,11 @@ class Brute extends Character {
           Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [PUSH 1] cards'),
       Perk.addCards(AttackEffectCard(AttackEffect.pierce, 3, true).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [PIERCE 3] cards'),
-      Perk.addCard(ConditionCard(Condition.stun, true),
+      Perk.addCard(ConditionCard(Condition.stun),
           Perk.TWO_PERKS_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
       Perk.addCards([
-        ConditionCard(Condition.disarm, true),
-        ConditionCard(Condition.muddle, true)
+        ConditionCard(Condition.disarm),
+        ConditionCard(Condition.muddle)
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card'),
       Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1, true),
