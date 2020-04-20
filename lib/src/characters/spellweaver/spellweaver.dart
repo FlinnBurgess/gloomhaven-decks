@@ -32,13 +32,13 @@ class Spellweaver extends Character {
       Perk.addCard(DamageChangeCard.withInfusion(2, Infusion.ice, false),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.addCards([
-        InfusionCard(Infusion.earth, true),
-        InfusionCard(Infusion.air, true)
+        InfusionCard(Infusion.earth),
+        InfusionCard(Infusion.air)
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [EARTH INFUSION] and one [AIR INFUSION] card'),
       Perk.addCards([
-        InfusionCard(Infusion.light, true),
-        InfusionCard(Infusion.dark, true)
+        InfusionCard(Infusion.light),
+        InfusionCard(Infusion.dark)
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [LIGHT INFUSION] and one [DARK INFUSION] card'),
     ];

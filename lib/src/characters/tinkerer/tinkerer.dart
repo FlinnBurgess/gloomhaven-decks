@@ -20,7 +20,7 @@ class Tinkerer extends Character {
       Perk.addTwoPlusOnes(Perk.ONE_PERK_AVAILABLE),
       Perk.addCard(DamageChangeCard(3, false), Perk.ONE_PERK_AVAILABLE,
           'Add one +3 card'),
-      Perk.addCards(InfusionCard(Infusion.fire, true).times(2),
+      Perk.addCards(InfusionCard(Infusion.fire).times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [FIRE INFUSION] cards'),
       Perk.addCards(ConditionCard(Condition.muddle).times(3),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
