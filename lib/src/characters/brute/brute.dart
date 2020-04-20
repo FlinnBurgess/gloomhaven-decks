@@ -23,26 +23,26 @@ class Brute extends Character {
           Perk.ONE_PERK_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.addTwoPlusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.additive([DamageChangeCard(3, false)], Perk.ONE_PERK_AVAILABLE,
+      Perk.addCard(DamageChangeCard(3, false), Perk.ONE_PERK_AVAILABLE,
           'Add one +3 card'),
-      Perk.additive(AttackEffectCard(AttackEffect.push, 1, true).times(3),
+      Perk.addCards(AttackEffectCard(AttackEffect.push, 1, true).times(3),
           Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [PUSH 1] cards'),
-      Perk.additive(AttackEffectCard(AttackEffect.pierce, 3, true).times(2),
+      Perk.addCards(AttackEffectCard(AttackEffect.pierce, 3, true).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [PIERCE 3] cards'),
-      Perk.additive([ConditionCard(Condition.stun, true)],
+      Perk.addCard(ConditionCard(Condition.stun, true),
           Perk.TWO_PERKS_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
-      Perk.additive([
+      Perk.addCards([
         ConditionCard(Condition.disarm, true),
         ConditionCard(Condition.muddle, true)
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card'),
-      Perk.additive([AttackEffectCard(AttackEffect.addTarget, 1, true)],
+      Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1, true),
           Perk.TWO_PERKS_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
-      Perk.additive(
-          [DamageChangeCard.withAttackEffect(1, AttackEffect.shield, 1, false)],
+      Perk.addCard(
+          DamageChangeCard.withAttackEffect(1, AttackEffect.shield, 1, false),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [SHIELD 1], Self card'),
-      Perk.additive([DamageChangeCard(1, false)], Perk.ONE_PERK_AVAILABLE,
+      Perk.addCard(DamageChangeCard(1, false), Perk.ONE_PERK_AVAILABLE,
           'Ignore negative item effects and add one +1 card')
     ];
   }
