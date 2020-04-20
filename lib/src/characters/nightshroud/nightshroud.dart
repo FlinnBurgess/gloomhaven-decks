@@ -18,26 +18,26 @@ class Nightshroud extends Character {
     perks = [
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
-      Perk.additive([DamageChangeCard.withInfusion(-1, Infusion.dark, false)],
+      Perk.addCard(DamageChangeCard.withInfusion(-1, Infusion.dark, false),
           Perk.TWO_PERKS_AVAILABLE, 'Add one -1 and [dark infusion] card'),
       Perk.replacement(
           [DamageChangeCard.withInfusion(-1, Infusion.dark, false)],
           [DamageChangeCard.withInfusion(1, Infusion.dark, false)],
           Perk.TWO_PERKS_AVAILABLE,
           'Replace one -1 and [dark infusion] card with one +1 and [dark infusion] card'),
-      Perk.additive(
-          [DamageChangeCard.withCondition(1, Condition.invisible, false)],
+      Perk.addCard(
+          DamageChangeCard.withCondition(1, Condition.invisible, false),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [INVISIBLE] card'),
-      Perk.additive(ConditionCard(Condition.muddle, true).times(3),
+      Perk.addCards(ConditionCard(Condition.muddle, true).times(3),
           Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.additive(AttackEffectCard(AttackEffect.heal, 1, true).times(2),
+      Perk.addCards(AttackEffectCard(AttackEffect.heal, 1, true).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [HEAL+1] cards'),
-      Perk.additive(ConditionCard(Condition.curse, true).times(2),
+      Perk.addCards(ConditionCard(Condition.curse, true).times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
-      Perk.additive([AttackEffectCard(AttackEffect.addTarget, 1, true)],
+      Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1, true),
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
-      Perk.additive(
+      Perk.addCards(
           DamageChangeCard.minusOne().times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Ignore negative scenario effects and add two +1 cards'),
