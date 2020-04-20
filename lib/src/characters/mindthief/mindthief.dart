@@ -26,7 +26,6 @@ class Mindthief extends Character {
       Perk.additive(ConditionCard(Condition.immobilize, true).times(2), Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [IMMOBILIZE] cards'),
       Perk.additive([ConditionCard(Condition.stun, true)], Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
       Perk.additive([ConditionCard(Condition.disarm, true), ConditionCard(Condition.muddle, true)], Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card')
-
     ];
   }
 }
