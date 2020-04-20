@@ -19,7 +19,7 @@ class Scoundrel extends Character {
       Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),
       Perk.replacement([DamageChangeCard.minusOne()], [DamageChangeCard.plusOne()], Perk.ONE_PERK_AVAILABLE, 'Replace one -1 card with one +1 card'),
       Perk.replacement([DamageChangeCard.zero()], [DamageChangeCard.plusTwo()], Perk.TWO_PERKS_AVAILABLE, 'Replace one +0 card with one +2 card'),
-      Perk.additive(DamageChangeCard(1, true).times(2), Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] +1 cards'),
+      Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.additive(AttackEffectCard(AttackEffect.pierce, 3, true).times(2), Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PIERCE 3] cards'),
       Perk.additive(ConditionCard(Condition.poison, true).times(2), Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [POISON] cards'),
       Perk.additive(ConditionCard(Condition.muddle, true).times(2), Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [MUDDLE] cards'),
