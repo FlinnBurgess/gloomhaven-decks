@@ -16,7 +16,7 @@ class Scoundrel extends Character {
     perks = [
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
-      Perk.replacement([DamageChangeCard.minusTwo()], [DamageChangeCard.zero()], Perk.ONE_PERK_AVAILABLE, 'Replace one -2 card with one +0 card'),
+      Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),
       Perk.replacement([DamageChangeCard.minusOne()], [DamageChangeCard.plusOne()], Perk.ONE_PERK_AVAILABLE, 'Replace one -1 card with one +1 card'),
       Perk.replacement([DamageChangeCard.zero()], [DamageChangeCard.plusTwo()], Perk.TWO_PERKS_AVAILABLE, 'Replace one +0 card with one +2 card'),
       Perk.additive(DamageChangeCard(1, true).times(2), Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] +1 cards'),

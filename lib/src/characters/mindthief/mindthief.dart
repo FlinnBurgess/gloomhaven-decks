@@ -18,7 +18,7 @@ class Mindthief extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replacement(DamageChangeCard.plusOne().times(2), DamageChangeCard.plusTwo().times(2), Perk.ONE_PERK_AVAILABLE, 'Replace two +1 cards with two +2 cards'),
-      Perk.replacement([DamageChangeCard.minusTwo()], [DamageChangeCard.zero()], Perk.ONE_PERK_AVAILABLE, 'Replace one -2 card with one +0 card'),
+      Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),
       Perk.additive([DamageChangeCard.withInfusion(2, Infusion.ice, false)], Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.additive(DamageChangeCard(1, true).times(2), Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] +1 cards'),
       Perk.additive(AttackEffectCard(AttackEffect.pull, 1, true).times(3), Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PULL 1] cards'),
