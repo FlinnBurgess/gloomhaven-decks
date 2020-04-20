@@ -40,6 +40,13 @@ class Perk {
     };
   }
 
+  Perk.replaceCard(AttackModifierCard cardToReplace,
+      AttackModifierCard replacementCard,
+      int perksAvailable,
+      String description)
+      : this.replaceCards(
+      [cardToReplace], [replacementCard], perksAvailable, description);
+
   Perk.removeFourZeros(int perksAvailable)
       : this.removeCards(DamageChangeCard.zero().times(4), perksAvailable,
             'Remove four +0 cards');
