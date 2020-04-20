@@ -13,10 +13,13 @@ class Perk {
   int perksUsed = 0;
   String description;
 
-  Perk.additive(List cards, this.perksAvailable, this.description) {
+  Perk.addCards(List cards, this.perksAvailable, this.description) {
     apply = _addCardsToDeck(cards);
     unapply = _removeCardsFromDeck(cards);
   }
+
+  Perk.addCard(AttackModifierCard card, perksAvailable, description)
+      : this.addCards([card], perksAvailable, description);
 
   Perk.subtractive(List cards, this.perksAvailable, this.description) {
     apply = _removeCardsFromDeck(cards);
@@ -46,7 +49,7 @@ class Perk {
             'Remove two -1 cards');
 
   Perk.addTwoPlusOnes(int perksAvailable)
-      : this.additive(DamageChangeCard.plusOne().times(2), perksAvailable,
+      : this.addCards(DamageChangeCard.plusOne().times(2), perksAvailable,
             'Add two +1 cards');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable)
@@ -57,7 +60,8 @@ class Perk {
             'Replace one -2 card with one +0 card');
 
   Perk.addTwoRollingPlusOnes(int perksAvailable)
-    : this.additive(DamageChangeCard(1, true).times(2), perksAvailable, 'Add two [ROLLING] +1 cards');
+      : this.addCards(DamageChangeCard(1, true).times(2), perksAvailable,
+            'Add two [ROLLING] +1 cards');
 
   Function _removeCardsFromDeck(List cards) {
     return (AttackModifierDeck attackModifierDeck) => {
