@@ -19,13 +19,13 @@ class Mindthief extends Character {
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replacement(DamageChangeCard.plusOne().times(2), DamageChangeCard.plusTwo().times(2), Perk.ONE_PERK_AVAILABLE, 'Replace two +1 cards with two +2 cards'),
       Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),
-      Perk.additive([DamageChangeCard.withInfusion(2, Infusion.ice, false)], Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
+      Perk.addCard(DamageChangeCard.withInfusion(2, Infusion.ice, false), Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.additive(AttackEffectCard(AttackEffect.pull, 1, true).times(3), Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PULL 1] cards'),
-      Perk.additive(ConditionCard(Condition.muddle, true).times(3), Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.additive(ConditionCard(Condition.immobilize, true).times(2), Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [IMMOBILIZE] cards'),
-      Perk.additive([ConditionCard(Condition.stun, true)], Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
-      Perk.additive([ConditionCard(Condition.disarm, true), ConditionCard(Condition.muddle, true)], Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card')
+      Perk.addCards(AttackEffectCard(AttackEffect.pull, 1, true).times(3), Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PULL 1] cards'),
+      Perk.addCards(ConditionCard(Condition.muddle, true).times(3), Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
+      Perk.addCards(ConditionCard(Condition.immobilize, true).times(2), Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [IMMOBILIZE] cards'),
+      Perk.addCard(ConditionCard(Condition.stun, true), Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
+      Perk.addCards([ConditionCard(Condition.disarm, true), ConditionCard(Condition.muddle, true)], Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card')
     ];
   }
 }
