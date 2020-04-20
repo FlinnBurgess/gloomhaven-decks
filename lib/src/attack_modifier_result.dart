@@ -5,6 +5,7 @@ import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'conditions/condition.dart';
 
 class AttackModifierResult {
+  //TODO attackModification should start at 1 if the opponent is poisoned
   int attackModification = 0;
   List infusions = [];
   List conditions = [];
