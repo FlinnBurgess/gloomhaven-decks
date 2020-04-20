@@ -1,15 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
+import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
 import 'conditions/condition.dart';
 
 class AttackModifierResult {
-  //TODO attackModification should start at 1 if the opponent is poisoned
-  int attackModification = 0;
+  int totalDamage = 0;
   List infusions = [];
   List conditions = [];
-  var isNull = false;
+  bool isNull = false;
   int healAmount = 0;
   int addTargetAmount = 0;
   int pierceAmount = 0;
@@ -17,8 +17,25 @@ class AttackModifierResult {
   int pushAmount = 0;
   int shieldAmount = 0;
 
+  void applyCardEffect(AttackModifierCard card) {
+    card.applyEffect(this);
+  }
+
+  void reset() {
+    totalDamage = 0;
+    infusions = [];
+    conditions = [];
+    isNull = false;
+    healAmount = 0;
+    addTargetAmount = 0;
+    pierceAmount = 0;
+    pullAmount = 0;
+    pushAmount = 0;
+    shieldAmount = 0;
+  }
+
   void applyDamageDifference(int difference) {
-    attackModification += difference;
+    totalDamage += difference;
   }
 
   void addInfusion(Infusion infusion) {
@@ -63,7 +80,7 @@ class AttackModifierResult {
       identical(this, other) ||
           other is AttackModifierResult &&
               runtimeType == other.runtimeType &&
-              attackModification == other.attackModification &&
+              totalDamage == other.totalDamage &&
               DeepCollectionEquality().equals(infusions, other.infusions) &&
               DeepCollectionEquality().equals(conditions, other.conditions) &&
               isNull == other.isNull &&

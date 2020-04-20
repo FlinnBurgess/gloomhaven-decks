@@ -1,5 +1,5 @@
-import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
+import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 
 class DoubleDamageCard extends AttackModifierCard {
   DoubleDamageCard() : super(doubleDamageEffect(), false);
@@ -7,5 +7,5 @@ class DoubleDamageCard extends AttackModifierCard {
 
 Function(AttackModifierResult) doubleDamageEffect() {
   return (AttackModifierResult result) =>
-      result.applyDamageDifference(result.attackModification);
+      result.applyDamageDifference(result.totalDamage);
 }

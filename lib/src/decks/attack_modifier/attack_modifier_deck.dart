@@ -6,6 +6,7 @@ import 'package:gloomhaven_decks/src/cards/double_damage_card.dart';
 import 'package:gloomhaven_decks/src/cards/null_damage_card.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
+//TODO add modifier cards from negative item effects
 class AttackModifierDeck {
   static const BASE_NUMBER_OF_ZERO_MODIFIERS = 6;
   static const BASE_NUMBER_OF_PLUS_ONE_MODIFIERS = 5;
@@ -14,10 +15,10 @@ class AttackModifierDeck {
   final List<AttackModifierCard> _cardsInDeck = [];
   List _drawPile = [];
   List _discardPile = [];
-  final List _cardsDrawn = [];
+  final List cardsDrawn = [];
   bool needsShuffling = false;
-  int _blessCardCount = 0;
-  int _curseCardCount = 0;
+  int blessCardCount = 0;
+  int curseCardCount = 0;
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
@@ -62,9 +63,6 @@ class AttackModifierDeck {
   }
 
   void shuffle() {
-    // TODO Needs reworking, since if you have to shuffle due to running out of cards
-    // then you shouldn't includee the cards drawn this round (which are currently
-    // included in _cardsDrawn)
     _drawPile = [..._cardsInDeck];
     _drawPile.shuffle();
     _discardPile = [];
@@ -72,21 +70,20 @@ class AttackModifierDeck {
 
   void addCards(List<AttackModifierCard> cards) {
     cards.forEach((card) => addCard(card));
+    this.shuffle();
   }
 
   void addCard(card) {
-    //TODO should shuffle the the deck after adding a card (i.e. perk), but if you're in the
-    // middle of a scenario and adding bless/curse, then you should only add to and shuffle
-    // the draw pile
-
     _cardsInDeck.add(card);
+    _drawPile.add(card);
+    _drawPile.shuffle();
 
     if (card is BlessCard) {
-      _blessCardCount++;
+      blessCardCount++;
     }
 
     if (card is CurseCard) {
-      _curseCardCount++;
+      curseCardCount++;
     }
   }
 
@@ -102,11 +99,11 @@ class AttackModifierDeck {
     _cardsInDeck.remove(card);
 
     if (card is BlessCard) {
-      _blessCardCount--;
+      blessCardCount--;
     }
 
     if (card is CurseCard) {
-      _curseCardCount--;
+      curseCardCount--;
     }
   }
 
@@ -130,29 +127,41 @@ class AttackModifierDeck {
   }
 
   bool isBlessed() {
-    return _blessCardCount > 0;
+    return blessCardCount > 0;
   }
 
   bool isCursed() {
-    return _curseCardCount > 0;
+    return curseCardCount > 0;
   }
 
-  void discardCards(List<AttackModifierCard> cards) {
-    cards.removeWhere((card) => card is BlessCard || card is CurseCard);
-    _discardPile += cards;
+  void discardCardsDrawn() {
+    cardsDrawn.removeWhere((card) => card is BlessCard || card is CurseCard);
+    _discardPile += cardsDrawn;
+  }
+
+  List<AttackModifierCard> drawUntilNonRollingCard() {
+    AttackModifierCard nextCard = draw();
+    List<AttackModifierCard> cardsDrawn = [nextCard];
+
+    while (nextCard.isRolling) {
+      nextCard = draw();
+      cardsDrawn.add(nextCard);
+    }
+
+    return cardsDrawn;
   }
 
   AttackModifierCard draw() {
     if (_drawPile.isEmpty) {
-      shuffle();
+      _drawPile = [..._discardPile];
+      _drawPile.shuffle();
     }
 
     AttackModifierCard cardDrawn = _drawPile.removeAt(0);
-    if (!_cardIsSingleUse(cardDrawn)) {
-      _cardsDrawn.add(cardDrawn);
-    }
 
-    if (cardDrawn is DoubleDamageCard || cardDrawn is NullDamageCard) {
+    if (cardDrawn is BlessCard || cardDrawn is CurseCard) {
+      _removeCard(cardDrawn);
+    } else if (cardDrawn is DoubleDamageCard || cardDrawn is NullDamageCard) {
       needsShuffling = true;
     }
 
