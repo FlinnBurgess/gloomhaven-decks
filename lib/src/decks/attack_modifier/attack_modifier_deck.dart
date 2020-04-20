@@ -37,6 +37,7 @@ class AttackModifierDeck {
     _cardsInDeck.add(NullDamageCard());
     _cardsInDeck.add(DoubleDamageCard());
 
+    shuffle();
     _drawPile = [..._cardsInDeck];
   }
 
@@ -136,7 +137,8 @@ class AttackModifierDeck {
     return _curseCardCount > 0;
   }
 
-  void discardCards(cards) {
+  void discardCards(List<AttackModifierCard> cards) {
+    cards.removeWhere((card) => card is BlessCard || card is CurseCard);
     _discardPile += cards;
   }
 
