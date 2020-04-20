@@ -48,21 +48,21 @@ class Perk {
       [cardToReplace], [replacementCard], perksAvailable, description);
 
   Perk.removeFourZeros(int perksAvailable)
-      : this.removeCards(DamageChangeCard.zero().times(4), perksAvailable,
+      : this.removeCards(DamageChangeCard(0).times(4), perksAvailable,
             'Remove four +0 cards');
 
   Perk.removeTwoMinusOnes(int perksAvailable)
-      : this.removeCards(DamageChangeCard.minusOne().times(2), perksAvailable,
+      : this.removeCards(DamageChangeCard(-1).times(2), perksAvailable,
             'Remove two -1 cards');
 
   Perk.addTwoPlusOnes(int perksAvailable)
-      : this.addCards(DamageChangeCard.plusOne().times(2), perksAvailable,
+      : this.addCards(DamageChangeCard(1).times(2), perksAvailable,
             'Add two +1 cards');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable)
       : this.replaceCards(
-            [DamageChangeCard.minusTwo()],
-            [DamageChangeCard.zero()],
+      [DamageChangeCard(-2)],
+      [DamageChangeCard(0)],
             perksAvailable,
             'Replace one -2 card with one +0 card');
 

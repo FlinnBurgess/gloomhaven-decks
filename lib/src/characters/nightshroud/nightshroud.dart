@@ -38,7 +38,7 @@ class Nightshroud extends Character {
       Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1),
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
       Perk.addCards(
-          DamageChangeCard.minusOne().times(2),
+          DamageChangeCard(-1).times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Ignore negative scenario effects and add two +1 cards'),
     ];

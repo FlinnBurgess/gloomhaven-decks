@@ -18,8 +18,8 @@ class Mindthief extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceCards(
-          DamageChangeCard.plusOne().times(2),
-          DamageChangeCard.plusTwo().times(2),
+          DamageChangeCard(1).times(2),
+          DamageChangeCard(2).times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Replace two +1 cards with two +2 cards'),
       Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE),

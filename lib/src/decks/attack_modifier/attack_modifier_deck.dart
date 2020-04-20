@@ -21,19 +21,19 @@ class AttackModifierDeck {
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard.zero());
+      _cardsInDeck.add(DamageChangeCard(0));
     }
 
     for (var i = 0; i < BASE_NUMBER_OF_PLUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard.plusOne());
+      _cardsInDeck.add(DamageChangeCard(1));
     }
 
     for (var i = 0; i < BASE_NUMBER_OF_MINUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard.minusOne());
+      _cardsInDeck.add(DamageChangeCard(-1));
     }
 
-    _cardsInDeck.add(DamageChangeCard.plusTwo());
-    _cardsInDeck.add(DamageChangeCard.minusTwo());
+    _cardsInDeck.add(DamageChangeCard(2));
+    _cardsInDeck.add(DamageChangeCard(-2));
     _cardsInDeck.add(NullDamageCard());
     _cardsInDeck.add(DoubleDamageCard());
 

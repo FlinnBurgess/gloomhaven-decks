@@ -22,26 +22,6 @@ class DamageChangeCard extends AttackModifierCard {
             damageChangeWithAttackEffect(
                 damageChange, attackEffect, attackEffectAmount),
       false);
-
-  static DamageChangeCard minusOne() {
-    return DamageChangeCard(-1);
-  }
-
-  static DamageChangeCard zero() {
-    return DamageChangeCard(0);
-  }
-
-  static DamageChangeCard plusOne() {
-    return DamageChangeCard(1);
-  }
-
-  static DamageChangeCard plusTwo() {
-    return DamageChangeCard(2);
-  }
-
-  static DamageChangeCard minusTwo() {
-    return DamageChangeCard(-2);
-  }
 }
 
 Function(AttackModifierResult) damageChangeEffect(amount) {
