@@ -22,7 +22,7 @@ class Sunkeeper extends Character {
       Perk.replacement([DamageChangeCard.zero()], [DamageChangeCard.plusTwo()], Perk.ONE_PERK_AVAILABLE, 'Replace one +0 card with one +2 card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.addCards(AttackEffectCard(AttackEffect.heal, 1, true).times(2), Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [HEAL 1] cards'),
-      Perk.addCards([ConditionCard(Condition.stun, true)], Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
+      Perk.addCard(ConditionCard(Condition.stun, true), Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
       Perk.addCards(InfusionCard(Infusion.light, true).times(2), Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [LIGHT INFUSION] cards'),
       Perk.addCards(AttackEffectCard(AttackEffect.shield, 1, true).times(2), Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [SHIELD 1], Self cards'),
       Perk.addCards(DamageChangeCard.plusOne().times(2), Perk.ONE_PERK_AVAILABLE, 'Ignore negative item effects and add two +1 cards')
