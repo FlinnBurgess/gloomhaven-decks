@@ -16,6 +16,11 @@ class Characters extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setCharacterActiveState(Character character, bool isActive) {
+    character.isActive = isActive;
+    notifyListeners();
+  }
+
   void toggleCharacterActiveState(Character character) {
     if (_characters.contains(character)) {
       character.toggleActiveState();

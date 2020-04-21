@@ -172,4 +172,12 @@ class AttackModifierDeck {
 
     return cardDrawn;
   }
+
+  void cleanUp() {
+    _cardsInDeck.removeWhere((card) => card is BlessCard || card is CurseCard);
+    BlessCard.totalBlessCardsInPlay -= blessCardCount;
+    CurseCard.totalCurseCardsInPlay -= curseCardCount;
+    blessCardCount = 0;
+    curseCardCount = 0;
+  }
 }

@@ -40,7 +40,11 @@ class CharacterList extends StatelessWidget {
                   Text('Active'),
                   Checkbox(
                     value: character.isActive,
-                    onChanged: (value) => characters.toggleCharacterActiveState(character),
+                      onChanged: (value) {
+                        character.attackModifierDeck.cleanUp();
+                        character.attackModifierDeck.shuffle();
+                        characters.setCharacterActiveState(character, value);
+                      }
                   )
                 ],
               ),
