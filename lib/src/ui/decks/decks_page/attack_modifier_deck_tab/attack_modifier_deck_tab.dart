@@ -83,13 +83,11 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                 ? setState(() => this.widget.deck.removeCards([CurseCard()]))
                 : null,
           ),
-          //TODO there can only be a total of 10 curse cards across all decks,
-          // you should not be able to add more to a deck in that scenario
           Text(this.widget.deck.curseCardCount.toString()),
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () =>
-            this.widget.deck.curseCardCount < 10
+            CurseCard.totalCurseCardsInPlay < 10
                 ? setState(() => this.widget.deck.addCard(CurseCard()))
                 : null,
           )
@@ -112,13 +110,11 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                 ? setState(() => this.widget.deck.removeCards([BlessCard()]))
                 : null,
           ),
-          //TODO there can only be a total of 10 bless cards across all decks,
-          // you should not be able to add more to a deck in that scenario
           Text(this.widget.deck.blessCardCount.toString()),
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () =>
-            this.widget.deck.blessCardCount < 10
+            BlessCard.totalBlessCardsInPlay < 10
                 ? setState(() => this.widget.deck.addCard(BlessCard()))
                 : null,
           )

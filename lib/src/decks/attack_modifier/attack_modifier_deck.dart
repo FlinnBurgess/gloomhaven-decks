@@ -80,10 +80,12 @@ class AttackModifierDeck {
 
     if (card is BlessCard) {
       blessCardCount++;
+      BlessCard.totalBlessCardsInPlay++;
     }
 
     if (card is CurseCard) {
       curseCardCount++;
+      CurseCard.totalCurseCardsInPlay++;
     }
   }
 
@@ -100,10 +102,12 @@ class AttackModifierDeck {
 
     if (card is BlessCard) {
       blessCardCount--;
+      BlessCard.totalBlessCardsInPlay--;
     }
 
     if (card is CurseCard) {
       curseCardCount--;
+      CurseCard.totalCurseCardsInPlay--;
     }
   }
 
@@ -167,9 +171,5 @@ class AttackModifierDeck {
     }
 
     return cardDrawn;
-  }
-
-  bool _cardIsSingleUse(AttackModifierCard card) {
-    return card is CurseCard || card is BlessCard;
   }
 }
