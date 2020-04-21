@@ -15,7 +15,7 @@ class AttackModifierDeck {
   final List<AttackModifierCard> _cardsInDeck = [];
   List _drawPile = [];
   List _discardPile = [];
-  final List cardsDrawn = [];
+  List cardsDrawn = [];
   bool needsShuffling = false;
   int blessCardCount = 0;
   int curseCardCount = 0;
@@ -137,6 +137,7 @@ class AttackModifierDeck {
   void discardCardsDrawn() {
     cardsDrawn.removeWhere((card) => card is BlessCard || card is CurseCard);
     _discardPile += cardsDrawn;
+    cardsDrawn = [];
   }
 
   List<AttackModifierCard> drawUntilNonRollingCard() {

@@ -18,7 +18,7 @@ class AttackModifierDeckTab extends StatefulWidget {
   State<StatefulWidget> createState() => AttackModifierDeckTabState();
 }
 
-//TODO advantage/disadvantage, this will difficult as which is better/worse is not objective
+//TODO advantage/disadvantage, this will difficult as which is better/worse is not objective. Idea: Display two results if needs be and let the player pick the best/worst one. If one or both of the cards are rolling, then there will only be a single result anyway
 //TODO double damage effect is currently broken, since the damage modifier starts at zero, rather than the damage of the attack being used. User might have to input starting damage.
 //TODO Persist state of the decks page tabs so that navigating away doesn't reset them
 //TODO attackModification should start at 1 if the opponent is poisoned
@@ -27,24 +27,13 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   AttackModifierResult result = AttackModifierResult();
   int initialDamage;
   bool targetIsPoisoned = false;
+  bool characterHasAdvantage = false;
+  bool characterDisadvantaged = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Column(
-        children: <Widget>[
-          Text("Total damage: " + result.totalDamage.toString()),
-          Text("Infusions: " + result.infusions.toString()),
-          Text("Conditions: " + result.conditions.toString()),
-          Text("NULL? " + result.isNull.toString()),
-          Text("Heal self for: " + result.healAmount.toString()),
-          Text("Added targets: " + result.addTargetAmount.toString()),
-          Text("Pierce amount: " + result.pierceAmount.toString()),
-          Text("Pull amount: " + result.pullAmount.toString()),
-          Text("Push amount: " + result.pushAmount.toString()),
-          Text("Shield amount: " + result.shieldAmount.toString()),
-        ],
-      ),
+      result.getDisplayWidget(),
       Padding(
         padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
         child: Column(
@@ -135,6 +124,47 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
           )
         ],
       ),
+      Padding(
+          padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text("Target is poisoned"),
+                  Checkbox(
+                    value: targetIsPoisoned,
+                    onChanged: (value) =>
+                        setState(() => targetIsPoisoned = value),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text("Advantage"),
+                  Checkbox(
+                    value: characterHasAdvantage,
+                    onChanged: characterDisadvantaged
+                        ? null
+                        : (value) =>
+                        setState(() => characterHasAdvantage = value),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text("Disadvantage"),
+                  Checkbox(
+                    value: characterDisadvantaged,
+                    onChanged: characterHasAdvantage
+                        ? null
+                        : (value) =>
+                        setState(() => characterDisadvantaged = value),
+                  )
+                ],
+              )
+            ],
+          ))
     ]);
   }
 }
