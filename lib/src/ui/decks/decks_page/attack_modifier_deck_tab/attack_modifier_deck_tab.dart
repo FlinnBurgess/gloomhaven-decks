@@ -19,9 +19,7 @@ class AttackModifierDeckTab extends StatefulWidget {
 }
 
 //TODO advantage/disadvantage, this will difficult as which is better/worse is not objective. Idea: Display two results if needs be and let the player pick the best/worst one. If one or both of the cards are rolling, then there will only be a single result anyway
-//TODO double damage effect is currently broken, since the damage modifier starts at zero, rather than the damage of the attack being used. User might have to input starting damage.
 //TODO Persist state of the decks page tabs so that navigating away doesn't reset them
-//TODO attackModification should start at 1 if the opponent is poisoned
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   List<AttackModifierCard> cardsInPlay = [];
   AttackModifierResult result = AttackModifierResult();
