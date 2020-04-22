@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
-import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/bless_card.dart';
 import 'package:gloomhaven_decks/src/cards/curse_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/advantaged_result_display.dart';
+
+import 'default_result_display.dart';
+import 'disadvantaged_result_display.dart';
 
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
@@ -18,11 +21,10 @@ class AttackModifierDeckTab extends StatefulWidget {
   State<StatefulWidget> createState() => AttackModifierDeckTabState();
 }
 
-//TODO advantage/disadvantage, this will difficult as which is better/worse is not objective. Idea: Display two results if needs be and let the player pick the best/worst one. If one or both of the cards are rolling, then there will only be a single result anyway
 //TODO Persist state of the decks page tabs so that navigating away doesn't reset them
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
-  List<AttackModifierCard> cardsInPlay = [];
   AttackModifierResult result = AttackModifierResult();
+  Widget resultDisplay;
   int initialDamage;
   bool targetIsPoisoned = false;
   bool characterHasAdvantage = false;
@@ -31,7 +33,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      result.getDisplayWidget(),
+      resultDisplay == null ? Text("Draw cards to see results") : resultDisplay,
       Padding(
         padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
         child: Column(
@@ -53,14 +55,17 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
           if (this.widget.deck.needsShuffling) {
             this.widget.deck.shuffle();
           }
-          cardsInPlay = this.widget.deck.drawUntilNonRollingCard();
           setState(() {
-            result.reset();
-            if (targetIsPoisoned) {
-              result.applyDamageDifference(1);
+            if (characterHasAdvantage) {
+              resultDisplay = AdvantagedResultDisplay(
+                  this.widget.deck, initialDamage, targetIsPoisoned);
+            } else if (characterDisadvantaged) {
+              resultDisplay = DisadvantagedResultDisplay(
+                  this.widget.deck, initialDamage, targetIsPoisoned);
+            } else {
+              resultDisplay = DefaultResultDisplay(
+                  this.widget.deck, initialDamage, targetIsPoisoned);
             }
-            result.applyDamageDifference(initialDamage);
-            cardsInPlay.forEach((card) => result.applyCardEffect(card));
           });
         },
       ),
