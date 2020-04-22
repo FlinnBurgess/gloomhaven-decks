@@ -7,6 +7,7 @@ import 'package:gloomhaven_decks/src/cards/null_damage_card.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
 //TODO add modifier cards from negative item effects
+//TODO save characters when deck is modified
 class AttackModifierDeck {
   static const BASE_NUMBER_OF_ZERO_MODIFIERS = 6;
   static const BASE_NUMBER_OF_PLUS_ONE_MODIFIERS = 5;

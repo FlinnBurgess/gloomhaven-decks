@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 
+//TODO save characters to phone on perk update
 class CharacterPerkPage extends StatefulWidget {
   final Character character;
 

@@ -53,4 +53,33 @@ abstract class Character {
   void toggleActiveState() {
     isActive = !isActive;
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'class': this.runtimeType.toString(),
+      'isActive': isActive,
+      'perks': perks.map<int>((perk) => perk.perksUsed).toList()
+    };
+  }
+
+  static Character fromJson(dynamic json) {
+    String name = json['name'];
+    String className = json['class'];
+    bool isActive = json['isActive'];
+    List perks = json['perks'];
+
+    Character character = createCharacter(className, name);
+    character.isActive = isActive;
+
+    for (int currentPerk = 0; currentPerk < perks.length; currentPerk++) {
+      for (int applied = 0; applied < perks[currentPerk]; applied++) {
+        character.perks[currentPerk].apply(character.attackModifierDeck);
+        character.perks[currentPerk].perksUsed++;
+        character.perks[currentPerk].perksAvailable--;
+      }
+    }
+
+    return character;
+  }
 }
