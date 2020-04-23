@@ -31,14 +31,24 @@ class DisadvantagedResultDisplay extends StatelessWidget {
       } else {
         cardsInPlay[0].applyEffect(firstResult);
         cardsInPlay[1].applyEffect(secondResult);
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        return Column(
           children: <Widget>[
-            Column(
-              children: extractInformationToDisplay(firstResult),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[Text('Select the worst of the two results')],
             ),
-            Column(
-              children: extractInformationToDisplay(secondResult),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[Text('First result:')] +
+                      extractInformationToDisplay(firstResult),
+                ),
+                Column(
+                  children: <Widget>[Text('Second result:')] +
+                      extractInformationToDisplay(secondResult),
+                )
+              ],
             )
           ],
         );

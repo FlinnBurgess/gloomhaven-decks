@@ -4,7 +4,6 @@ import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:provider/provider.dart';
 
-//TODO save characters to phone on perk update
 class CharacterPerkPage extends StatefulWidget {
   final Character character;
 
