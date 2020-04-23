@@ -70,6 +70,47 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
         },
       ),
       Padding(
+          padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text("Target is poisoned"),
+                  Checkbox(
+                    value: targetIsPoisoned,
+                    onChanged: (value) =>
+                        setState(() => targetIsPoisoned = value),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text("Advantage"),
+                  Checkbox(
+                    value: characterHasAdvantage,
+                    onChanged: characterDisadvantaged
+                        ? null
+                        : (value) =>
+                        setState(() => characterHasAdvantage = value),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text("Disadvantage"),
+                  Checkbox(
+                    value: characterDisadvantaged,
+                    onChanged: characterHasAdvantage
+                        ? null
+                        : (value) =>
+                        setState(() => characterDisadvantaged = value),
+                  )
+                ],
+              )
+            ],
+          )),
+      Padding(
         padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -123,47 +164,6 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
           )
         ],
       ),
-      Padding(
-          padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text("Target is poisoned"),
-                  Checkbox(
-                    value: targetIsPoisoned,
-                    onChanged: (value) =>
-                        setState(() => targetIsPoisoned = value),
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text("Advantage"),
-                  Checkbox(
-                    value: characterHasAdvantage,
-                    onChanged: characterDisadvantaged
-                        ? null
-                        : (value) =>
-                        setState(() => characterHasAdvantage = value),
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text("Disadvantage"),
-                  Checkbox(
-                    value: characterDisadvantaged,
-                    onChanged: characterHasAdvantage
-                        ? null
-                        : (value) =>
-                        setState(() => characterDisadvantaged = value),
-                  )
-                ],
-              )
-            ],
-          ))
     ]);
   }
 }
