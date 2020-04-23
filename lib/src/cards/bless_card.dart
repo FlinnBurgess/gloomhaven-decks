@@ -4,7 +4,8 @@ import 'attack_modifier_card.dart';
 class BlessCard extends AttackModifierCard {
   static int totalBlessCardsInPlay = 0;
 
-  BlessCard() : super(doubleDamageEffect(), false, 'cards/base/bless.png');
+  BlessCard()
+      : super(doubleDamageEffect(), false, 'images/cards/base/bless.png');
 }
 
 Function(AttackModifierResult) doubleDamageEffect() {

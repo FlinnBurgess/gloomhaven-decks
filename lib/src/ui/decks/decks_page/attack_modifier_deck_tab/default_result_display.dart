@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/tappable_result.dart';
 
 class DefaultResultDisplay extends StatelessWidget {
   final AttackModifierDeck deck;
@@ -21,39 +23,7 @@ class DefaultResultDisplay extends StatelessWidget {
 
     List<AttackModifierCard> cardsInPlay = deck.drawUntilNonRollingCard();
     cardsInPlay.forEach((card) => card.applyEffect(result));
-    return Column(
-      children: extractInformationToDisplay(result),
-    );
-  }
 
-  List<Widget> extractInformationToDisplay(AttackModifierResult result) {
-    List<Widget> displayInformation = [
-      Text('Total damage: ' + result.totalDamage.toString()),
-      result.infusions.isEmpty ? null : Text(result.infusions.toString()),
-      result.conditions.isEmpty ? null : Text(result.conditions.toString()),
-      result.isNull ? Text("NULL") : null,
-      result.addTargetAmount == 0
-          ? null
-          : Text("Added targets: " + result.addTargetAmount.toString()),
-      result.pierceAmount == 0
-          ? null
-          : Text("Pierce: " + result.pierceAmount.toString()),
-      result.pullAmount == 0
-          ? null
-          : Text("Pull: " + result.pullAmount.toString()),
-      result.pushAmount == 0
-          ? null
-          : Text("Push: " + result.pushAmount.toString()),
-      result.healAmount == 0
-          ? null
-          : Text("Heal amount: " + result.healAmount.toString()),
-      result.shieldAmount == 0
-          ? null
-          : Text("Shield amount: " + result.shieldAmount.toString()),
-    ];
-
-    displayInformation.removeWhere((widget) => widget == null);
-
-    return displayInformation;
+    return TappableResult(result, cardsInPlay);
   }
 }

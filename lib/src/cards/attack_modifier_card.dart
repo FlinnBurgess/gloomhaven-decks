@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 
 abstract class AttackModifierCard {
@@ -23,6 +24,10 @@ abstract class AttackModifierCard {
       listOfCards.add(this);
     }
     return listOfCards;
+  }
+
+  Image getImage() {
+    return Image(image: AssetImage(cardImagePath));
   }
 
   @override

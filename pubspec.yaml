@@ -20,6 +20,14 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-  uses-material-design: true
   assets:
-    - images
+    - images/cards/base/
+    - images/cards/brute/
+    - images/cards/cragheart/
+    - images/cards/mindthief/
+    - images/cards/nightshroud/
+    - images/cards/scoundrel/
+    - images/cards/spellweaver/
+    - images/cards/sunkeeper/
+    - images/cards/tinkerer/
+  uses-material-design: true

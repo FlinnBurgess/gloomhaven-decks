@@ -52,13 +52,13 @@ class Perk {
 
   Perk.removeFourZeros(int perksAvailable)
       : this.removeCards(
-      DamageChangeCard(0, 'cards/base/plus-0-damage.png').times(4),
+      DamageChangeCard(0, 'images/cards/base/plus-0-damage.png').times(4),
       perksAvailable,
             'Remove four +0 cards');
 
   Perk.removeTwoMinusOnes(int perksAvailable)
       : this.removeCards(
-      DamageChangeCard(-1, 'cards/base/minus-1-damage.png').times(2),
+      DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png').times(2),
       perksAvailable,
             'Remove two -1 cards');
 
@@ -69,7 +69,7 @@ class Perk {
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String cardImagePath)
       : this.replaceCards(
-      [DamageChangeCard(-2, 'cards/base/minus-2-damage.png')],
+      [DamageChangeCard(-2, 'images/cards/base/minus-2-damage.png')],
       [DamageChangeCard(0, cardImagePath)],
       perksAvailable, 'Replace one -2 card with one +0 card');
 

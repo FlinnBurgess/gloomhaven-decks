@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/tappable_result.dart';
 
 class DisadvantagedResultDisplay extends StatelessWidget {
   final AttackModifierDeck deck;
@@ -27,7 +28,7 @@ class DisadvantagedResultDisplay extends StatelessWidget {
       cardsInPlay.add(deck.draw());
       if (cardsInPlay[1].isRolling) {
         cardsInPlay[0].applyEffect(firstResult);
-        return Column(children: extractInformationToDisplay(firstResult));
+        return TappableResult(firstResult, cardsInPlay);
       } else {
         cardsInPlay[0].applyEffect(firstResult);
         cardsInPlay[1].applyEffect(secondResult);
@@ -41,59 +42,25 @@ class DisadvantagedResultDisplay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Column(
-                  children: <Widget>[Text('First result:')] +
-                      extractInformationToDisplay(firstResult),
+                  children: <Widget>[
+                    Text('First result:'),
+                    TappableResult(firstResult, [cardsInPlay[0]])
+                  ],
                 ),
                 Column(
-                  children: <Widget>[Text('Second result:')] +
-                      extractInformationToDisplay(secondResult),
+                  children: <Widget>[
+                    Text('Second result:'),
+                    TappableResult(secondResult, [cardsInPlay[1]])
+                  ],
                 )
               ],
             )
           ],
         );
       }
-    } else if (cardsInPlay.length == 2) {
-      cardsInPlay[1].applyEffect(firstResult);
-      return Column(
-        children: extractInformationToDisplay(firstResult),
-      );
     } else {
       cardsInPlay.last.applyEffect(firstResult);
-      return Column(
-        children: extractInformationToDisplay(firstResult),
-      );
+      return TappableResult(firstResult, cardsInPlay);
     }
-  }
-
-  List<Widget> extractInformationToDisplay(AttackModifierResult result) {
-    List<Widget> displayInformation = [
-      Text('Total damage: ' + result.totalDamage.toString()),
-      result.infusions.isEmpty ? null : Text(result.infusions.toString()),
-      result.conditions.isEmpty ? null : Text(result.conditions.toString()),
-      result.isNull ? Text("NULL") : null,
-      result.addTargetAmount == 0
-          ? null
-          : Text("Added targets: " + result.addTargetAmount.toString()),
-      result.pierceAmount == 0
-          ? null
-          : Text("Pierce: " + result.pierceAmount.toString()),
-      result.pullAmount == 0
-          ? null
-          : Text("Pull: " + result.pullAmount.toString()),
-      result.pushAmount == 0
-          ? null
-          : Text("Push: " + result.pushAmount.toString()),
-      result.healAmount == 0
-          ? null
-          : Text("Heal amount: " + result.healAmount.toString()),
-      result.shieldAmount == 0
-          ? null
-          : Text("Shield amount: " + result.shieldAmount.toString()),
-    ];
-
-    displayInformation.removeWhere((widget) => widget == null);
-
-    return displayInformation;
   }
 }

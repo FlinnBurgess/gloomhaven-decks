@@ -17,31 +17,35 @@ class Scoundrel extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceMinusTwoWithZero(
-          Perk.ONE_PERK_AVAILABLE, 'cards/scoundrel/plus-0-damage.png'),
+          Perk.ONE_PERK_AVAILABLE, 'images/cards/scoundrel/plus-0-damage.png'),
       Perk.replaceCard(
-          DamageChangeCard(-1, 'cards/base/minus-1-damage.png'),
-          DamageChangeCard(1, 'cards/scoundrel/plus-1-damage.png'),
+          DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png'),
+          DamageChangeCard(1, 'images/cards/scoundrel/plus-1-damage.png'),
           Perk.ONE_PERK_AVAILABLE,
           'Replace one -1 card with one +1 card'),
-      Perk.replaceCard(DamageChangeCard(0, 'cards/base/plus-0-damage.png'),
-          DamageChangeCard(2, 'cards/scoundrel/plus-2-damage.png'),
+      Perk.replaceCard(
+          DamageChangeCard(0, 'images/cards/base/plus-0-damage.png'),
+          DamageChangeCard(2, 'images/cards/scoundrel/plus-2-damage.png'),
           Perk.TWO_PERKS_AVAILABLE, 'Replace one +0 card with one +2 card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE,
-          'cards/scoundrel/rolling-plus-1-damage.png'),
+          'images/cards/scoundrel/rolling-plus-1-damage.png'),
       Perk.addCards(AttackEffectCard(
-          AttackEffect.pierce, 3, 'cards/scoundrel/rolling-pierce-3.png').times(
+          AttackEffect.pierce, 3, 'images/cards/scoundrel/rolling-pierce-3.png')
+          .times(
           2),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PIERCE 3] cards'),
       Perk.addCards(
-          ConditionCard(Condition.poison, 'cards/scoundrel/rolling-poison.png')
+          ConditionCard(
+              Condition.poison, 'images/cards/scoundrel/rolling-poison.png')
               .times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [POISON] cards'),
       Perk.addCards(
-          ConditionCard(Condition.muddle, 'cards/scoundrel/rolling-muddle.png')
+          ConditionCard(
+              Condition.muddle, 'images/cards/scoundrel/rolling-muddle.png')
               .times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [MUDDLE] cards'),
       Perk.addCard(ConditionCard(
-          Condition.invisible, 'cards/scoundrel/rolling-invisible.png'),
+          Condition.invisible, 'images/cards/scoundrel/rolling-invisible.png'),
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [INVISIBLE] perk'),
     ];
   }

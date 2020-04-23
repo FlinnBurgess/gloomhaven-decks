@@ -14,39 +14,47 @@ class Spellweaver extends Character {
   Spellweaver(this.name) {
     perks = [
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
-      Perk.replaceCard(DamageChangeCard(-1, 'cards/base/minus-1-damage.png'),
-          DamageChangeCard(1, 'cards/spellweaver/plus-1-damage.png'),
+      Perk.replaceCard(
+          DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png'),
+          DamageChangeCard(1, 'images/cards/spellweaver/plus-1-damage.png'),
           Perk.TWO_PERKS_AVAILABLE, 'Replace one -1 card with one +1 card'),
       Perk.addTwoPlusOnes(
-          Perk.TWO_PERKS_AVAILABLE, 'cards/spellweaver/plus-1-damage.png'),
+          Perk.TWO_PERKS_AVAILABLE,
+          'images/cards/spellweaver/plus-1-damage.png'),
       Perk.addCard(DamageChangeCard.withCondition(
-          0, Condition.stun, 'cards/spellweaver/stun.png'),
+          0, Condition.stun, 'images/cards/spellweaver/stun.png'),
           Perk.ONE_PERK_AVAILABLE, 'Add one +0 [STUN] card'),
       Perk.addCard(DamageChangeCard.withCondition(
-          1, Condition.wound, 'cards/spellweaver/plus-1-damage-and-wound.png'),
+          1, Condition.wound,
+          'images/cards/spellweaver/plus-1-damage-and-wound.png'),
           Perk.ONE_PERK_AVAILABLE, 'Add one +1 [WOUND] card'),
       Perk.addCard(
           DamageChangeCard.withCondition(1, Condition.immobilize,
-              'cards/spellweaver/plus-1-damage-and-immobilize.png'),
+              'images/cards/spellweaver/plus-1-damage-and-immobilize.png'),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [IMMOBILIZE] card'),
       Perk.addCard(DamageChangeCard.withCondition(
-          1, Condition.curse, 'cards/spellweaver/plus-1-damage-and-curse.png'),
+          1, Condition.curse,
+          'images/cards/spellweaver/plus-1-damage-and-curse.png'),
           Perk.ONE_PERK_AVAILABLE, 'Add one +1 [CURSE] card'),
       Perk.addCard(DamageChangeCard.withInfusion(
-          2, Infusion.fire, 'cards/spellweaver/plus-2-damage-and-fire.png'),
+          2, Infusion.fire,
+          'images/cards/spellweaver/plus-2-damage-and-fire.png'),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [FIRE INFUSION] card'),
       Perk.addCard(DamageChangeCard.withInfusion(
-          2, Infusion.ice, 'cards/spellweaver/plus-2-damage-and-ice.png'),
+          2, Infusion.ice,
+          'images/cards/spellweaver/plus-2-damage-and-ice.png'),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.addCards([
-        InfusionCard(Infusion.earth, 'cards/spellweaver/rolling-earth.png'),
-        InfusionCard(Infusion.air, 'cards/spellweaver/rolling-air.png')
+        InfusionCard(
+            Infusion.earth, 'images/cards/spellweaver/rolling-earth.png'),
+        InfusionCard(Infusion.air, 'images/cards/spellweaver/rolling-air.png')
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [EARTH INFUSION] and one [AIR INFUSION] card'),
       Perk.addCards([
-        InfusionCard(Infusion.light, 'cards/spellweaver/rolling-light.png'),
-        InfusionCard(Infusion.dark, 'cards/spellweaver/rolling-dark.png')
+        InfusionCard(
+            Infusion.light, 'images/cards/spellweaver/rolling-light.png'),
+        InfusionCard(Infusion.dark, 'images/cards/spellweaver/rolling-dark.png')
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [LIGHT INFUSION] and one [DARK INFUSION] card'),
     ];

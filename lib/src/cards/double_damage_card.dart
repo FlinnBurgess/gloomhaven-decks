@@ -3,7 +3,8 @@ import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 
 class DoubleDamageCard extends AttackModifierCard {
   DoubleDamageCard()
-      : super(doubleDamageEffect(), false, 'cards/base/double-damage.png');
+      : super(
+      doubleDamageEffect(), false, 'images/cards/base/double-damage.png');
 }
 
 Function(AttackModifierResult) doubleDamageEffect() {

@@ -18,35 +18,42 @@ class Mindthief extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceCards(
-          DamageChangeCard(1, 'cards/base/plus-1-damage.png').times(2),
-          DamageChangeCard(2, 'cards/mindthief/plus-2-damage.png').times(2),
+          DamageChangeCard(1, 'images/cards/base/plus-1-damage.png').times(2),
+          DamageChangeCard(2, 'images/cards/mindthief/plus-2-damage.png').times(
+              2),
           Perk.ONE_PERK_AVAILABLE,
           'Replace two +1 cards with two +2 cards'),
       Perk.replaceMinusTwoWithZero(
-          Perk.ONE_PERK_AVAILABLE, 'cards/mindthief/plus-0-damage.png'),
+          Perk.ONE_PERK_AVAILABLE, 'images/cards/mindthief/plus-0-damage.png'),
       Perk.addCard(DamageChangeCard.withInfusion(
-          2, Infusion.ice, 'cards/mindthief/plus-2-damage-and-ice.png'),
+          2, Infusion.ice, 'images/cards/mindthief/plus-2-damage-and-ice.png'),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE,
-          'cards/mindthief/rolling-plus-1-damage.png'),
+          'images/cards/mindthief/rolling-plus-1-damage.png'),
       Perk.addCards(AttackEffectCard(
-          AttackEffect.pull, 1, 'cards/mindthief/rolling-pull-1.png').times(3),
+          AttackEffect.pull, 1, 'images/cards/mindthief/rolling-pull-1.png')
+          .times(3),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PULL 1] cards'),
       Perk.addCards(
-          ConditionCard(Condition.muddle, 'cards/mindthief/rolling-muddle.png')
+          ConditionCard(
+              Condition.muddle, 'images/cards/mindthief/rolling-muddle.png')
               .times(3),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
       Perk.addCards(ConditionCard(
-          Condition.immobilize, 'cards/mindthief/rolling-immobilize.png').times(
+          Condition.immobilize, 'images/cards/mindthief/rolling-immobilize.png')
+          .times(
           2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [IMMOBILIZE] cards'),
       Perk.addCard(
-          ConditionCard(Condition.stun, 'cards/mindthief/rolling-stun.png'),
+          ConditionCard(
+              Condition.stun, 'images/cards/mindthief/rolling-stun.png'),
           Perk.ONE_PERK_AVAILABLE,
           'Add one [ROLLING] [STUN] card'),
       Perk.addCards([
-        ConditionCard(Condition.disarm, 'cards/mindthief/rolling-disarm.png'),
-        ConditionCard(Condition.muddle, 'cards/mindthief/rolling-muddle.png')
+        ConditionCard(
+            Condition.disarm, 'images/cards/mindthief/rolling-disarm.png'),
+        ConditionCard(
+            Condition.muddle, 'images/cards/mindthief/rolling-muddle.png')
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card')
     ];
