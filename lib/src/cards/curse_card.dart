@@ -1,5 +1,16 @@
-import 'package:gloomhaven_decks/src/cards/null_damage_card.dart';
+import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 
-class CurseCard extends NullDamageCard {
+import '../attack_modifier_result.dart';
+
+class CurseCard extends AttackModifierCard {
   static int totalCurseCardsInPlay = 0;
+
+  CurseCard() : super(nullEffect(), false, 'cards/base/curse.png');
+}
+
+Function(AttackModifierResult) nullEffect() {
+  return (AttackModifierResult result) {
+    result.totalDamage = 0;
+    result.isNull = true;
+  };
 }

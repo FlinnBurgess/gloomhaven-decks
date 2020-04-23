@@ -3,8 +3,8 @@ import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 
 class ConditionCard extends AttackModifierCard {
-  ConditionCard(Condition condition)
-      : super(conditionEffect(condition), true);
+  ConditionCard(Condition condition, String cardImagePath)
+      : super(conditionEffect(condition), true, cardImagePath);
 }
 
 Function(AttackModifierResult) conditionEffect(Condition condition) {

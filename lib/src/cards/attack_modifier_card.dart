@@ -3,8 +3,9 @@ import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 abstract class AttackModifierCard {
   Function(AttackModifierResult) effect;
   bool isRolling;
+  String cardImagePath;
 
-  AttackModifierCard(this.effect, this.isRolling);
+  AttackModifierCard(this.effect, this.isRolling, this.cardImagePath);
 
   AttackModifierResult applyEffect(AttackModifierResult result) {
     effect(result);
@@ -26,11 +27,7 @@ abstract class AttackModifierCard {
 
   @override
   bool operator ==(other) {
-    AttackModifierResult thisResult = AttackModifierResult();
-    AttackModifierResult othersResult = AttackModifierResult();
-    this.applyEffect(thisResult);
-    other.applyEffect(othersResult);
-    return identical(this, other) || (other.runtimeType == this.runtimeType && thisResult == othersResult);
+    return identical(this, other) || this.cardImagePath == other.cardImagePath;
   }
 
 

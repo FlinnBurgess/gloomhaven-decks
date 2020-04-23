@@ -23,19 +23,19 @@ class AttackModifierDeck {
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard(0));
+      _cardsInDeck.add(DamageChangeCard(0, 'cards/base/plus-0-damage.png'));
     }
 
     for (var i = 0; i < BASE_NUMBER_OF_PLUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard(1));
+      _cardsInDeck.add(DamageChangeCard(1, 'cards/base/plus-1-damage.png'));
     }
 
     for (var i = 0; i < BASE_NUMBER_OF_MINUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(DamageChangeCard(-1));
+      _cardsInDeck.add(DamageChangeCard(-1, 'cards/base/minus-1-damage.png'));
     }
 
-    _cardsInDeck.add(DamageChangeCard(2));
-    _cardsInDeck.add(DamageChangeCard(-2));
+    _cardsInDeck.add(DamageChangeCard(2, 'cards/base/plus-2-damage.png'));
+    _cardsInDeck.add(DamageChangeCard(-2, 'cards/base/minus-2-damage.png'));
     _cardsInDeck.add(NullDamageCard());
     _cardsInDeck.add(DoubleDamageCard());
 

@@ -18,31 +18,48 @@ class Brute extends Character {
     perks = [
       Perk.removeTwoMinusOnes(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceCard(
-          DamageChangeCard(-1),
-          DamageChangeCard(1),
+          DamageChangeCard(-1, 'cards/base/minus-1-damage.png'),
+          DamageChangeCard(1, 'cards/brute/plus-1-damage.png'),
           Perk.ONE_PERK_AVAILABLE,
           'Replace one -1 card with one +1 card'),
-      Perk.addTwoPlusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.addCard(DamageChangeCard(3), Perk.ONE_PERK_AVAILABLE,
-          'Add one +3 card'),
-      Perk.addCards(AttackEffectCard(AttackEffect.push, 1).times(3),
-          Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [PUSH 1] cards'),
-      Perk.addCards(AttackEffectCard(AttackEffect.pierce, 3).times(2),
-          Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [PIERCE 3] cards'),
-      Perk.addCard(ConditionCard(Condition.stun),
-          Perk.TWO_PERKS_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
+      Perk.addTwoPlusOnes(
+          Perk.TWO_PERKS_AVAILABLE, 'cards/brute/plus-1-damage.png'),
+      Perk.addCard(DamageChangeCard(3, 'cards/brute/plus-3-damage.png'),
+          Perk.ONE_PERK_AVAILABLE, 'Add one +3 card'),
+      Perk.addCards(
+          AttackEffectCard(
+              AttackEffect.push, 1, 'cards/brute/rolling-push-1.png')
+              .times(3),
+          Perk.TWO_PERKS_AVAILABLE,
+          'Add three [ROLLING] [PUSH 1] cards'),
+      Perk.addCards(
+          AttackEffectCard(
+              AttackEffect.pierce, 3, 'cards/brute/rolling-pierce-3.png')
+              .times(2),
+          Perk.ONE_PERK_AVAILABLE,
+          'Add two [ROLLING] [PIERCE 3] cards'),
+      Perk.addCard(
+          ConditionCard(Condition.stun, 'cards/brute/rolling-stun.png'),
+          Perk.TWO_PERKS_AVAILABLE,
+          'Add one [ROLLING] [STUN] card'),
       Perk.addCards([
-        ConditionCard(Condition.disarm),
-        ConditionCard(Condition.muddle)
+        ConditionCard(Condition.disarm, 'cards/brute/rolling-disarm.png'),
+        ConditionCard(Condition.muddle, 'cards/brute/rolling-muddle.png')
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card'),
-      Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1),
-          Perk.TWO_PERKS_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
       Perk.addCard(
-          DamageChangeCard.withAttackEffect(1, AttackEffect.shield, 1),
+          AttackEffectCard(AttackEffect.addTarget, 1,
+              'cards/brute/rolling-add-target-1.png'),
+          Perk.TWO_PERKS_AVAILABLE,
+          'Add one [ROLLING] [ADD TARGET] card'),
+      Perk.addCard(
+          DamageChangeCard.withAttackEffect(1, AttackEffect.shield, 1,
+              'cards/brute/plus-1-damage-and-shield.png'),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [SHIELD 1], Self card'),
-      Perk.addCard(DamageChangeCard(1), Perk.ONE_PERK_AVAILABLE,
+      Perk.addCard(
+          DamageChangeCard(1, 'cards/brute/plus-1-damage.png'),
+          Perk.ONE_PERK_AVAILABLE,
           'Ignore negative item effects and add one +1 card')
     ];
   }

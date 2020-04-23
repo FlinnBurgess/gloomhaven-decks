@@ -5,23 +5,26 @@ import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
 class DamageChangeCard extends AttackModifierCard {
-  DamageChangeCard(int damageChange)
-      : super(damageChangeEffect(damageChange), false);
+  DamageChangeCard(int damageChange, String cardImagePath)
+      : super(damageChangeEffect(damageChange), false, cardImagePath);
 
-  DamageChangeCard.withInfusion(int damageChange, Infusion infusion)
+  DamageChangeCard.withInfusion(int damageChange, Infusion infusion,
+      String cardImagePath)
       : super(
-      damageChangeWithInfusionEffect(damageChange, infusion), false);
+      damageChangeWithInfusionEffect(damageChange, infusion), false,
+      cardImagePath);
 
-  DamageChangeCard.withCondition(int damageChange, Condition condition)
+  DamageChangeCard.withCondition(int damageChange, Condition condition,
+      String cardImagePath)
       : super(damageChangeWithConditionEffect(damageChange, condition),
-      false);
+      false, cardImagePath);
 
   DamageChangeCard.withAttackEffect(int damageChange, AttackEffect attackEffect,
-      int attackEffectAmount)
+      int attackEffectAmount, String cardImagePath)
       : super(
             damageChangeWithAttackEffect(
                 damageChange, attackEffect, attackEffectAmount),
-      false);
+      false, cardImagePath);
 }
 
 Function(AttackModifierResult) damageChangeEffect(amount) {
