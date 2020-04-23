@@ -17,11 +17,15 @@ class TappableResult extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  backgroundColor: Colors.transparent,
                   content: Container(
                     width: double.maxFinite,
                     child: ListView(
                       children:
-                          cardsApplied.map((card) => card.getImage()).toList(),
+                      cardsApplied.map((card) =>
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                              child: card.getImage())).toList(),
                     ),
                   ),
                 );
