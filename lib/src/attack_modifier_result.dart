@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
@@ -78,32 +77,6 @@ class AttackModifierResult {
         shieldAmount += amount;
         break;
     }
-  }
-
-  //TODO move the responsibility of creating a display out of here and into a widget class
-  Widget getDisplayWidget() {
-    List<Widget> displayInformation = totalDamage == null ? [
-      Text("Draw cards to see results")
-    ] : [
-      Text('Total damage: ' + totalDamage.toString()),
-      infusions.isEmpty ? null : Text(infusions.toString()),
-      conditions.isEmpty ? null : Text(conditions.toString()),
-      isNull ? Text("NULL") : null,
-      addTargetAmount == 0 ? null : Text(
-          "Added targets: " + addTargetAmount.toString()),
-      pierceAmount == 0 ? null : Text("Pierce: " + pierceAmount.toString()),
-      pullAmount == 0 ? null : Text("Pull: " + pullAmount.toString()),
-      pushAmount == 0 ? null : Text("Push: " + pushAmount.toString()),
-      healAmount == 0 ? null : Text("Heal amount: " + healAmount.toString()),
-      shieldAmount == 0 ? null : Text(
-          "Shield amount: " + shieldAmount.toString()),
-    ];
-
-    displayInformation.removeWhere((widget) => widget == null);
-
-    return Column(
-      children: displayInformation,
-    );
   }
 
   @override
