@@ -41,19 +41,30 @@ class Characters extends ChangeNotifier {
         Character.fromJson(jsonCharacter)).toList();
   }
 
+  static Future<Characters> load() async {
+    try {
+      final file = await _localFile;
+      String encodedCharacters = await file.readAsString();
+      List<dynamic> decodedCharacters = jsonDecode(encodedCharacters);
+      return Characters(fromJson(decodedCharacters));
+    } catch (e) {
+      return Characters([]);
+    }
+  }
+
   Future<void> save() async {
     final file = await _localFile;
 
     return file.writeAsString(jsonEncode(this.toJson()));
   }
 
-  Future<String> get _localPath async {
+  static Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
   }
 
-  Future<File> get _localFile async {
+  static Future<File> get _localFile async {
     final path = await _localPath;
 
     return File('$path/characters.json');
