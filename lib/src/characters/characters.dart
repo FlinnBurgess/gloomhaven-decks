@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:path_provider/path_provider.dart';
 
-//TODO save characters on delete
 class Characters extends ChangeNotifier {
   List<Character> _characters = [];
 
@@ -21,11 +20,13 @@ class Characters extends ChangeNotifier {
 
   void deleteCharacter(Character character) {
     _characters.remove(character);
+    save();
     notifyListeners();
   }
 
   void setCharacterActiveState(Character character, bool isActive) {
     character.isActive = isActive;
+    save();
     notifyListeners();
   }
 
