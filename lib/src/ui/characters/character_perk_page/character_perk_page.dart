@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
+import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:provider/provider.dart';
 
 //TODO save characters to phone on perk update
 class CharacterPerkPage extends StatefulWidget {
@@ -15,62 +17,66 @@ class CharacterPerkPage extends StatefulWidget {
 class _CharacterPerkPageState extends State<CharacterPerkPage> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> perkRows = [];
-    this.widget.character.perks.forEach((perk) {
-      List<Widget> perkOptions = [];
-      for (int i = 0; i < perk.perksUsed; i++) {
-        perkOptions.add(Checkbox(
-            value: true,
-            onChanged: (value) {
-              bool successfullyUnapplied =
-              this.widget.character.attackModifierDeck.unapplyPerk(perk);
-              if (successfullyUnapplied) {
-                setState(() {
-                  perk.perksAvailable++;
-                  perk.perksUsed--;
-                });
-              } else {
-                showFailureMessage(context);
-              }
-            }));
-      }
-      for (int i = 0; i < perk.perksAvailable; i++) {
-        perkOptions.add(Checkbox(
-            value: false,
-            onChanged: (value) {
-              bool successfullyApplied =
-              this.widget.character.attackModifierDeck.applyPerk(perk);
-              if (successfullyApplied) {
-                setState(() {
-                  perk.perksAvailable--;
-                  perk.perksUsed++;
-                });
-              } else {
-                showFailureMessage(context);
-              }
-            }));
-      }
-      perkOptions.add(Padding(
-        padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
-        child: Text(perk.description),
-      ));
-      perkRows.add(Align(
-          alignment: Alignment.centerLeft,
-          child: Wrap(children: perkOptions)));
+    return Consumer<Characters>(builder: (context, characters, child) {
+      List<Widget> perkRows = [];
+      this.widget.character.perks.forEach((perk) {
+        List<Widget> perkOptions = [];
+        for (int i = 0; i < perk.perksUsed; i++) {
+          perkOptions.add(Checkbox(
+              value: true,
+              onChanged: (value) {
+                bool successfullyUnapplied =
+                this.widget.character.attackModifierDeck.unapplyPerk(perk);
+                if (successfullyUnapplied) {
+                  characters.save();
+                  setState(() {
+                    perk.perksAvailable++;
+                    perk.perksUsed--;
+                  });
+                } else {
+                  showFailureMessage(context);
+                }
+              }));
+        }
+        for (int i = 0; i < perk.perksAvailable; i++) {
+          perkOptions.add(Checkbox(
+              value: false,
+              onChanged: (value) {
+                bool successfullyApplied =
+                this.widget.character.attackModifierDeck.applyPerk(perk);
+                if (successfullyApplied) {
+                  characters.save();
+                  setState(() {
+                    perk.perksAvailable--;
+                    perk.perksUsed++;
+                  });
+                } else {
+                  showFailureMessage(context);
+                }
+              }));
+        }
+        perkOptions.add(Padding(
+          padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
+          child: Text(perk.description),
+        ));
+        perkRows.add(Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(children: perkOptions)));
+      });
+
+      var perkList = Column(children: perkRows);
+
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(this.widget.character.name +
+              ' the ' +
+              this.widget.character.runtimeType.toString()),
+        ),
+        body: Center(
+          child: perkList,
+        ),
+      );
     });
-
-    var perkList = Column(children: perkRows);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(this.widget.character.name +
-            ' the ' +
-            this.widget.character.runtimeType.toString()),
-      ),
-      body: Center(
-        child: perkList,
-      ),
-    );
   }
 
   void showFailureMessage(BuildContext context) {
