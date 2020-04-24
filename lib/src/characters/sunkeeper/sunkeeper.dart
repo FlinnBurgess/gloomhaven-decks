@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
@@ -9,12 +10,16 @@ import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
+import '../character_icons.dart';
+
 class Sunkeeper extends Character {
   String name;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
   List<Perk> perks;
 
   Sunkeeper(this.name) {
+    characterIcon = Icon(CharacterIcons.sunkeeper_icon);
+
     perks = [
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),

@@ -16,7 +16,8 @@ class DecksPage extends StatelessWidget {
 
         List<Tab> characterTabs = activeCharacters
             .map<Tab>((character) => Tab(
-                  text: character.name,
+          icon: character.characterIcon,
+          text: character.name,
                 ))
             .toList();
 

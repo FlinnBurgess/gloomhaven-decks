@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
@@ -8,12 +9,16 @@ import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
+import '../character_icons.dart';
+
 class Mindthief extends Character {
   String name;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
   List<Perk> perks;
 
   Mindthief(this.name) {
+    characterIcon = Icon(CharacterIcons.mindthief_icon);
+
     perks = [
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),

@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
+import 'package:gloomhaven_decks/src/characters/character_icons.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
@@ -14,6 +16,7 @@ class Brute extends Character {
 
   Brute(this.name) {
     attackModifierDeck = AttackModifierDeck();
+    characterIcon = Icon(CharacterIcons.brute_icon);
 
     perks = [
       Perk.removeTwoMinusOnes(Perk.ONE_PERK_AVAILABLE),

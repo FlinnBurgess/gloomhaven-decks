@@ -3,6 +3,7 @@ import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:provider/provider.dart';
 
+//TODO display characters icons instead of (/as well as? could be a setting?) class names, to prevent spoilers
 class NewCharacterForm extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => NewCharacterFormState();

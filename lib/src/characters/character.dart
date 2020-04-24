@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/characters/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/characters/spellweaver/spellweaver.dart';
 import 'package:gloomhaven_decks/src/characters/sunkeeper/sunkeeper.dart';
@@ -15,6 +16,7 @@ abstract class Character {
   bool isActive = true;
   List<Perk> perks;
   AttackModifierDeck attackModifierDeck;
+  Icon characterIcon;
 
   static final CLASS_LIST = [
     'Brute',

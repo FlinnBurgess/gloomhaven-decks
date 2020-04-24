@@ -20,6 +20,10 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  fonts:
+    - family: CharacterIcons
+      fonts:
+        - asset: fonts/CharacterIcons.ttf
   assets:
     - images/cards/base/
     - images/cards/brute/

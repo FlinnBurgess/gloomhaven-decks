@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/cards/infusion_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
@@ -6,12 +7,16 @@ import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
+import '../character_icons.dart';
+
 class Spellweaver extends Character {
   String name;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
   List<Perk> perks;
 
   Spellweaver(this.name) {
+    characterIcon = Icon(CharacterIcons.spellweaver_icon);
+
     perks = [
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceCard(
