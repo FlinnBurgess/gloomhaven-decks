@@ -63,7 +63,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
             child: Wrap(children: perkOptions)));
       });
 
-      var perkList = Column(children: perkRows);
+      var perkList = ListView(children: perkRows);
 
       return Scaffold(
         appBar: AppBar(

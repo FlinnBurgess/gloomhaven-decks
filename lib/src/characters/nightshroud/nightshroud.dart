@@ -38,7 +38,7 @@ class Nightshroud extends Character {
       Perk.addCard(
           DamageChangeCard.withCondition(
               1, Condition.invisible, this.runtimeType.toString()),
-          ONE_AVAILABLE,
+          TWO_AVAILABLE,
           'Add one +1 [INVISIBLE] card'),
       Perk.addCards(
           ConditionCard(Condition.muddle, this.runtimeType.toString()).times(3),
