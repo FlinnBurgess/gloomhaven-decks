@@ -3,10 +3,6 @@ import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 
 class Perk {
-  static final ONE_PERK_AVAILABLE = 1;
-  static final TWO_PERKS_AVAILABLE = 2;
-  static final THREE_PERKS_AVAILABLE = 3;
-
   Function(AttackModifierDeck) apply;
   Function(AttackModifierDeck) unapply;
   int perksAvailable = 0;

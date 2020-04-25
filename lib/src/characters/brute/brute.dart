@@ -19,52 +19,52 @@ class Brute extends Character {
     characterIcon = Icon(CharacterIcons.brute_icon);
 
     perks = [
-      Perk.removeTwoMinusOnes(Perk.ONE_PERK_AVAILABLE),
+      Perk.removeTwoMinusOnes(ONE_AVAILABLE),
       Perk.replaceCard(
           DamageChangeCard.base(-1),
           DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.addTwoPlusOnes(
-          Perk.TWO_PERKS_AVAILABLE, this.runtimeType.toString()),
+          TWO_AVAILABLE, this.runtimeType.toString()),
       Perk.addCard(
           DamageChangeCard.forCharacter(3, this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE, 'Add one +3 card'),
+          ONE_AVAILABLE, 'Add one +3 card'),
       Perk.addCards(
           AttackEffectCard(
               AttackEffect.push, 1, this.runtimeType.toString())
               .times(3),
-          Perk.TWO_PERKS_AVAILABLE,
+          TWO_AVAILABLE,
           'Add three [ROLLING] [PUSH 1] cards'),
       Perk.addCards(
           AttackEffectCard(
               AttackEffect.pierce, 3, this.runtimeType.toString())
               .times(2),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Add two [ROLLING] [PIERCE 3] cards'),
       Perk.addCard(
           ConditionCard(Condition.stun, this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE,
+          TWO_AVAILABLE,
           'Add one [ROLLING] [STUN] card'),
       Perk.addCards([
         ConditionCard(
             Condition.disarm, this.runtimeType.toString()),
         ConditionCard(Condition.muddle, this.runtimeType.toString())
-      ], Perk.ONE_PERK_AVAILABLE,
+      ], ONE_AVAILABLE,
           'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card'),
       Perk.addCard(
           AttackEffectCard(AttackEffect.addTarget, 1,
               this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE,
+          TWO_AVAILABLE,
           'Add one [ROLLING] [ADD TARGET] card'),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(1, AttackEffect.shield, 1,
               this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Add one +1 [SHIELD 1], Self card'),
       Perk.addCard(
           DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Ignore negative item effects and add one +1 card')
     ];
   }

@@ -18,49 +18,51 @@ class Spellweaver extends Character {
     characterIcon = Icon(CharacterIcons.spellweaver_icon);
 
     perks = [
-      Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
+      Perk.removeFourZeros(ONE_AVAILABLE),
       Perk.replaceCard(
           DamageChangeCard.base(-1),
           DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE, 'Replace one -1 card with one +1 card'),
-      Perk.addTwoPlusOnes(
-          Perk.TWO_PERKS_AVAILABLE,
-          this.runtimeType.toString()),
-      Perk.addCard(DamageChangeCard.withCondition(
-          0, Condition.stun, this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE, 'Add one +0 [STUN] card'),
-      Perk.addCard(DamageChangeCard.withCondition(
-          1, Condition.wound,
-          this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE, 'Add one +1 [WOUND] card'),
+          TWO_AVAILABLE,
+          'Replace one -1 card with one +1 card'),
+      Perk.addTwoPlusOnes(TWO_AVAILABLE, this.runtimeType.toString()),
       Perk.addCard(
-          DamageChangeCard.withCondition(1, Condition.immobilize,
-              this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE,
+          DamageChangeCard.withCondition(
+              0, Condition.stun, this.runtimeType.toString()),
+          ONE_AVAILABLE,
+          'Add one +0 [STUN] card'),
+      Perk.addCard(
+          DamageChangeCard.withCondition(
+              1, Condition.wound, this.runtimeType.toString()),
+          ONE_AVAILABLE,
+          'Add one +1 [WOUND] card'),
+      Perk.addCard(
+          DamageChangeCard.withCondition(
+              1, Condition.immobilize, this.runtimeType.toString()),
+          ONE_AVAILABLE,
           'Add one +1 [IMMOBILIZE] card'),
-      Perk.addCard(DamageChangeCard.withCondition(
-          1, Condition.curse,
-          this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE, 'Add one +1 [CURSE] card'),
-      Perk.addCard(DamageChangeCard.withInfusion(
-          2, Infusion.fire,
-          this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [FIRE INFUSION] card'),
-      Perk.addCard(DamageChangeCard.withInfusion(
-          2, Infusion.ice,
-          this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
+      Perk.addCard(
+          DamageChangeCard.withCondition(
+              1, Condition.curse, this.runtimeType.toString()),
+          ONE_AVAILABLE,
+          'Add one +1 [CURSE] card'),
+      Perk.addCard(
+          DamageChangeCard.withInfusion(
+              2, Infusion.fire, this.runtimeType.toString()),
+          TWO_AVAILABLE,
+          'Add one +2 [FIRE INFUSION] card'),
+      Perk.addCard(
+          DamageChangeCard.withInfusion(
+              2, Infusion.ice, this.runtimeType.toString()),
+          TWO_AVAILABLE,
+          'Add one +2 [ICE INFUSION] card'),
       Perk.addCards([
-        InfusionCard(
-            Infusion.earth, this.runtimeType.toString()),
+        InfusionCard(Infusion.earth, this.runtimeType.toString()),
         InfusionCard(Infusion.air, this.runtimeType.toString())
-      ], Perk.ONE_PERK_AVAILABLE,
-          'Add one [EARTH INFUSION] and one [AIR INFUSION] card'),
+      ], ONE_AVAILABLE, 'Add one [EARTH INFUSION] and one [AIR INFUSION] card'),
       Perk.addCards([
-        InfusionCard(
-            Infusion.light, this.runtimeType.toString()),
+        InfusionCard(Infusion.light, this.runtimeType.toString()),
         InfusionCard(Infusion.dark, this.runtimeType.toString())
-      ], Perk.ONE_PERK_AVAILABLE,
+      ], ONE_AVAILABLE,
           'Add one [LIGHT INFUSION] and one [DARK INFUSION] card'),
     ];
   }

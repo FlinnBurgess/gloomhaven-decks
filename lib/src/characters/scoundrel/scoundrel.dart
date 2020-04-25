@@ -19,39 +19,37 @@ class Scoundrel extends Character {
     characterIcon = Icon(CharacterIcons.scoundrel_icon);
 
     perks = [
-      Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
-      Perk.replaceMinusTwoWithZero(
-          Perk.ONE_PERK_AVAILABLE, this.runtimeType.toString()),
+      Perk.removeTwoMinusOnes(TWO_AVAILABLE),
+      Perk.removeFourZeros(ONE_AVAILABLE),
+      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, this.runtimeType.toString()),
       Perk.replaceCard(
           DamageChangeCard.base(-1),
           DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.replaceCard(
           DamageChangeCard.base(0),
           DamageChangeCard.forCharacter(2, this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE, 'Replace one +0 card with one +2 card'),
-      Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE,
-          this.runtimeType.toString()),
-      Perk.addCards(AttackEffectCard(
-          AttackEffect.pierce, 3, this.runtimeType.toString())
-          .times(
-          2),
-          Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PIERCE 3] cards'),
+          TWO_AVAILABLE,
+          'Replace one +0 card with one +2 card'),
+      Perk.addTwoRollingPlusOnes(TWO_AVAILABLE, this.runtimeType.toString()),
       Perk.addCards(
-          ConditionCard(
-              Condition.poison, this.runtimeType.toString())
+          AttackEffectCard(AttackEffect.pierce, 3, this.runtimeType.toString())
               .times(2),
-          Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [POISON] cards'),
+          ONE_AVAILABLE,
+          'Add three [ROLLING] [PIERCE 3] cards'),
       Perk.addCards(
-          ConditionCard(
-              Condition.muddle, this.runtimeType.toString())
-              .times(2),
-          Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [MUDDLE] cards'),
-      Perk.addCard(ConditionCard(
-          Condition.invisible, this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [INVISIBLE] perk'),
+          ConditionCard(Condition.poison, this.runtimeType.toString()).times(2),
+          TWO_AVAILABLE,
+          'Add two [ROLLING] [POISON] cards'),
+      Perk.addCards(
+          ConditionCard(Condition.muddle, this.runtimeType.toString()).times(2),
+          ONE_AVAILABLE,
+          'Add two [ROLLING] [MUDDLE] cards'),
+      Perk.addCard(
+          ConditionCard(Condition.invisible, this.runtimeType.toString()),
+          ONE_AVAILABLE,
+          'Add one [ROLLING] [INVISIBLE] perk'),
     ];
   }
 }

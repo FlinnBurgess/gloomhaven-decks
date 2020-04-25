@@ -17,55 +17,46 @@ class Plagueherald extends Character {
     characterIcon = Icon(CharacterIcons.plagueherald_icon);
 
     perks = [
-      Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE,
-          this.runtimeType.toString()),
+      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, this.runtimeType.toString()),
       Perk.replaceCard(
           DamageChangeCard.base(-1),
           DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE,
+          TWO_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.replaceCard(
           DamageChangeCard.base(0),
           DamageChangeCard.forCharacter(2, this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE,
+          TWO_AVAILABLE,
           'Replace one +0 card with one +2 card'),
       Perk.addCards(
           DamageChangeCard.forCharacter(1, this.runtimeType.toString())
               .times(2),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Add two +1 cards'),
       Perk.addCard(
-          DamageChangeCard.withInfusion(1, Infusion.air,
-              this.runtimeType.toString()),
-          Perk.THREE_PERKS_AVAILABLE,
+          DamageChangeCard.withInfusion(
+              1, Infusion.air, this.runtimeType.toString()),
+          THREE_AVAILABLE,
           'Add one +1 [AIR INFUSION] card'),
       Perk.addCards(
-          ConditionCard(Condition.poison,
-              this.runtimeType.toString())
-              .times(3),
-          Perk.ONE_PERK_AVAILABLE,
+          ConditionCard(Condition.poison, this.runtimeType.toString()).times(3),
+          ONE_AVAILABLE,
           'Add three [ROLLING] [POISON] cards'),
       Perk.addCards(
-          ConditionCard(Condition.curse,
-              this.runtimeType.toString())
-              .times(2),
-          Perk.ONE_PERK_AVAILABLE,
+          ConditionCard(Condition.curse, this.runtimeType.toString()).times(2),
+          ONE_AVAILABLE,
           'Add two [ROLLING] [CURSE] cards'),
       Perk.addCards(
-          ConditionCard(Condition.immobilize,
-              this.runtimeType.toString())
+          ConditionCard(Condition.immobilize, this.runtimeType.toString())
               .times(2),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Add two [ROLLING] [IMMOBILIZE] cards'),
-      Perk.addCard(
-          ConditionCard(
-              Condition.stun, this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE,
-          'Add one [ROLLING] [STUN] card'),
+      Perk.addCard(ConditionCard(Condition.stun, this.runtimeType.toString()),
+          TWO_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
       Perk.addCards(
           DamageChangeCard.forCharacter(1, this.runtimeType.toString())
               .times(2),
-          Perk.ONE_PERK_AVAILABLE,
+          ONE_AVAILABLE,
           'Ignore negative scenario effects and add one +1 card'),
     ];
   }

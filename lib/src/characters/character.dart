@@ -12,6 +12,10 @@ import 'mindthief/mindthief.dart';
 import 'nightshroud/nightshroud.dart';
 
 abstract class Character {
+  final int ONE_AVAILABLE = 1;
+  final int TWO_AVAILABLE = 2;
+  final int THREE_AVAILABLE = 3;
+
   String name;
   bool isActive = true;
   List<Perk> perks;

@@ -20,39 +20,40 @@ class Tinkerer extends Character {
     characterIcon = Icon(CharacterIcons.tinkerer_icon);
 
     perks = [
-      Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
-      Perk.replaceMinusTwoWithZero(
-          Perk.ONE_PERK_AVAILABLE, this.runtimeType.toString()),
-      Perk.addTwoPlusOnes(
-          Perk.ONE_PERK_AVAILABLE, this.runtimeType.toString()),
+      Perk.removeTwoMinusOnes(TWO_AVAILABLE),
+      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, this.runtimeType.toString()),
+      Perk.addTwoPlusOnes(ONE_AVAILABLE, this.runtimeType.toString()),
       Perk.addCard(
           DamageChangeCard.forCharacter(3, this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE, 'Add one +3 card'),
+          ONE_AVAILABLE,
+          'Add one +3 card'),
       Perk.addCards(
-          InfusionCard(Infusion.fire, this.runtimeType.toString())
-              .times(
-              2),
-          Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [FIRE INFUSION] cards'),
+          InfusionCard(Infusion.fire, this.runtimeType.toString()).times(2),
+          TWO_AVAILABLE,
+          'Add two [ROLLING] [FIRE INFUSION] cards'),
       Perk.addCards(
-          ConditionCard(
-              Condition.muddle, this.runtimeType.toString())
-              .times(3),
-          Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.addCard(DamageChangeCard.withCondition(
-          1, Condition.wound,
-          this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE, 'Add one +1 [WOUND] card'),
-      Perk.addCard(DamageChangeCard.withCondition(1, Condition.immobilize,
-          this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE, 'Add one +1 [IMMOBILIZE] card'),
-      Perk.addCard(DamageChangeCard.withAttackEffect(1, AttackEffect.heal, 2,
-          this.runtimeType.toString()),
-          Perk.TWO_PERKS_AVAILABLE, 'Add one +1 [HEAL 2] card'),
+          ConditionCard(Condition.muddle, this.runtimeType.toString()).times(3),
+          ONE_AVAILABLE,
+          'Add three [ROLLING] [MUDDLE] cards'),
+      Perk.addCard(
+          DamageChangeCard.withCondition(
+              1, Condition.wound, this.runtimeType.toString()),
+          TWO_AVAILABLE,
+          'Add one +1 [WOUND] card'),
+      Perk.addCard(
+          DamageChangeCard.withCondition(
+              1, Condition.immobilize, this.runtimeType.toString()),
+          TWO_AVAILABLE,
+          'Add one +1 [IMMOBILIZE] card'),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
-              0, AttackEffect.addTarget, 1,
-              this.runtimeType.toString()),
-          Perk.ONE_PERK_AVAILABLE,
+              1, AttackEffect.heal, 2, this.runtimeType.toString()),
+          TWO_AVAILABLE,
+          'Add one +1 [HEAL 2] card'),
+      Perk.addCard(
+          DamageChangeCard.withAttackEffect(
+              0, AttackEffect.addTarget, 1, this.runtimeType.toString()),
+          ONE_AVAILABLE,
           'Add one +0 [ADD TARGET] card')
     ];
   }
