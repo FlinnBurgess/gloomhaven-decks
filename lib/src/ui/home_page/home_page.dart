@@ -8,9 +8,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Wakelock.disable();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Gloomhaven Deck Tracker'),
-      ),
+      appBar: null,
       body: Center(
         child: Container(
           constraints: BoxConstraints.expand(),
