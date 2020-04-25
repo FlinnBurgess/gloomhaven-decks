@@ -32,152 +32,158 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      resultDisplay == null ? Text("Draw cards to see results") : resultDisplay,
-      Padding(
-        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-        child: Column(
-          children: <Widget>[
-            Text('Starting attack damage'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return SingleChildScrollView(
+        child: Column(children: <Widget>[
+          resultDisplay == null
+              ? Text("Draw cards to see results")
+              : resultDisplay,
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Column(
               children: <Widget>[
-                IconButton(
-                    icon: Icon(Icons.remove),
-                    onPressed: initialDamage == 0
-                        ? null
-                        : () =>
-                        this.setState(
-                              () => initialDamage--,
-                        )),
-                Text(initialDamage.toString()),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => this.setState(() => initialDamage++),
-                )
+                Text('Starting attack damage'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: initialDamage == 0
+                            ? null
+                            : () =>
+                            this.setState(
+                                  () => initialDamage--,
+                            )),
+                    Text(initialDamage.toString()),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () => this.setState(() => initialDamage++),
+                    )
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-      ),
-      RaisedButton(
-        child: Text("Draw cards"),
-        onPressed: initialDamage == null
-            ? null
-            : () {
-          this.widget.deck.discardCardsDrawn();
-          if (this.widget.deck.needsShuffling) {
-            this.widget.deck.shuffle();
-          }
-          setState(() {
-            if (characterHasAdvantage) {
-              resultDisplay = AdvantagedResultDisplay(
-                  this.widget.deck, initialDamage, targetIsPoisoned);
-            } else if (characterDisadvantaged) {
-              resultDisplay = DisadvantagedResultDisplay(
-                  this.widget.deck, initialDamage, targetIsPoisoned);
-            } else {
-              resultDisplay = DefaultResultDisplay(
-                  this.widget.deck, initialDamage, targetIsPoisoned);
-            }
-          });
-        },
-      ),
-      Padding(
-          padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          ),
+          RaisedButton(
+            child: Text("Draw cards"),
+            onPressed: initialDamage == null
+                ? null
+                : () {
+              this.widget.deck.discardCardsDrawn();
+              if (this.widget.deck.needsShuffling) {
+                this.widget.deck.shuffle();
+              }
+              setState(() {
+                if (characterHasAdvantage) {
+                  resultDisplay = AdvantagedResultDisplay(
+                      this.widget.deck, initialDamage, targetIsPoisoned);
+                } else if (characterDisadvantaged) {
+                  resultDisplay = DisadvantagedResultDisplay(
+                      this.widget.deck, initialDamage, targetIsPoisoned);
+                } else {
+                  resultDisplay = DefaultResultDisplay(
+                      this.widget.deck, initialDamage, targetIsPoisoned);
+                }
+              });
+            },
+          ),
+          Padding(
+              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text("Target is poisoned"),
+                      Checkbox(
+                        value: targetIsPoisoned,
+                        onChanged: (value) =>
+                            setState(() => targetIsPoisoned = value),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text("Advantage"),
+                      Checkbox(
+                        value: characterHasAdvantage,
+                        onChanged: characterDisadvantaged
+                            ? null
+                            : (value) =>
+                            setState(() => characterHasAdvantage = value),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text("Disadvantage"),
+                      Checkbox(
+                        value: characterDisadvantaged,
+                        onChanged: characterHasAdvantage
+                            ? null
+                            : (value) =>
+                            setState(() => characterDisadvantaged = value),
+                      )
+                    ],
+                  )
+                ],
+              )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[Text('Curse cards')],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text("Target is poisoned"),
-                  Checkbox(
-                    value: targetIsPoisoned,
-                    onChanged: (value) =>
-                        setState(() => targetIsPoisoned = value),
-                  )
-                ],
+              IconButton(
+                icon: Icon(Icons.remove),
+                onPressed: () =>
+                this.widget.deck.isCursed()
+                    ? setState(() =>
+                    this.widget.deck.removeCards([CurseCard()]))
+                    : null,
               ),
-              Column(
-                children: <Widget>[
-                  Text("Advantage"),
-                  Checkbox(
-                    value: characterHasAdvantage,
-                    onChanged: characterDisadvantaged
-                        ? null
-                        : (value) =>
-                        setState(() => characterHasAdvantage = value),
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text("Disadvantage"),
-                  Checkbox(
-                    value: characterDisadvantaged,
-                    onChanged: characterHasAdvantage
-                        ? null
-                        : (value) =>
-                        setState(() => characterDisadvantaged = value),
-                  )
-                ],
+              Text(this.widget.deck.curseCardCount.toString()),
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () =>
+                CurseCard.totalCurseCardsInPlay < 10
+                    ? setState(() => this.widget.deck.addCard(CurseCard()))
+                    : null,
               )
             ],
-          )),
-      Padding(
-        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text('Curse cards')],
-        ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.remove),
-            onPressed: () =>
-            this.widget.deck.isCursed()
-                ? setState(() => this.widget.deck.removeCards([CurseCard()]))
-                : null,
           ),
-          Text(this.widget.deck.curseCardCount.toString()),
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () =>
-            CurseCard.totalCurseCardsInPlay < 10
-                ? setState(() => this.widget.deck.addCard(CurseCard()))
-                : null,
-          )
-        ],
-      ),
-      Padding(
-        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text('Bless cards')],
-        ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.remove),
-            onPressed: () =>
-            this.widget.deck.isBlessed()
-                ? setState(() => this.widget.deck.removeCards([BlessCard()]))
-                : null,
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[Text('Bless cards')],
+            ),
           ),
-          Text(this.widget.deck.blessCardCount.toString()),
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () =>
-            BlessCard.totalBlessCardsInPlay < 10
-                ? setState(() => this.widget.deck.addCard(BlessCard()))
-                : null,
-          )
-        ],
-      ),
-    ]);
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.remove),
+                onPressed: () =>
+                this.widget.deck.isBlessed()
+                    ? setState(() =>
+                    this.widget.deck.removeCards([BlessCard()]))
+                    : null,
+              ),
+              Text(this.widget.deck.blessCardCount.toString()),
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () =>
+                BlessCard.totalBlessCardsInPlay < 10
+                    ? setState(() => this.widget.deck.addCard(BlessCard()))
+                    : null,
+              )
+            ],
+          ),
+        ])
+    );
   }
 }

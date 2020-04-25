@@ -31,35 +31,42 @@ class CharacterList extends StatelessWidget {
     );
   }
 
-  List<Widget> _getCharacterList(Characters characters, BuildContext context) => characters.characters
-      .map<Widget>((character) => Row(
-    mainAxisAlignment: MainAxisAlignment.center,
+  List<Widget> _getCharacterList(Characters characters, BuildContext context) =>
+      characters.characters
+          .map<Widget>((character) =>
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
             children: <Widget>[
               Column(
                 children: <Widget>[
                   Text('Active'),
                   Checkbox(
-                    value: character.isActive,
+                      value: character.isActive,
                       onChanged: (value) {
                         character.attackModifierDeck.cleanUp();
                         character.attackModifierDeck.shuffle();
-                        characters.setCharacterActiveState(character, value);
-                      }
-                  )
+                        characters.setCharacterActiveState(
+                            character, value);
+                      })
                 ],
               ),
+              character.characterIcon,
+              Text(character.name),
               RaisedButton(
-                onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CharacterPerkPage(character: character))),
-                child: Text(character.name +
-                    " the " +
-                    character.runtimeType.toString()),
+                onPressed: () =>
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CharacterPerkPage(character: character))),
+                child: Text('Perks'),
               ),
               IconButton(
                 onPressed: () => characters.deleteCharacter(character),
-                icon: Icon(Icons.clear),
+                icon: Icon(Icons.delete),
               ),
             ],
           ))
-      .toList();
+          .toList();
 }

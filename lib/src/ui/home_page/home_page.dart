@@ -12,25 +12,39 @@ class HomePage extends StatelessWidget {
         title: Text('Gloomhaven Deck Tracker'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CharacterListPage()));
-                },
-                child: Text('Characters')),
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DecksPage()));
-                },
-                child: Text('Decks')),
-            RaisedButton(onPressed: null, child: Text('Settings')),
-          ],
+        child: Container(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('images/backgrounds/dark-wood.jpg'),
+                  fit: BoxFit.cover),
+              gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Color.fromRGBO(255, 25, 10, 1),
+                    Color.fromRGBO(173, 96, 42, 1)
+                  ])),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CharacterListPage()));
+                  },
+                  child: Text('Characters')),
+              RaisedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => DecksPage()));
+                  },
+                  child: Text('Decks')),
+              RaisedButton(onPressed: null, child: Text('Settings')),
+            ],
+          ),
         ),
       ),
     );

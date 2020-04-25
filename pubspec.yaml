@@ -25,6 +25,9 @@ flutter:
     - family: CharacterIcons
       fonts:
         - asset: fonts/CharacterIcons.ttf
+    - family: PirataOne
+      fonts:
+        - asset: fonts/PirataOne-Gloomhaven.ttf
   assets:
     - images/cards/base/
     - images/cards/brute/
@@ -35,4 +38,5 @@ flutter:
     - images/cards/spellweaver/
     - images/cards/sunkeeper/
     - images/cards/tinkerer/
+    - images/backgrounds/
   uses-material-design: true
