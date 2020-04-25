@@ -25,7 +25,7 @@ class AttackModifierDeckTab extends StatefulWidget {
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   AttackModifierResult result = AttackModifierResult();
   Widget resultDisplay;
-  int initialDamage;
+  int initialDamage = 0;
   bool targetIsPoisoned = false;
   bool characterHasAdvantage = false;
   bool characterDisadvantaged = false;
@@ -38,11 +38,25 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
         padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
         child: Column(
           children: <Widget>[
-            Text('Enter initial attack damage'),
-            TextFormField(
-              onChanged: ((value) =>
-                  setState(() => initialDamage = int.tryParse(value))),
-            )
+            Text('Starting attack damage'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.remove),
+                    onPressed: initialDamage == 0
+                        ? null
+                        : () =>
+                        this.setState(
+                              () => initialDamage--,
+                        )),
+                Text(initialDamage.toString()),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => this.setState(() => initialDamage++),
+                )
+              ],
+            ),
           ],
         ),
       ),
