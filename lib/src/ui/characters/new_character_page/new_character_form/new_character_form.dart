@@ -18,7 +18,7 @@ class NewCharacterFormState extends State<NewCharacterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Characters> (
+    return Consumer<Characters>(
       builder: (context, characters, child) {
         return Form(
           key: _formKey,
@@ -26,14 +26,18 @@ class NewCharacterFormState extends State<NewCharacterForm> {
             children: <Widget>[
               DropdownButtonFormField(
                 value: _selectedClass,
-                icon: Icon(Icons.arrow_downward),
+                icon: Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
-                onChanged: (value) => this.setState(() => _selectedClass = value),
+                onChanged: (value) =>
+                    this.setState(() => _selectedClass = value),
                 items: _classes.map((String className) {
                   return DropdownMenuItem(
                     value: className,
-                    child: Text(className),
+                    child: Center(
+                        child: Character
+                            .createCharacter(className, 'dummy')
+                            .characterIcon),
                   );
                 }).toList(),
               ),
@@ -50,8 +54,7 @@ class NewCharacterFormState extends State<NewCharacterForm> {
               RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    Character newCharacter =
-                    Character.createCharacter(
+                    Character newCharacter = Character.createCharacter(
                         _selectedClass, _newCharacterName);
 
                     characters.addCharacter(newCharacter);
