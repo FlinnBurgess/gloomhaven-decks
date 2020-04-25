@@ -38,45 +38,64 @@ class DamageChangeCard extends AttackModifierCard {
 
 String generateBaseImagePath(int damage) {
   return damage < 0
-      ? 'images/cards/base/minus-$damage-damage.png'
-      : 'images/cards/base/plus-$damage-damage.png';
+      ? 'images/cards/base/minus-${damage.abs()}-damage.png'
+      : 'images/cards/base/plus-${damage.abs()}-damage.png';
 }
 
 String generateCharacterImagePath(int damage, String characterClass) {
   characterClass = characterClass.toLowerCase();
   return damage < 0
-      ? 'images/cards/$characterClass/minus-$damage-damage.png'
-      : 'images/cards/$characterClass/plus-$damage-damage.png';
+      ? 'images/cards/$characterClass/minus-${damage.abs()}-damage.png'
+      : 'images/cards/$characterClass/plus-${damage.abs()}-damage.png';
 }
 
 String generateInfusionImagePath(int damage, Infusion infusion,
     String characterClass) {
   characterClass = characterClass.toLowerCase();
-  String infusionString = infusion.toString().toLowerCase();
+  String infusionString = infusion
+      .toString()
+      .split('.')
+      .last
+      .toLowerCase();
   return damage < 0
-      ? 'images/cards/$characterClass/minus-$damage-damage-and-$infusionString.png'
-      : 'images/cards/$characterClass/plus-$damage-damage-and-$infusionString}.png';
+      ? 'images/cards/$characterClass/minus-${damage
+      .abs()}-damage-and-$infusionString.png'
+      : 'images/cards/$characterClass/plus-${damage
+      .abs()}-damage-and-$infusionString}.png';
 }
 
 String generateConditionImagePath(int damage, Condition condition,
     String characterClass) {
   characterClass = characterClass.toLowerCase();
-  String conditionString = condition.toString().toLowerCase();
+  String conditionString = condition
+      .toString()
+      .split('.')
+      .last
+      .toLowerCase();
   return damage < 0
-      ? 'images/cards/$characterClass/minus-$damage-damage-and-$conditionString.png'
-      : 'images/cards/$characterClass/plus-$damage-damage-and-$conditionString}.png';
+      ? 'images/cards/$characterClass/minus-${damage
+      .abs()}-damage-and-$conditionString.png'
+      : 'images/cards/$characterClass/plus-${damage
+      .abs()}-damage-and-$conditionString}.png';
 }
 
 String generateAttackEffectImagePath(int damage, AttackEffect attackEffect,
     int attackEffectAmount, String characterClass) {
   characterClass = characterClass.toLowerCase();
-  String attackEffectString = attackEffect.toString().toLowerCase();
+  String attackEffectString =
+  attackEffect
+      .toString()
+      .split('.')
+      .last
+      .toLowerCase();
   if (attackEffectString == 'addtarget') {
     attackEffectString = 'add-target';
   }
   return damage < 0
-      ? 'images/cards/$characterClass/minus-$damage-damage-and-$attackEffectString-$attackEffectAmount.png'
-      : 'images/cards/$characterClass/plus-$damage-damage-and-$attackEffectString-$attackEffectAmount}.png';
+      ? 'images/cards/$characterClass/minus-${damage
+      .abs()}-damage-and-$attackEffectString-$attackEffectAmount.png'
+      : 'images/cards/$characterClass/plus-${damage
+      .abs()}-damage-and-$attackEffectString-$attackEffectAmount}.png';
 }
 
 Function(AttackModifierResult) damageChangeEffect(amount) {

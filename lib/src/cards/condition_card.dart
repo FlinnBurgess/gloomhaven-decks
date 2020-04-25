@@ -6,7 +6,10 @@ class ConditionCard extends AttackModifierCard {
   ConditionCard(Condition condition, String characterClass)
       : super(conditionEffect(condition), true,
       'images/cards/${characterClass.toLowerCase()}/rolling-${condition
-          .toString().toLowerCase()}.png');
+          .toString()
+          .split('.')
+          .last
+          .toLowerCase()}.png');
 }
 
 Function(AttackModifierResult) conditionEffect(Condition condition) {

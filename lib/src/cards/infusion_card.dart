@@ -6,7 +6,10 @@ class InfusionCard extends AttackModifierCard {
   InfusionCard(Infusion infusion, String characterClass)
       : super(infusionEffect(infusion), true,
       'images/cards/${characterClass.toLowerCase()}/rolling-${infusion
-          .toString().toLowerCase()}.png');
+          .toString()
+          .split('.')
+          .last
+          .toLowerCase()}.png');
 }
 
 Function(AttackModifierResult) infusionEffect(Infusion infusion) {

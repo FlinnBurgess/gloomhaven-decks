@@ -14,7 +14,11 @@ String generateImagePath(AttackEffect effect, int amount,
   characterClass = characterClass.toLowerCase();
   String effectString = effect == AttackEffect.addTarget
       ? 'add-target'
-      : effect.toString().toLowerCase();
+      : effect
+      .toString()
+      .split('.')
+      .last
+      .toLowerCase();
 
   return 'images/cards/$characterClass/rolling-$effectString-$amount.png';
 }

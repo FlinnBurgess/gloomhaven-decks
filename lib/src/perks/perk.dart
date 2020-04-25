@@ -47,27 +47,23 @@ class Perk {
       [cardToReplace], [replacementCard], perksAvailable, description);
 
   Perk.removeFourZeros(int perksAvailable)
-      : this.removeCards(
-      DamageChangeCard.base(0).times(4),
-      perksAvailable,
+      : this.removeCards(DamageChangeCard.base(0).times(4), perksAvailable,
             'Remove four +0 cards');
 
   Perk.removeTwoMinusOnes(int perksAvailable)
-      : this.removeCards(
-      DamageChangeCard.base(-1).times(2),
-      perksAvailable,
+      : this.removeCards(DamageChangeCard.base(-1).times(2), perksAvailable,
             'Remove two -1 cards');
 
   Perk.addTwoPlusOnes(int perksAvailable, String characterClass)
-      : this.addCards(
-      DamageChangeCard.forCharacter(1, characterClass).times(2), perksAvailable,
-      'Add two +1 cards');
+      : this.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2),
+      perksAvailable, 'Add two +1 cards');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(
       [DamageChangeCard.base(-2)],
       [DamageChangeCard.forCharacter(0, characterClass)],
-      perksAvailable, 'Replace one -2 card with one +0 card');
+      perksAvailable,
+      'Replace one -2 card with one +0 card');
 
   Perk.addTwoRollingPlusOnes(int perksAvailable, String characterClass)
       : this.addCards(
