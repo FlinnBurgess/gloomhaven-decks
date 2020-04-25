@@ -14,11 +14,15 @@ abstract class AttackModifierCard {
   }
 
   AttackModifierCard rolling() {
+    if (isRolling) {
+      return this;
+    }
+
     isRolling = true;
     String regexString = r'/cards/[a-z]+/';
     RegExp regex = RegExp(regexString);
     String match = regex.stringMatch(cardImagePath);
-    cardImagePath.replaceFirst(match, match + 'rolling-');
+    cardImagePath = cardImagePath.replaceFirst(match, match + 'rolling-');
     return this;
   }
 
@@ -38,6 +42,4 @@ abstract class AttackModifierCard {
   bool operator ==(other) {
     return identical(this, other) || this.cardImagePath == other.cardImagePath;
   }
-
-
 }
