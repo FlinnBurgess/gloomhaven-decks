@@ -61,7 +61,7 @@ String generateInfusionImagePath(int damage, Infusion infusion,
       ? 'images/cards/$characterClass/minus-${damage
       .abs()}-damage-and-$infusionString.png'
       : 'images/cards/$characterClass/plus-${damage
-      .abs()}-damage-and-$infusionString}.png';
+      .abs()}-damage-and-$infusionString.png';
 }
 
 String generateConditionImagePath(int damage, Condition condition,
@@ -76,7 +76,7 @@ String generateConditionImagePath(int damage, Condition condition,
       ? 'images/cards/$characterClass/minus-${damage
       .abs()}-damage-and-$conditionString.png'
       : 'images/cards/$characterClass/plus-${damage
-      .abs()}-damage-and-$conditionString}.png';
+      .abs()}-damage-and-$conditionString.png';
 }
 
 String generateAttackEffectImagePath(int damage, AttackEffect attackEffect,
@@ -95,7 +95,7 @@ String generateAttackEffectImagePath(int damage, AttackEffect attackEffect,
       ? 'images/cards/$characterClass/minus-${damage
       .abs()}-damage-and-$attackEffectString-$attackEffectAmount.png'
       : 'images/cards/$characterClass/plus-${damage
-      .abs()}-damage-and-$attackEffectString-$attackEffectAmount}.png';
+      .abs()}-damage-and-$attackEffectString-$attackEffectAmount.png';
 }
 
 Function(AttackModifierResult) damageChangeEffect(amount) {
