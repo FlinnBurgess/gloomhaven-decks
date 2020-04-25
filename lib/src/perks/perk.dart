@@ -52,30 +52,31 @@ class Perk {
 
   Perk.removeFourZeros(int perksAvailable)
       : this.removeCards(
-      DamageChangeCard(0, 'images/cards/base/plus-0-damage.png').times(4),
+      DamageChangeCard.base(0).times(4),
       perksAvailable,
             'Remove four +0 cards');
 
   Perk.removeTwoMinusOnes(int perksAvailable)
       : this.removeCards(
-      DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png').times(2),
+      DamageChangeCard.base(-1).times(2),
       perksAvailable,
             'Remove two -1 cards');
 
-  Perk.addTwoPlusOnes(int perksAvailable, String cardImagePath)
+  Perk.addTwoPlusOnes(int perksAvailable, String characterClass)
       : this.addCards(
-      DamageChangeCard(1, cardImagePath).times(2), perksAvailable,
+      DamageChangeCard.forCharacter(1, characterClass).times(2), perksAvailable,
       'Add two +1 cards');
 
-  Perk.replaceMinusTwoWithZero(int perksAvailable, String cardImagePath)
+  Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(
-      [DamageChangeCard(-2, 'images/cards/base/minus-2-damage.png')],
-      [DamageChangeCard(0, cardImagePath)],
+      [DamageChangeCard.base(-2)],
+      [DamageChangeCard.forCharacter(0, characterClass)],
       perksAvailable, 'Replace one -2 card with one +0 card');
 
-  Perk.addTwoRollingPlusOnes(int perksAvailable, String cardImagePath)
+  Perk.addTwoRollingPlusOnes(int perksAvailable, String characterClass)
       : this.addCards(
-      DamageChangeCard(1, cardImagePath).rolling().times(2), perksAvailable,
+      DamageChangeCard.forCharacter(1, characterClass).rolling().times(2),
+      perksAvailable,
             'Add two [ROLLING] +1 cards');
 
   Function _removeCardsFromDeck(List<AttackModifierCard> cards) {

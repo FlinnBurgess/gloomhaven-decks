@@ -5,26 +5,78 @@ import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
 class DamageChangeCard extends AttackModifierCard {
-  DamageChangeCard(int damageChange, String cardImagePath)
-      : super(damageChangeEffect(damageChange), false, cardImagePath);
+  DamageChangeCard.base(int damageChange)
+      : super(damageChangeEffect(damageChange), false,
+      generateBaseImagePath(damageChange));
+
+  DamageChangeCard.forCharacter(int damageChange, String characterClass)
+      : super(damageChangeEffect(damageChange), false,
+      generateCharacterImagePath(damageChange, characterClass));
 
   DamageChangeCard.withInfusion(int damageChange, Infusion infusion,
-      String cardImagePath)
-      : super(
-      damageChangeWithInfusionEffect(damageChange, infusion), false,
-      cardImagePath);
+      String characterClass)
+      : super(damageChangeWithInfusionEffect(damageChange, infusion), false,
+      generateInfusionImagePath(damageChange, infusion, characterClass));
 
   DamageChangeCard.withCondition(int damageChange, Condition condition,
-      String cardImagePath)
-      : super(damageChangeWithConditionEffect(damageChange, condition),
-      false, cardImagePath);
+      String characterClass)
+      : super(
+      damageChangeWithConditionEffect(damageChange, condition),
+      false,
+      generateConditionImagePath(
+          damageChange, condition, characterClass));
 
   DamageChangeCard.withAttackEffect(int damageChange, AttackEffect attackEffect,
-      int attackEffectAmount, String cardImagePath)
+      int attackEffectAmount, String characterClass)
       : super(
             damageChangeWithAttackEffect(
                 damageChange, attackEffect, attackEffectAmount),
-      false, cardImagePath);
+      false,
+      generateAttackEffectImagePath(damageChange, attackEffect,
+          attackEffectAmount, characterClass));
+}
+
+String generateBaseImagePath(int damage) {
+  return damage < 0
+      ? 'images/cards/base/minus-$damage-damage.png'
+      : 'images/cards/base/plus-$damage-damage.png';
+}
+
+String generateCharacterImagePath(int damage, String characterClass) {
+  characterClass = characterClass.toLowerCase();
+  return damage < 0
+      ? 'images/cards/$characterClass/minus-$damage-damage.png'
+      : 'images/cards/$characterClass/plus-$damage-damage.png';
+}
+
+String generateInfusionImagePath(int damage, Infusion infusion,
+    String characterClass) {
+  characterClass = characterClass.toLowerCase();
+  String infusionString = infusion.toString().toLowerCase();
+  return damage < 0
+      ? 'images/cards/$characterClass/minus-$damage-damage-and-$infusionString.png'
+      : 'images/cards/$characterClass/plus-$damage-damage-and-$infusionString}.png';
+}
+
+String generateConditionImagePath(int damage, Condition condition,
+    String characterClass) {
+  characterClass = characterClass.toLowerCase();
+  String conditionString = condition.toString().toLowerCase();
+  return damage < 0
+      ? 'images/cards/$characterClass/minus-$damage-damage-and-$conditionString.png'
+      : 'images/cards/$characterClass/plus-$damage-damage-and-$conditionString}.png';
+}
+
+String generateAttackEffectImagePath(int damage, AttackEffect attackEffect,
+    int attackEffectAmount, String characterClass) {
+  characterClass = characterClass.toLowerCase();
+  String attackEffectString = attackEffect.toString().toLowerCase();
+  if (attackEffectString == 'addtarget') {
+    attackEffectString = 'add-target';
+  }
+  return damage < 0
+      ? 'images/cards/$characterClass/minus-$damage-damage-and-$attackEffectString-$attackEffectAmount.png'
+      : 'images/cards/$characterClass/plus-$damage-damage-and-$attackEffectString-$attackEffectAmount}.png';
 }
 
 Function(AttackModifierResult) damageChangeEffect(amount) {

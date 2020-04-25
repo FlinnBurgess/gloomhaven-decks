@@ -24,35 +24,35 @@ class Sunkeeper extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceMinusTwoWithZero(
-          Perk.ONE_PERK_AVAILABLE, 'images/cards/sunkeeper/plus-0-damage.png'),
+          Perk.ONE_PERK_AVAILABLE, this.runtimeType.toString()),
       Perk.replaceCard(
-          DamageChangeCard(0, 'images/cards/base/plus-0-damage.png'),
-          DamageChangeCard(2, 'images/cards/sunkeeper/plus-2-damage.png'),
+          DamageChangeCard.base(0),
+          DamageChangeCard.forCharacter(2, this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE, 'Replace one +0 card with one +2 card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE,
-          'images/cards/sunkeeper/rolling-plus-1-damage.png'),
+          this.runtimeType.toString()),
       Perk.addCards(AttackEffectCard(
           AttackEffect.heal, 1,
-          'images/cards/sunkeeper/rolling-heal-1-self.png')
+          this.runtimeType.toString())
           .times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [HEAL 1] cards'),
       Perk.addCard(
           ConditionCard(
-              Condition.stun, 'images/cards/sunkeeper/rolling-stun.png'),
+              Condition.stun, this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE,
           'Add one [ROLLING] [STUN] card'),
       Perk.addCards(
           InfusionCard(
-              Infusion.light, 'images/cards/sunkeeper/rolling-light.png')
+              Infusion.light, this.runtimeType.toString())
               .times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [LIGHT INFUSION] cards'),
       Perk.addCards(AttackEffectCard(
-          AttackEffect.shield, 1, 'images/cards/sunkeeper/rolling-shield-1.png')
+          AttackEffect.shield, 1, this.runtimeType.toString())
           .times(
           2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [SHIELD 1], Self cards'),
       Perk.addCards(
-          DamageChangeCard(1, 'images/cards/sunkeeper/plus-1-damage.png').times(
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString()).times(
               2),
           Perk.ONE_PERK_AVAILABLE,
           'Ignore negative item effects and add two +1 cards')

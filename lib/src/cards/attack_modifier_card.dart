@@ -15,6 +15,10 @@ abstract class AttackModifierCard {
 
   AttackModifierCard rolling() {
     isRolling = true;
+    String regexString = r'/cards/[a-z]+/';
+    RegExp regex = RegExp(regexString);
+    String match = regex.stringMatch(cardImagePath);
+    cardImagePath.replaceFirst(match, match + 'rolling-');
     return this;
   }
 

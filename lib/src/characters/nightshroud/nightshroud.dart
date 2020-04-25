@@ -25,40 +25,40 @@ class Nightshroud extends Character {
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.addCard(DamageChangeCard.withInfusion(
           -1, Infusion.dark,
-          'images/cards/nightshroud/minus-1-damage-and-dark.png'),
+          this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE, 'Add one -1 and [dark infusion] card'),
       Perk.replaceCard(
           DamageChangeCard.withInfusion(-1, Infusion.dark,
-              'images/cards/nightshroud/minus-1-damage-and-dark.png'),
+              this.runtimeType.toString()),
           DamageChangeCard.withInfusion(
               1, Infusion.dark,
-              'images/cards/nightshroud/plus-1-damage-and-dark.png'),
+              this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE,
           'Replace one -1 and [dark infusion] card with one +1 and [dark infusion] card'),
       Perk.addCard(
           DamageChangeCard.withCondition(1, Condition.invisible,
-              'images/cards/nightshroud/plus-1-damage-and-invisible.png'),
+              this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [INVISIBLE] card'),
       Perk.addCards(ConditionCard(
-          Condition.muddle, 'images/cards/nightshroud/rolling-muddle.png')
+          Condition.muddle, this.runtimeType.toString())
           .times(3),
           Perk.TWO_PERKS_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
       Perk.addCards(AttackEffectCard(
-          AttackEffect.heal, 1, 'images/cards/nightshroud/rolling-heal-1.png')
+          AttackEffect.heal, 1, this.runtimeType.toString())
           .times(
           2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [HEAL+1] cards'),
       Perk.addCards(
           ConditionCard(
-              Condition.curse, 'images/cards/nightshroud/rolling-curse.png')
+              Condition.curse, this.runtimeType.toString())
               .times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
       Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1,
-          'images/cards/nightshroud/rolling-add-target-1.png'),
+          this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
       Perk.addCards(
-          DamageChangeCard(1, 'images/cards/nightshroud/plus-one-damage.png')
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString())
               .times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Ignore negative scenario effects and add two +1 cards'),

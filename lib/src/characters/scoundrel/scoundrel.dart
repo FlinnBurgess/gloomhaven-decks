@@ -22,35 +22,35 @@ class Scoundrel extends Character {
       Perk.removeTwoMinusOnes(Perk.TWO_PERKS_AVAILABLE),
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceMinusTwoWithZero(
-          Perk.ONE_PERK_AVAILABLE, 'images/cards/scoundrel/plus-0-damage.png'),
+          Perk.ONE_PERK_AVAILABLE, this.runtimeType.toString()),
       Perk.replaceCard(
-          DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png'),
-          DamageChangeCard(1, 'images/cards/scoundrel/plus-1-damage.png'),
+          DamageChangeCard.base(-1),
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.replaceCard(
-          DamageChangeCard(0, 'images/cards/base/plus-0-damage.png'),
-          DamageChangeCard(2, 'images/cards/scoundrel/plus-2-damage.png'),
+          DamageChangeCard.base(0),
+          DamageChangeCard.forCharacter(2, this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE, 'Replace one +0 card with one +2 card'),
       Perk.addTwoRollingPlusOnes(Perk.TWO_PERKS_AVAILABLE,
-          'images/cards/scoundrel/rolling-plus-1-damage.png'),
+          this.runtimeType.toString()),
       Perk.addCards(AttackEffectCard(
-          AttackEffect.pierce, 3, 'images/cards/scoundrel/rolling-pierce-3.png')
+          AttackEffect.pierce, 3, this.runtimeType.toString())
           .times(
           2),
           Perk.ONE_PERK_AVAILABLE, 'Add three [ROLLING] [PIERCE 3] cards'),
       Perk.addCards(
           ConditionCard(
-              Condition.poison, 'images/cards/scoundrel/rolling-poison.png')
+              Condition.poison, this.runtimeType.toString())
               .times(2),
           Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [POISON] cards'),
       Perk.addCards(
           ConditionCard(
-              Condition.muddle, 'images/cards/scoundrel/rolling-muddle.png')
+              Condition.muddle, this.runtimeType.toString())
               .times(2),
           Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [MUDDLE] cards'),
       Perk.addCard(ConditionCard(
-          Condition.invisible, 'images/cards/scoundrel/rolling-invisible.png'),
+          Condition.invisible, this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE, 'Add one [ROLLING] [INVISIBLE] perk'),
     ];
   }

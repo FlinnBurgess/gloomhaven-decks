@@ -18,52 +18,52 @@ class Plagueherald extends Character {
 
     perks = [
       Perk.replaceMinusTwoWithZero(Perk.ONE_PERK_AVAILABLE,
-          'images/cards/plagueherald/plus-0-damage.png'),
+          this.runtimeType.toString()),
       Perk.replaceCard(
-          DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png'),
-          DamageChangeCard(1, 'images/cards/plagueherald/plus-1-damage.png'),
+          DamageChangeCard.base(-1),
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.replaceCard(
-          DamageChangeCard(0, 'images/cards/base/plus-0-damage.png'),
-          DamageChangeCard(2, 'images/cards/plagueherald/plus-2-damage.png'),
+          DamageChangeCard.base(0),
+          DamageChangeCard.forCharacter(2, this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE,
           'Replace one +0 card with one +2 card'),
       Perk.addCards(
-          DamageChangeCard(1, 'images/cards/plagueherald/plus-1-damage.png')
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString())
               .times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Add two +1 cards'),
       Perk.addCard(
           DamageChangeCard.withInfusion(1, Infusion.air,
-              'images/cards/plagueherald/plus-1-damage-and-air.png'),
+              this.runtimeType.toString()),
           Perk.THREE_PERKS_AVAILABLE,
           'Add one +1 [AIR INFUSION] card'),
       Perk.addCards(
           ConditionCard(Condition.poison,
-                  'images/cards/plagueherald/rolling-poison.png')
+              this.runtimeType.toString())
               .times(3),
           Perk.ONE_PERK_AVAILABLE,
           'Add three [ROLLING] [POISON] cards'),
       Perk.addCards(
           ConditionCard(Condition.curse,
-                  'images/cards/plagueherald/rolling-curse.png')
+              this.runtimeType.toString())
               .times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Add two [ROLLING] [CURSE] cards'),
       Perk.addCards(
           ConditionCard(Condition.immobilize,
-                  'images/cards/plagueherald/rolling-immobilize.png')
+              this.runtimeType.toString())
               .times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Add two [ROLLING] [IMMOBILIZE] cards'),
       Perk.addCard(
           ConditionCard(
-              Condition.stun, 'images/cards/plagueherald/rolling-stun.png'),
+              Condition.stun, this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE,
           'Add one [ROLLING] [STUN] card'),
       Perk.addCards(
-          DamageChangeCard(1, 'images/cards/plagueherald/plus-1-damage.png')
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString())
               .times(2),
           Perk.ONE_PERK_AVAILABLE,
           'Ignore negative scenario effects and add one +1 card'),

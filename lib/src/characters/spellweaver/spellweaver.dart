@@ -20,46 +20,46 @@ class Spellweaver extends Character {
     perks = [
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceCard(
-          DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png'),
-          DamageChangeCard(1, 'images/cards/spellweaver/plus-1-damage.png'),
+          DamageChangeCard.base(-1),
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE, 'Replace one -1 card with one +1 card'),
       Perk.addTwoPlusOnes(
           Perk.TWO_PERKS_AVAILABLE,
-          'images/cards/spellweaver/plus-1-damage.png'),
+          this.runtimeType.toString()),
       Perk.addCard(DamageChangeCard.withCondition(
-          0, Condition.stun, 'images/cards/spellweaver/stun.png'),
+          0, Condition.stun, this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE, 'Add one +0 [STUN] card'),
       Perk.addCard(DamageChangeCard.withCondition(
           1, Condition.wound,
-          'images/cards/spellweaver/plus-1-damage-and-wound.png'),
+          this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE, 'Add one +1 [WOUND] card'),
       Perk.addCard(
           DamageChangeCard.withCondition(1, Condition.immobilize,
-              'images/cards/spellweaver/plus-1-damage-and-immobilize.png'),
+              this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE,
           'Add one +1 [IMMOBILIZE] card'),
       Perk.addCard(DamageChangeCard.withCondition(
           1, Condition.curse,
-          'images/cards/spellweaver/plus-1-damage-and-curse.png'),
+          this.runtimeType.toString()),
           Perk.ONE_PERK_AVAILABLE, 'Add one +1 [CURSE] card'),
       Perk.addCard(DamageChangeCard.withInfusion(
           2, Infusion.fire,
-          'images/cards/spellweaver/plus-2-damage-and-fire.png'),
+          this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [FIRE INFUSION] card'),
       Perk.addCard(DamageChangeCard.withInfusion(
           2, Infusion.ice,
-          'images/cards/spellweaver/plus-2-damage-and-ice.png'),
+          this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE, 'Add one +2 [ICE INFUSION] card'),
       Perk.addCards([
         InfusionCard(
-            Infusion.earth, 'images/cards/spellweaver/rolling-earth.png'),
-        InfusionCard(Infusion.air, 'images/cards/spellweaver/rolling-air.png')
+            Infusion.earth, this.runtimeType.toString()),
+        InfusionCard(Infusion.air, this.runtimeType.toString())
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [EARTH INFUSION] and one [AIR INFUSION] card'),
       Perk.addCards([
         InfusionCard(
-            Infusion.light, 'images/cards/spellweaver/rolling-light.png'),
-        InfusionCard(Infusion.dark, 'images/cards/spellweaver/rolling-dark.png')
+            Infusion.light, this.runtimeType.toString()),
+        InfusionCard(Infusion.dark, this.runtimeType.toString())
       ], Perk.ONE_PERK_AVAILABLE,
           'Add one [LIGHT INFUSION] and one [DARK INFUSION] card'),
     ];

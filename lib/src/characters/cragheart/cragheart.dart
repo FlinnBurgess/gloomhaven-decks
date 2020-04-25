@@ -23,43 +23,40 @@ class Cragheart extends Character {
     perks = [
       Perk.removeFourZeros(Perk.ONE_PERK_AVAILABLE),
       Perk.replaceCard(
-          DamageChangeCard(-1, 'images/cards/base/minus-1-damage.png'),
-          DamageChangeCard(1, 'images/cards/cragheart/plus-1-damage.png'),
+          DamageChangeCard.base(-1),
+          DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
           Perk.THREE_PERKS_AVAILABLE,
           'Replace one -1 card with one +1 card'),
       Perk.addCards(
-          DamageChangeCard(2, 'images/cards/cragheart/plus-2-damage.png').times(
-              2) +
-              DamageChangeCard(-2, 'images/cards/cragheart/minus-2-damage.png')
-                  .times(
-                  1),
+          DamageChangeCard.forCharacter(2, this.runtimeType.toString())
+              .times(2) +
+              DamageChangeCard.forCharacter(-2, this.runtimeType.toString())
+                  .times(1),
           Perk.ONE_PERK_AVAILABLE,
           'Add one -2 card and two +2 cards'),
       Perk.addCard(
-          DamageChangeCard.withCondition(1, Condition.immobilize,
-              'images/cards/cragheart/plus-1-damage-and-immobilize.png'),
+          DamageChangeCard.withCondition(
+              1, Condition.immobilize, this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE,
           'Add one +1 [IMMOBILIZE] card'),
       Perk.addCard(
-          DamageChangeCard.withCondition(2, Condition.muddle,
-              'images/cards/cragheart/plus-2-damage-and-muddle.png'),
+          DamageChangeCard.withCondition(
+              2, Condition.muddle, this.runtimeType.toString()),
           Perk.TWO_PERKS_AVAILABLE,
           'Add one +2 [MUDDLE] card'),
       Perk.addCards(
-          AttackEffectCard(
-              AttackEffect.push, 2, 'images/cards/cragheart/push-2.png')
+          AttackEffectCard(AttackEffect.push, 2, this.runtimeType.toString())
               .times(2),
-          Perk.ONE_PERK_AVAILABLE, 'Add two [PUSH 2] cards'),
+          Perk.ONE_PERK_AVAILABLE,
+          'Add two [PUSH 2] cards'),
       Perk.addCards(
-          InfusionCard(
-              Infusion.earth, 'images/cards/cragheart/rolling-earth.png')
-              .times(2),
-          Perk.TWO_PERKS_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards'),
+          InfusionCard(Infusion.earth, this.runtimeType.toString()).times(2),
+          Perk.TWO_PERKS_AVAILABLE,
+          'Add two [ROLLING] [EARTH INFUSION] cards'),
       Perk.addCards(
-          InfusionCard(Infusion.air, 'images/cards/cragheart/rolling-air.png')
-              .times(
-              2),
-          Perk.ONE_PERK_AVAILABLE, 'Add two [ROLLING] [AIR INFUSION] cards')
+          InfusionCard(Infusion.air, this.runtimeType.toString()).times(2),
+          Perk.ONE_PERK_AVAILABLE,
+          'Add two [ROLLING] [AIR INFUSION] cards')
     ];
   }
 }
