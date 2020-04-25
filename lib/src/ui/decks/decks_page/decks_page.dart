@@ -4,10 +4,12 @@ import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/attack_modifier_deck_tab.dart';
 import 'package:provider/provider.dart';
+import 'package:wakelock/wakelock.dart';
 
 class DecksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Wakelock.enable();
     return Consumer<Characters>(
       builder: (context, characters, child) {
         List<Character> activeCharacters = characters.characters
@@ -18,7 +20,7 @@ class DecksPage extends StatelessWidget {
             .map<Tab>((character) => Tab(
           icon: character.characterIcon,
           text: character.name,
-                ))
+        ))
             .toList();
 
         List<AttackModifierDeckTab> characterDeckPages =
