@@ -72,6 +72,7 @@ class AttackModifierDeck {
     _drawPile = [..._cardsInDeck];
     _drawPile.shuffle();
     _discardPile = [];
+    needsShuffling = false;
   }
 
   void addCards(List<AttackModifierCard> cards) {
