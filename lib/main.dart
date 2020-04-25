@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/settings/settings.dart';
 import 'package:gloomhaven_decks/src/ui/home_page/home_page.dart';
 import 'package:provider/provider.dart';
 
@@ -8,12 +9,19 @@ TextTheme customTextTheme = TextTheme(
   button: TextStyle(fontSize: 20),
 );
 
+//TODO add splash screen
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Characters characters = await Characters.load();
+  Settings settings = await Settings.load();
 
-  runApp(ChangeNotifierProvider(
-      create: (context) => characters, child: GloomhavenDeckTracker()));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => characters),
+      Provider(create: (context) => settings),
+    ],
+    child: GloomhavenDeckTracker(),
+  ));
 }
 
 class GloomhavenDeckTracker extends StatelessWidget {
