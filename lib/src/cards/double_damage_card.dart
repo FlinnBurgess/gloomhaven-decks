@@ -1,5 +1,6 @@
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
+import 'package:gloomhaven_decks/src/settings/settings.dart';
 
 class DoubleDamageCard extends AttackModifierCard {
   DoubleDamageCard()
@@ -8,6 +9,8 @@ class DoubleDamageCard extends AttackModifierCard {
 }
 
 Function(AttackModifierResult) doubleDamageEffect() {
-  return (AttackModifierResult result) =>
-      result.applyDamageDifference(result.totalDamage);
+  return (AttackModifierResult result) async {
+    bool lessRandomness = await getLessRandomnessSetting();
+    result.applyDamageDifference(lessRandomness ? 2 : result.totalDamage);
+  };
 }

@@ -1,60 +1,28 @@
-import 'dart:convert';
-import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:path_provider/path_provider.dart';
+const LESS_RANDOMNESS = 'lessRandomness';
+const HIDE_UNLOCKABLE_CLASS_NAMES = 'hideClassNames';
 
-class Settings {
-  bool lessRandomness = false;
-  bool hideNonStarterClassNames = true;
+Future<bool> getLessRandomnessSetting() async {
+  SharedPreferences settings = await SharedPreferences.getInstance();
+  return settings.containsKey(LESS_RANDOMNESS)
+      ? settings.getBool(LESS_RANDOMNESS)
+      : false;
+}
 
-  void setLessRandomnessSetting(bool setting) {
-    lessRandomness = setting;
-  }
+setLessRandomnessSetting(bool setting) async {
+  final SharedPreferences settings = await SharedPreferences.getInstance();
+  await settings.setBool(LESS_RANDOMNESS, setting);
+}
 
-  void setHideNonStarterClassNames(bool setting) {
-    hideNonStarterClassNames = setting;
-  }
+Future<bool> getHideUnlockableClassNamesSetting() async {
+  SharedPreferences settings = await SharedPreferences.getInstance();
+  return settings.containsKey(HIDE_UNLOCKABLE_CLASS_NAMES)
+      ? settings.getBool(HIDE_UNLOCKABLE_CLASS_NAMES)
+      : true;
+}
 
-  Map<String, dynamic> toJson() {
-    return {
-      'doubleAndNullAreTwoDamageChangeInstead': lessRandomness,
-      'hideNonStarterClassNames': hideNonStarterClassNames
-    };
-  }
-
-  static Settings fromJson(Map<String, dynamic> json) {
-    Settings settings = Settings();
-    settings.lessRandomness = json['doubleAndNullAreTwoDamageChangeInstead'];
-    settings.hideNonStarterClassNames = json['hideNonStarterClassNames'];
-    return settings;
-  }
-
-  Future<void> save() async {
-    final file = await _localFile;
-
-    return file.writeAsString(jsonEncode(this.toJson()));
-  }
-
-  static Future<Settings> load() async {
-    try {
-      final file = await _localFile;
-      String encodedSettings = await file.readAsString();
-      Map<String, dynamic> decodedSettings = jsonDecode(encodedSettings);
-      return fromJson(decodedSettings);
-    } catch (e) {
-      return Settings();
-    }
-  }
-
-  static Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-
-    return directory.path;
-  }
-
-  static Future<File> get _localFile async {
-    final path = await _localPath;
-
-    return File('$path/settings.json');
-  }
+setHideUnlockableClassNamesSetting(bool setting) async {
+  final SharedPreferences settings = await SharedPreferences.getInstance();
+  await settings.setBool(HIDE_UNLOCKABLE_CLASS_NAMES, setting);
 }

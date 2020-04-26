@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
+import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/bless_card.dart';
 import 'package:gloomhaven_decks/src/cards/curse_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
-import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/advantaged_result_display.dart';
-
-import 'default_result_display.dart';
-import 'disadvantaged_result_display.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/tappable_result.dart';
 
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
@@ -23,7 +21,6 @@ class AttackModifierDeckTab extends StatefulWidget {
 
 //TODO Persist state of the decks page tabs so that navigating away doesn't reset them
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
-  AttackModifierResult result = AttackModifierResult();
   Widget resultDisplay;
   int initialDamage = 0;
   bool targetIsPoisoned = false;
@@ -65,25 +62,21 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
           ),
           RaisedButton(
             child: Text("Draw cards"),
-            onPressed: initialDamage == null
-                ? null
-                : () {
-              this.widget.deck.discardCardsDrawn();
+            onPressed: () {
               if (this.widget.deck.needsShuffling) {
                 this.widget.deck.shuffle();
               }
               setState(() {
-                if (characterHasAdvantage) {
-                  resultDisplay = AdvantagedResultDisplay(
-                      this.widget.deck, initialDamage, targetIsPoisoned);
-                } else if (characterDisadvantaged) {
-                  resultDisplay = DisadvantagedResultDisplay(
-                      this.widget.deck, initialDamage, targetIsPoisoned);
-                } else {
-                  resultDisplay = DefaultResultDisplay(
-                      this.widget.deck, initialDamage, targetIsPoisoned);
-                }
+                resultDisplay = FutureBuilder<Widget>(
+                  future: getResultsBasedOnSettings(),
+                  initialData: Container(),
+                  builder: (context, snapshot) =>
+                  snapshot.hasData
+                      ? resultDisplay = snapshot.data
+                      : Container(),
+                );
               });
+              this.widget.deck.discardCardsDrawn();
             },
           ),
           Padding(
@@ -183,7 +176,79 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
               )
             ],
           ),
-        ])
-    );
+        ]));
+  }
+
+  Future<Widget> getResultsBasedOnSettings() async {
+    if (characterHasAdvantage) {
+      return await getAdvantageResults();
+    } else if (characterDisadvantaged) {
+      return await getDisadvantageResults();
+    }
+
+    return await getResult();
+  }
+
+  getResult() async {
+    var result = AttackModifierResult();
+    result.applyDamageDifference(initialDamage + (targetIsPoisoned ? 1 : 0));
+    List<AttackModifierCard> cardsInPlay =
+    this.widget.deck.drawUntilNonRollingCard();
+
+    result = await result.applyCards(cardsInPlay);
+    return TappableResult(result, cardsInPlay);
+  }
+
+  getAdvantageResults() async {
+    var firstResult = AttackModifierResult();
+    var secondResult = AttackModifierResult();
+
+    firstResult
+        .applyDamageDifference(initialDamage + (targetIsPoisoned ? 1 : 0));
+    secondResult
+        .applyDamageDifference(initialDamage + (targetIsPoisoned ? 1 : 0));
+
+    List<AttackModifierCard> cardsInPlay =
+    this.widget.deck.drawUntilNonRollingCard();
+    if (cardsInPlay.length == 1) {
+      cardsInPlay.add(this.widget.deck.draw());
+      if (!cardsInPlay[1].isRolling) {
+        firstResult = await firstResult.applyCardEffect(cardsInPlay[0]);
+        secondResult = await secondResult.applyCardEffect(cardsInPlay[1]);
+        return TappableResult.ambiguousAdvantage(
+            firstResult, cardsInPlay[0], secondResult, cardsInPlay[1]);
+      }
+    }
+
+    var result = await firstResult.applyCards(cardsInPlay);
+    return TappableResult(result, cardsInPlay);
+  }
+
+  getDisadvantageResults() async {
+    var firstResult = AttackModifierResult();
+    var secondResult = AttackModifierResult();
+
+    firstResult
+        .applyDamageDifference(initialDamage + (targetIsPoisoned ? 1 : 0));
+    secondResult
+        .applyDamageDifference(initialDamage + (targetIsPoisoned ? 1 : 0));
+
+    List<AttackModifierCard> cardsInPlay =
+    this.widget.deck.drawUntilNonRollingCard();
+    if (cardsInPlay.length == 1) {
+      cardsInPlay.add(this.widget.deck.draw());
+      if (cardsInPlay[1].isRolling) {
+        var result = await firstResult.applyCardEffect(cardsInPlay[0]);
+        return TappableResult(result, cardsInPlay);
+      } else {
+        firstResult = await firstResult.applyCardEffect(cardsInPlay[0]);
+        secondResult = await secondResult.applyCardEffect(cardsInPlay[1]);
+        return TappableResult.ambiguousDisadvantage(
+            firstResult, cardsInPlay[0], secondResult, cardsInPlay[1]);
+      }
+    } else {
+      var result = await firstResult.applyCardEffect(cardsInPlay.last);
+      return TappableResult(result, cardsInPlay);
+    }
   }
 }

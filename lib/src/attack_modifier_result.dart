@@ -17,8 +17,15 @@ class AttackModifierResult {
   int pushAmount = 0;
   int shieldAmount = 0;
 
-  void applyCardEffect(AttackModifierCard card) {
-    card.applyEffect(this);
+  Future<AttackModifierResult> applyCardEffect(AttackModifierCard card) async {
+    await card.applyEffect(this);
+    return this;
+  }
+
+  Future<AttackModifierResult> applyCards(
+      List<AttackModifierCard> cards) async {
+    cards.forEach((card) async => await applyCardEffect(card));
+    return this;
   }
 
   void reset() {

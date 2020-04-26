@@ -21,11 +21,12 @@ class TappableResult extends StatelessWidget {
                   content: Container(
                     width: double.maxFinite,
                     child: ListView(
-                      children:
-                      cardsApplied.map((card) =>
+                      children: cardsApplied
+                          .map((card) =>
                           Padding(
                               padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                              child: card.getImage())).toList(),
+                              child: card.getImage()))
+                          .toList(),
                     ),
                   ),
                 );
@@ -34,6 +35,68 @@ class TappableResult extends StatelessWidget {
         child: Column(
           children: _extractInformationToDisplay(result),
         ));
+  }
+
+  static Widget ambiguousDisadvantage(AttackModifierResult firstResult,
+      AttackModifierCard firstCard,
+      AttackModifierResult secondResult,
+      AttackModifierCard secondCard) {
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[Text('Select the worst of the two results')],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text('First result:'),
+                TappableResult(firstResult, [firstCard])
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Text('Second result:'),
+                TappableResult(secondResult, [secondCard])
+              ],
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  static Widget ambiguousAdvantage(AttackModifierResult firstResult,
+      AttackModifierCard firstCard,
+      AttackModifierResult secondResult,
+      AttackModifierCard secondCard) {
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[Text('Select the better of the two results')],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text('First result:'),
+                TappableResult(firstResult, [firstCard])
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Text('Second result:'),
+                TappableResult(secondResult, [secondCard])
+              ],
+            )
+          ],
+        )
+      ],
+    );
   }
 
   List<Widget> _extractInformationToDisplay(AttackModifierResult result) {
