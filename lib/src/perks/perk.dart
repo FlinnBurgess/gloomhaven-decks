@@ -2,6 +2,10 @@ import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 
+const int ONE_AVAILABLE = 1;
+const int TWO_AVAILABLE = 2;
+const int THREE_AVAILABLE = 3;
+
 class Perk {
   Function(AttackModifierDeck) apply;
   Function(AttackModifierDeck) unapply;

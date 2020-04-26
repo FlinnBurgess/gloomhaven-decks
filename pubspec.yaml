@@ -12,6 +12,7 @@ dependencies:
   provider: ^3.0.0
   path_provider: ^1.6.7
   wakelock: ^0.1.4+1
+  shared_preferences: ^0.5.7
 
 
 dev_dependencies:
