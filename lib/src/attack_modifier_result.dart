@@ -49,6 +49,9 @@ class AttackModifierResult {
     } else {
       totalDamage += difference;
     }
+    if (totalDamage < 0) {
+      totalDamage = 0;
+    }
   }
 
   void addInfusion(Infusion infusion) {
