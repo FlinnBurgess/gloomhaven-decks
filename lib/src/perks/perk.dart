@@ -1,5 +1,6 @@
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
+import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 
 const int ONE_AVAILABLE = 1;
@@ -61,6 +62,12 @@ class Perk {
   Perk.addTwoPlusOnes(int perksAvailable, String characterClass)
       : this.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2),
       perksAvailable, 'Add two +1 cards');
+
+  Perk.addPlusOneAndWoundCard(int perksAvailable, String characterClass) :
+        this.addCard(
+          DamageChangeCard.withCondition(1, Condition.wound, characterClass),
+          perksAvailable,
+          'Add one +1 [WOUND] card');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(

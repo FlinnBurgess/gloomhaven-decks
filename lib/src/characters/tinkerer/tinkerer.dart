@@ -18,41 +18,32 @@ class Tinkerer extends Character {
 
   Tinkerer(this.name) {
     characterIcon = Icon(CharacterIcons.tinkerer_icon);
+    String characterClass = this.runtimeType.toString();
 
     perks = [
       Perk.removeTwoMinusOnes(TWO_AVAILABLE),
-      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, this.runtimeType.toString()),
-      Perk.addTwoPlusOnes(ONE_AVAILABLE, this.runtimeType.toString()),
-      Perk.addCard(
-          DamageChangeCard.forCharacter(3, this.runtimeType.toString()),
-          ONE_AVAILABLE,
-          'Add one +3 card'),
-      Perk.addCards(
-          InfusionCard(Infusion.fire, this.runtimeType.toString()).times(2),
-          TWO_AVAILABLE,
-          'Add two [ROLLING] [FIRE INFUSION] cards'),
-      Perk.addCards(
-          ConditionCard(Condition.muddle, this.runtimeType.toString()).times(3),
-          ONE_AVAILABLE,
-          'Add three [ROLLING] [MUDDLE] cards'),
+      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, characterClass),
+      Perk.addTwoPlusOnes(ONE_AVAILABLE, characterClass),
+      Perk.addCard(DamageChangeCard.forCharacter(3, characterClass),
+          ONE_AVAILABLE, 'Add one +3 card'),
+      Perk.addCards(InfusionCard(Infusion.fire, characterClass).times(2),
+          TWO_AVAILABLE, 'Add two [ROLLING] [FIRE INFUSION] cards'),
+      Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
+          ONE_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
+      Perk.addPlusOneAndWoundCard(TWO_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withCondition(
-              1, Condition.wound, this.runtimeType.toString()),
-          TWO_AVAILABLE,
-          'Add one +1 [WOUND] card'),
-      Perk.addCard(
-          DamageChangeCard.withCondition(
-              1, Condition.immobilize, this.runtimeType.toString()),
+              1, Condition.immobilize, characterClass),
           TWO_AVAILABLE,
           'Add one +1 [IMMOBILIZE] card'),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
-              1, AttackEffect.heal, 2, this.runtimeType.toString()),
+              1, AttackEffect.heal, 2, characterClass),
           TWO_AVAILABLE,
           'Add one +1 [HEAL 2] card'),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
-              0, AttackEffect.addTarget, 1, this.runtimeType.toString()),
+              0, AttackEffect.addTarget, 1, characterClass),
           ONE_AVAILABLE,
           'Add one +0 [ADD TARGET] card')
     ];
