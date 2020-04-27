@@ -35,8 +35,7 @@ class Plagueherald extends Character {
           ConditionCard(Condition.immobilize, characterClass).times(2),
           ONE_AVAILABLE,
           'Add two [ROLLING] [IMMOBILIZE] cards'),
-      Perk.addCard(ConditionCard(Condition.stun, characterClass), TWO_AVAILABLE,
-          'Add one [ROLLING] [STUN] card'),
+      Perk.addOneRollingStunCard(TWO_AVAILABLE, characterClass),
       Perk.addCards(
           DamageChangeCard.forCharacter(1, characterClass).times(2),
           ONE_AVAILABLE,

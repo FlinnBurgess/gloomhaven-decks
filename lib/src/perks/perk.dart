@@ -1,4 +1,5 @@
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
+import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
@@ -75,6 +76,11 @@ class Perk {
           1, Condition.immobilize, characterClass),
       perksAvailable,
       'Add one +1 [IMMOBILIZE] card');
+
+  Perk.addOneRollingStunCard(int perksAvailable, String characterClass)
+      : this.addCard(
+      ConditionCard(Condition.stun, characterClass), perksAvailable,
+      'Add one [ROLLING] [STUN] card');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(

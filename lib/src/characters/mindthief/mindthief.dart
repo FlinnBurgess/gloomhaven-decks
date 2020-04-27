@@ -19,43 +19,36 @@ class Mindthief extends Character {
   Mindthief(this.name) {
     characterIcon = Icon(CharacterIcons.mindthief_icon);
 
+    var characterClass = this.runtimeType.toString();
+
     perks = [
       Perk.removeTwoMinusOnes(TWO_AVAILABLE),
       Perk.removeFourZeros(ONE_AVAILABLE),
       Perk.replaceCards(
           DamageChangeCard.base(1).times(2),
-          DamageChangeCard.forCharacter(2, this.runtimeType.toString())
-              .times(2),
+          DamageChangeCard.forCharacter(2, characterClass).times(2),
           ONE_AVAILABLE,
           'Replace two +1 cards with two +2 cards'),
-      Perk.replaceMinusTwoWithZero(
-          ONE_AVAILABLE, this.runtimeType.toString()),
+      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, characterClass),
       Perk.addCard(
-          DamageChangeCard.withInfusion(
-              2, Infusion.ice, this.runtimeType.toString()),
+          DamageChangeCard.withInfusion(2, Infusion.ice, characterClass),
           TWO_AVAILABLE,
           'Add one +2 [ICE INFUSION] card'),
-      Perk.addTwoRollingPlusOnes(
-          TWO_AVAILABLE, this.runtimeType.toString()),
+      Perk.addTwoRollingPlusOnes(TWO_AVAILABLE, characterClass),
       Perk.addCards(
-          AttackEffectCard(AttackEffect.pull, 1, this.runtimeType.toString())
-              .times(3),
+          AttackEffectCard(AttackEffect.pull, 1, characterClass).times(3),
           ONE_AVAILABLE,
           'Add three [ROLLING] [PULL 1] cards'),
+      Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
+          ONE_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
       Perk.addCards(
-          ConditionCard(Condition.muddle, this.runtimeType.toString()).times(3),
-          ONE_AVAILABLE,
-          'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.addCards(
-          ConditionCard(Condition.immobilize, this.runtimeType.toString())
-              .times(2),
+          ConditionCard(Condition.immobilize, characterClass).times(2),
           ONE_AVAILABLE,
           'Add two [ROLLING] [IMMOBILIZE] cards'),
-      Perk.addCard(ConditionCard(Condition.stun, this.runtimeType.toString()),
-          ONE_AVAILABLE, 'Add one [ROLLING] [STUN] card'),
+      Perk.addOneRollingStunCard(ONE_AVAILABLE, characterClass),
       Perk.addCards([
-        ConditionCard(Condition.disarm, this.runtimeType.toString()),
-        ConditionCard(Condition.muddle, this.runtimeType.toString())
+        ConditionCard(Condition.disarm, characterClass),
+        ConditionCard(Condition.muddle, characterClass)
       ], ONE_AVAILABLE,
           'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card')
     ];

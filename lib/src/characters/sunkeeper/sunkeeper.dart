@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
-import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/cards/infusion_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
-import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
@@ -31,8 +29,7 @@ class Sunkeeper extends Character {
           AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
           TWO_AVAILABLE,
           'Add two [ROLLING] [HEAL 1] cards'),
-      Perk.addCard(ConditionCard(Condition.stun, characterClass), ONE_AVAILABLE,
-          'Add one [ROLLING] [STUN] card'),
+      Perk.addOneRollingStunCard(ONE_AVAILABLE, characterClass),
       Perk.addCards(InfusionCard(Infusion.light, characterClass).times(2),
           TWO_AVAILABLE, 'Add two [ROLLING] [LIGHT INFUSION] cards'),
       Perk.addCards(
