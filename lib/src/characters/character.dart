@@ -8,6 +8,7 @@ import 'package:gloomhaven_decks/src/characters/sawbones/sawbones.dart';
 import 'package:gloomhaven_decks/src/characters/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/characters/soothsinger/soothsinger.dart';
 import 'package:gloomhaven_decks/src/characters/spellweaver/spellweaver.dart';
+import 'package:gloomhaven_decks/src/characters/summoner/summoner.dart';
 import 'package:gloomhaven_decks/src/characters/sunkeeper/sunkeeper.dart';
 import 'package:gloomhaven_decks/src/characters/tinkerer/tinkerer.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
@@ -49,7 +50,8 @@ abstract class Character {
     'Doomstalker',
     'Quartermaster',
     'Sawbones',
-    'Soothsinger'
+    'Soothsinger',
+    'Summoner'
   ];
 
   static Character createCharacter(className, name) {
@@ -84,6 +86,8 @@ abstract class Character {
         return Sawbones(name);
       case 'Soothsinger':
         return Soothsinger(name);
+      case 'Summoner':
+        return Summoner(name);
       default:
         return null;
     }
