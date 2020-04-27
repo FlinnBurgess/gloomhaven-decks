@@ -1,1 +1,1 @@
-enum AttackEffect { addTarget, heal, pierce, pull, push, shield }
+enum AttackEffect { addTarget, heal, pierce, pull, push, shield, refreshItem }

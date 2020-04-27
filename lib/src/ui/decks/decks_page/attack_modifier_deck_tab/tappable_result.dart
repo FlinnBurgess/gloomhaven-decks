@@ -123,6 +123,9 @@ class TappableResult extends StatelessWidget {
       result.shieldAmount == 0
           ? null
           : Text("Shield amount: " + result.shieldAmount.toString()),
+      result.refreshItemAmount == 0
+          ? null
+          : Text("Refreshed items: " + result.refreshItemAmount.toString())
     ];
 
     displayInformation.removeWhere((widget) => widget == null);

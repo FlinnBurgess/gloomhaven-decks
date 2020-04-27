@@ -3,6 +3,7 @@ import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
+import 'package:recase/recase.dart';
 
 class DamageChangeCard extends AttackModifierCard {
   DamageChangeCard.base(int damageChange)
@@ -82,15 +83,14 @@ String generateConditionImagePath(int damage, Condition condition,
 String generateAttackEffectImagePath(int damage, AttackEffect attackEffect,
     int attackEffectAmount, String characterClass) {
   characterClass = characterClass.toLowerCase();
+
   String attackEffectString =
   attackEffect
       .toString()
       .split('.')
       .last
-      .toLowerCase();
-  if (attackEffectString == 'addtarget') {
-    attackEffectString = 'add-target';
-  }
+      .paramCase;
+
   return damage < 0
       ? 'images/cards/$characterClass/minus-${damage
       .abs()}-damage-and-$attackEffectString-$attackEffectAmount.png'

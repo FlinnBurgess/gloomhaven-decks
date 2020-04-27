@@ -16,6 +16,7 @@ class AttackModifierResult {
   int pullAmount = 0;
   int pushAmount = 0;
   int shieldAmount = 0;
+  int refreshItemAmount = 0; 
 
   Future<AttackModifierResult> applyCardEffect(AttackModifierCard card) async {
     await card.applyEffect(this);
@@ -39,6 +40,7 @@ class AttackModifierResult {
     pullAmount = 0;
     pushAmount = 0;
     shieldAmount = 0;
+    refreshItemAmount = 0;
   }
 
   void applyDamageDifference(int difference) {
@@ -82,7 +84,10 @@ class AttackModifierResult {
         return;
       case AttackEffect.shield:
         shieldAmount += amount;
-        break;
+        return;
+      case AttackEffect.refreshItem:
+        refreshItemAmount += amount;
+        return;
     }
   }
 
@@ -100,5 +105,6 @@ class AttackModifierResult {
               pierceAmount == other.pierceAmount &&
               pullAmount == other.pullAmount &&
               pushAmount == other.pushAmount &&
-              shieldAmount == other.shieldAmount;
+              shieldAmount == other.shieldAmount &&
+              refreshItemAmount == other.refreshItemAmount;
 }
