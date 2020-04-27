@@ -63,11 +63,18 @@ class Perk {
       : this.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2),
       perksAvailable, 'Add two +1 cards');
 
-  Perk.addPlusOneAndWoundCard(int perksAvailable, String characterClass) :
-        this.addCard(
-          DamageChangeCard.withCondition(1, Condition.wound, characterClass),
-          perksAvailable,
-          'Add one +1 [WOUND] card');
+  Perk.addPlusOneAndWoundCard(int perksAvailable, String characterClass)
+      : this.addCard(
+      DamageChangeCard.withCondition(1, Condition.wound, characterClass),
+      perksAvailable,
+      'Add one +1 [WOUND] card');
+
+  Perk.addPlusOneAndImmobilizeCard(int perksAvailable, String characterClass)
+      : this.addCard(
+      DamageChangeCard.withCondition(
+          1, Condition.immobilize, characterClass),
+      perksAvailable,
+      'Add one +1 [IMMOBILIZE] card');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(

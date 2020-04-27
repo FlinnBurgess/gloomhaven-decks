@@ -19,41 +19,29 @@ class Cragheart extends Character {
   Cragheart(this.name) {
     attackModifierDeck = AttackModifierDeck();
     characterIcon = Icon(CharacterIcons.cragheart_icon);
+    var characterClass = this.runtimeType.toString();
 
     perks = [
       Perk.removeFourZeros(ONE_AVAILABLE),
-      Perk.replaceMinusOneWithPlusOne(
-          THREE_AVAILABLE, this.runtimeType.toString()),
+      Perk.replaceMinusOneWithPlusOne(THREE_AVAILABLE, characterClass),
       Perk.addCards(
-          DamageChangeCard.forCharacter(2, this.runtimeType.toString())
-              .times(2) +
-              DamageChangeCard.forCharacter(-2, this.runtimeType.toString())
-                  .times(1),
+          DamageChangeCard.forCharacter(2, characterClass).times(2) +
+              DamageChangeCard.forCharacter(-2, characterClass).times(1),
           ONE_AVAILABLE,
           'Add one -2 card and two +2 cards'),
+      Perk.addPlusOneAndImmobilizeCard(TWO_AVAILABLE, characterClass),
       Perk.addCard(
-          DamageChangeCard.withCondition(
-              1, Condition.immobilize, this.runtimeType.toString()),
-          TWO_AVAILABLE,
-          'Add one +1 [IMMOBILIZE] card'),
-      Perk.addCard(
-          DamageChangeCard.withCondition(
-              2, Condition.muddle, this.runtimeType.toString()),
+          DamageChangeCard.withCondition(2, Condition.muddle, characterClass),
           TWO_AVAILABLE,
           'Add one +2 [MUDDLE] card'),
       Perk.addCards(
-          AttackEffectCard(AttackEffect.push, 2, this.runtimeType.toString())
-              .times(2),
+          AttackEffectCard(AttackEffect.push, 2, characterClass).times(2),
           ONE_AVAILABLE,
           'Add two [PUSH 2] cards'),
-      Perk.addCards(
-          InfusionCard(Infusion.earth, this.runtimeType.toString()).times(2),
-          TWO_AVAILABLE,
-          'Add two [ROLLING] [EARTH INFUSION] cards'),
-      Perk.addCards(
-          InfusionCard(Infusion.air, this.runtimeType.toString()).times(2),
-          ONE_AVAILABLE,
-          'Add two [ROLLING] [AIR INFUSION] cards')
+      Perk.addCards(InfusionCard(Infusion.earth, characterClass).times(2),
+          TWO_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards'),
+      Perk.addCards(InfusionCard(Infusion.air, characterClass).times(2),
+          ONE_AVAILABLE, 'Add two [ROLLING] [AIR INFUSION] cards')
     ];
   }
 }

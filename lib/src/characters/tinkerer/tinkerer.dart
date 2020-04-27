@@ -31,11 +31,7 @@ class Tinkerer extends Character {
       Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
           ONE_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
       Perk.addPlusOneAndWoundCard(TWO_AVAILABLE, characterClass),
-      Perk.addCard(
-          DamageChangeCard.withCondition(
-              1, Condition.immobilize, characterClass),
-          TWO_AVAILABLE,
-          'Add one +1 [IMMOBILIZE] card'),
+      Perk.addPlusOneAndImmobilizeCard(TWO_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               1, AttackEffect.heal, 2, characterClass),

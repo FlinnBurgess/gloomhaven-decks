@@ -23,29 +23,21 @@ class Spellweaver extends Character {
       Perk.replaceMinusOneWithPlusOne(TWO_AVAILABLE, characterClass),
       Perk.addTwoPlusOnes(TWO_AVAILABLE, characterClass),
       Perk.addCard(
-          DamageChangeCard.withCondition(
-              0, Condition.stun, characterClass),
+          DamageChangeCard.withCondition(0, Condition.stun, characterClass),
           ONE_AVAILABLE,
           'Add one +0 [STUN] card'),
       Perk.addPlusOneAndWoundCard(ONE_AVAILABLE, characterClass),
+      Perk.addPlusOneAndImmobilizeCard(ONE_AVAILABLE, characterClass),
       Perk.addCard(
-          DamageChangeCard.withCondition(
-              1, Condition.immobilize, characterClass),
-          ONE_AVAILABLE,
-          'Add one +1 [IMMOBILIZE] card'),
-      Perk.addCard(
-          DamageChangeCard.withCondition(
-              1, Condition.curse, characterClass),
+          DamageChangeCard.withCondition(1, Condition.curse, characterClass),
           ONE_AVAILABLE,
           'Add one +1 [CURSE] card'),
       Perk.addCard(
-          DamageChangeCard.withInfusion(
-              2, Infusion.fire, characterClass),
+          DamageChangeCard.withInfusion(2, Infusion.fire, characterClass),
           TWO_AVAILABLE,
           'Add one +2 [FIRE INFUSION] card'),
       Perk.addCard(
-          DamageChangeCard.withInfusion(
-              2, Infusion.ice, characterClass),
+          DamageChangeCard.withInfusion(2, Infusion.ice, characterClass),
           TWO_AVAILABLE,
           'Add one +2 [ICE INFUSION] card'),
       Perk.addCards([
