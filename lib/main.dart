@@ -20,6 +20,7 @@ Future<void> main() async {
 class GloomhavenDeckTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage('images/backgrounds/dark-wood.jpg'), context);
     return MaterialApp(
       title: 'Gloomhaven Deck Tracker',
       theme: ThemeData(fontFamily: 'PirataOne', textTheme: customTextTheme),
