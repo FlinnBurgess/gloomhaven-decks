@@ -40,8 +40,7 @@ class Brute extends Character {
         ConditionCard(Condition.muddle, characterClass)
       ], ONE_AVAILABLE,
           'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card'),
-      Perk.addCard(AttackEffectCard(AttackEffect.addTarget, 1, characterClass),
-          TWO_AVAILABLE, 'Add one [ROLLING] [ADD TARGET] card'),
+      Perk.addOneRollingAddTargetCard(TWO_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               1, AttackEffect.shield, 1, characterClass),

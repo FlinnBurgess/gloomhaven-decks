@@ -79,15 +79,20 @@ class Perk {
       'Add one +1 [IMMOBILIZE] card');
 
   Perk.addOneRollingStunCard(int perksAvailable, String characterClass)
-      : this.addCard(
-      ConditionCard(Condition.stun, characterClass), perksAvailable,
-      'Add one [ROLLING] [STUN] card');
+      : this.addCard(ConditionCard(Condition.stun, characterClass),
+      perksAvailable, 'Add one [ROLLING] [STUN] card');
 
-  Perk.addTwoRollingHealOneCards(int perksAvailable, String characterClass) :
-        this.addCards(
-          AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
-          perksAvailable,
-          'Add two [ROLLING] [HEAL 1] cards');
+  Perk.addTwoRollingHealOneCards(int perksAvailable, String characterClass)
+      : this.addCards(
+      AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
+      perksAvailable,
+      'Add two [ROLLING] [HEAL 1] cards');
+
+  Perk.addOneRollingAddTargetCard(int perksAvailable, String characterClass)
+      : this.addCard(
+      AttackEffectCard(AttackEffect.addTarget, 1, characterClass),
+      perksAvailable,
+      'Add one [ROLLING] [ADD TARGET] card');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(

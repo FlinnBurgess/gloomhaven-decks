@@ -13,54 +13,41 @@ import '../character_icons.dart';
 
 class Nightshroud extends Character {
   String name;
-  AttackModifierDeck attackModifierDeck;
+  AttackModifierDeck attackModifierDeck = AttackModifierDeck();
   List<Perk> perks;
 
   Nightshroud(this.name) {
     characterIcon = Icon(CharacterIcons.nightshroud_icon);
+    var characterClass = this.runtimeType.toString();
 
-    attackModifierDeck = AttackModifierDeck();
     perks = [
       Perk.removeTwoMinusOnes(TWO_AVAILABLE),
       Perk.removeFourZeros(ONE_AVAILABLE),
       Perk.addCard(
-          DamageChangeCard.withInfusion(
-              -1, Infusion.dark, this.runtimeType.toString()),
+          DamageChangeCard.withInfusion(-1, Infusion.dark, characterClass),
           TWO_AVAILABLE,
           'Add one -1 and [dark infusion] card'),
       Perk.replaceCard(
-          DamageChangeCard.withInfusion(
-              -1, Infusion.dark, this.runtimeType.toString()),
-          DamageChangeCard.withInfusion(
-              1, Infusion.dark, this.runtimeType.toString()),
+          DamageChangeCard.withInfusion(-1, Infusion.dark, characterClass),
+          DamageChangeCard.withInfusion(1, Infusion.dark, characterClass),
           TWO_AVAILABLE,
           'Replace one -1 and [dark infusion] card with one +1 and [dark infusion] card'),
       Perk.addCard(
           DamageChangeCard.withCondition(
-              1, Condition.invisible, this.runtimeType.toString()),
+              1, Condition.invisible, characterClass),
           TWO_AVAILABLE,
           'Add one +1 [INVISIBLE] card'),
+      Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
+          TWO_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
       Perk.addCards(
-          ConditionCard(Condition.muddle, this.runtimeType.toString()).times(3),
-          TWO_AVAILABLE,
-          'Add three [ROLLING] [MUDDLE] cards'),
-      Perk.addCards(
-          AttackEffectCard(AttackEffect.heal, 1, this.runtimeType.toString())
-              .times(2),
+          AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
           ONE_AVAILABLE,
           'Add two [ROLLING] [HEAL+1] cards'),
+      Perk.addCards(ConditionCard(Condition.curse, characterClass).times(2),
+          ONE_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
+      Perk.addOneRollingAddTargetCard(ONE_AVAILABLE, characterClass),
       Perk.addCards(
-          ConditionCard(Condition.curse, this.runtimeType.toString()).times(2),
-          ONE_AVAILABLE,
-          'Add two [ROLLING] [CURSE] cards'),
-      Perk.addCard(
-          AttackEffectCard(
-              AttackEffect.addTarget, 1, this.runtimeType.toString()),
-          ONE_AVAILABLE,
-          'Add one [ROLLING] [ADD TARGET] card'),
-      Perk.addCards(
-          DamageChangeCard.forCharacter(1, this.runtimeType.toString())
-              .times(2),
+          DamageChangeCard.forCharacter(1, characterClass).times(2),
           ONE_AVAILABLE,
           'Ignore negative scenario effects and add two +1 cards'),
     ];
