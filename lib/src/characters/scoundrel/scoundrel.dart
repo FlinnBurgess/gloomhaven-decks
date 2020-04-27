@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
-import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
@@ -24,11 +23,7 @@ class Scoundrel extends Character {
       Perk.removeFourZeros(ONE_AVAILABLE),
       Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, characterClass),
       Perk.replaceMinusOneWithPlusOne(ONE_AVAILABLE, characterClass),
-      Perk.replaceCard(
-          DamageChangeCard.base(0),
-          DamageChangeCard.forCharacter(2, characterClass),
-          TWO_AVAILABLE,
-          'Replace one +0 card with one +2 card'),
+      Perk.replaceZeroWithPlusTwo(TWO_AVAILABLE, characterClass),
       Perk.addTwoRollingPlusOnes(TWO_AVAILABLE, characterClass),
       Perk.addCards(
           AttackEffectCard(AttackEffect.pierce, 3, characterClass)

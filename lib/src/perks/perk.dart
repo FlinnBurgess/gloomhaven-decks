@@ -76,6 +76,13 @@ class Perk {
       perksAvailable,
       'Replace one -1 card with one +1 card');
 
+  Perk.replaceZeroWithPlusTwo(int perksAvailable, String characterClass)
+      : this.replaceCard(
+      DamageChangeCard.base(0),
+      DamageChangeCard.forCharacter(2, characterClass),
+      perksAvailable,
+      'Replace one +0 card with one +2 card');
+
   Perk.addTwoRollingPlusOnes(int perksAvailable, String characterClass)
       : this.addCards(
       DamageChangeCard.forCharacter(1, characterClass).rolling().times(2),
