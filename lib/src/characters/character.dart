@@ -39,7 +39,8 @@ abstract class Character {
     'Nightshroud',
     'Sunkeeper',
     'Plagueherald',
-    'Beast Tyrant'
+    'Beast Tyrant',
+    'Berserker'
   ];
 
   static Character createCharacter(className, name) {
