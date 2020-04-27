@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/characters/beast_tyrant/beast_tyrant.dart';
+import 'package:gloomhaven_decks/src/characters/berserker/berserker.dart';
+import 'package:gloomhaven_decks/src/characters/doomstalker/doomstalker.dart';
 import 'package:gloomhaven_decks/src/characters/plagueherald/plagueherald.dart';
 import 'package:gloomhaven_decks/src/characters/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/characters/spellweaver/spellweaver.dart';
@@ -40,7 +42,8 @@ abstract class Character {
     'Sunkeeper',
     'Plagueherald',
     'Beast Tyrant',
-    'Berserker'
+    'Berserker',
+    'Doomstalker'
   ];
 
   static Character createCharacter(className, name) {
@@ -65,6 +68,10 @@ abstract class Character {
         return Plagueherald(name);
       case 'Beast Tyrant':
         return BeastTyrant(name);
+      case 'Berserker':
+        return Berserker(name);
+      case 'Doomstalker':
+        return Doomstalker(name);
       default:
         return null;
     }
