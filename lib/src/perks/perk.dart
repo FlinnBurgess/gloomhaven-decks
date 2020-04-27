@@ -82,6 +82,10 @@ class Perk {
       : this.addCard(ConditionCard(Condition.stun, characterClass),
       perksAvailable, 'Add one [ROLLING] [STUN] card');
 
+  Perk.addTwoRollingWoundCards(int perksAvailable, String characterClass) :
+        this.addCards(ConditionCard(Condition.wound, characterClass).times(2),
+          perksAvailable, 'Add two [ROLLING] [WOUND] cards');
+
   Perk.addTwoRollingHealOneCards(int perksAvailable, String characterClass)
       : this.addCards(
       AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),

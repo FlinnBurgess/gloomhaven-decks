@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/character_icons.dart';
@@ -26,8 +25,7 @@ class Berserker extends Character {
           DamageChangeCard.forCharacter(2, characterClass).rolling(),
           TWO_AVAILABLE,
           'Replace one +0 card with one [ROLLING] +2 card'),
-      Perk.addCards(ConditionCard(Condition.wound, characterClass).times(2),
-          TWO_AVAILABLE, 'Add two [ROLLING] [WOUND] cards'),
+      Perk.addTwoRollingWoundCards(TWO_AVAILABLE, characterClass),
       Perk.addOneRollingStunCard(TWO_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withCondition(1, Condition.disarm, characterClass)
