@@ -12,7 +12,7 @@ class CurseCard extends AttackModifierCard {
 Function(AttackModifierResult) nullEffect() {
   return (AttackModifierResult result) async {
     bool lessRandomness = await getLessRandomnessSetting();
-    result.totalDamage = lessRandomness ? result.totalDamage - 2 : 0;
+    result.applyDamageDifference(lessRandomness ? -2 : -result.totalDamage);
     result.isNull = true;
   };
 }
