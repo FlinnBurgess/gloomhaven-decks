@@ -20,8 +20,9 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
       List<Widget> perkRows = [];
       this.widget.character.perks.forEach((perk) {
         List<Widget> perkOptions = [];
+        List<Widget> checkboxes = [];
         for (int i = 0; i < perk.perksUsed; i++) {
-          perkOptions.add(Checkbox(
+          checkboxes.add(Checkbox(
               value: true,
               onChanged: (value) {
                 bool successfullyUnapplied =
@@ -38,7 +39,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
               }));
         }
         for (int i = 0; i < perk.perksAvailable; i++) {
-          perkOptions.add(Checkbox(
+          checkboxes.add(Checkbox(
               value: false,
               onChanged: (value) {
                 bool successfullyApplied =
@@ -54,6 +55,12 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
                 }
               }));
         }
+        perkOptions.add(Padding(
+          padding: EdgeInsets.fromLTRB(0, 18, 0, 0),
+          child: Row(
+            children: checkboxes,
+          ),
+        ));
         perkOptions.add(Flexible(
             child: Padding(
           padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
