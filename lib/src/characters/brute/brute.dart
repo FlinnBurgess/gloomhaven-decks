@@ -20,11 +20,8 @@ class Brute extends Character {
 
     perks = [
       Perk.removeTwoMinusOnes(ONE_AVAILABLE),
-      Perk.replaceCard(
-          DamageChangeCard.base(-1),
-          DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          ONE_AVAILABLE,
-          'Replace one -1 card with one +1 card'),
+      Perk.replaceMinusOneWithPlusOne(
+          ONE_AVAILABLE, this.runtimeType.toString()),
       Perk.addTwoPlusOnes(
           TWO_AVAILABLE, this.runtimeType.toString()),
       Perk.addCard(

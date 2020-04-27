@@ -22,11 +22,8 @@ class Cragheart extends Character {
 
     perks = [
       Perk.removeFourZeros(ONE_AVAILABLE),
-      Perk.replaceCard(
-          DamageChangeCard.base(-1),
-          DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          THREE_AVAILABLE,
-          'Replace one -1 card with one +1 card'),
+      Perk.replaceMinusOneWithPlusOne(
+          THREE_AVAILABLE, this.runtimeType.toString()),
       Perk.addCards(
           DamageChangeCard.forCharacter(2, this.runtimeType.toString())
               .times(2) +

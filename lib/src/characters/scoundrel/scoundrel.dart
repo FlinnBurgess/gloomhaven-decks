@@ -17,37 +17,34 @@ class Scoundrel extends Character {
 
   Scoundrel(this.name) {
     characterIcon = Icon(CharacterIcons.scoundrel_icon);
+    String characterClass = this.runtimeType.toString();
 
     perks = [
       Perk.removeTwoMinusOnes(TWO_AVAILABLE),
       Perk.removeFourZeros(ONE_AVAILABLE),
-      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, this.runtimeType.toString()),
-      Perk.replaceCard(
-          DamageChangeCard.base(-1),
-          DamageChangeCard.forCharacter(1, this.runtimeType.toString()),
-          ONE_AVAILABLE,
-          'Replace one -1 card with one +1 card'),
+      Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, characterClass),
+      Perk.replaceMinusOneWithPlusOne(ONE_AVAILABLE, characterClass),
       Perk.replaceCard(
           DamageChangeCard.base(0),
-          DamageChangeCard.forCharacter(2, this.runtimeType.toString()),
+          DamageChangeCard.forCharacter(2, characterClass),
           TWO_AVAILABLE,
           'Replace one +0 card with one +2 card'),
-      Perk.addTwoRollingPlusOnes(TWO_AVAILABLE, this.runtimeType.toString()),
+      Perk.addTwoRollingPlusOnes(TWO_AVAILABLE, characterClass),
       Perk.addCards(
-          AttackEffectCard(AttackEffect.pierce, 3, this.runtimeType.toString())
+          AttackEffectCard(AttackEffect.pierce, 3, characterClass)
               .times(2),
           ONE_AVAILABLE,
           'Add three [ROLLING] [PIERCE 3] cards'),
       Perk.addCards(
-          ConditionCard(Condition.poison, this.runtimeType.toString()).times(2),
+          ConditionCard(Condition.poison, characterClass).times(2),
           TWO_AVAILABLE,
           'Add two [ROLLING] [POISON] cards'),
       Perk.addCards(
-          ConditionCard(Condition.muddle, this.runtimeType.toString()).times(2),
+          ConditionCard(Condition.muddle, characterClass).times(2),
           ONE_AVAILABLE,
           'Add two [ROLLING] [MUDDLE] cards'),
       Perk.addCard(
-          ConditionCard(Condition.invisible, this.runtimeType.toString()),
+          ConditionCard(Condition.invisible, characterClass),
           ONE_AVAILABLE,
           'Add one [ROLLING] [INVISIBLE] perk'),
     ];
