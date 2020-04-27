@@ -46,10 +46,7 @@ class Nightshroud extends Character {
       Perk.addCards(ConditionCard(Condition.curse, characterClass).times(2),
           ONE_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
       Perk.addOneRollingAddTargetCard(ONE_AVAILABLE, characterClass),
-      Perk.addCards(
-          DamageChangeCard.forCharacter(1, characterClass).times(2),
-          ONE_AVAILABLE,
-          'Ignore negative scenario effects and add two +1 cards'),
+      Perk.ignoreNegativeScenarioEffectsAndAddTwoPlusOneCards(characterClass),
     ];
   }
 }
