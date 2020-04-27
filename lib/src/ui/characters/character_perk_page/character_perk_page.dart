@@ -54,13 +54,16 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
                 }
               }));
         }
-        perkOptions.add(Padding(
+        perkOptions.add(Flexible(
+            child: Padding(
           padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
           child: Text(perk.description),
-        ));
+            )));
         perkRows.add(Align(
             alignment: Alignment.centerLeft,
-            child: Wrap(children: perkOptions)));
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: perkOptions)));
       });
 
       var perkList = ListView(children: perkRows);
