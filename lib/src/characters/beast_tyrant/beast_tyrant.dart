@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
-import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/infusion_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/character_icons.dart';
@@ -23,10 +21,7 @@ class BeastTyrant extends Character {
       Perk.replaceZeroWithPlusTwo(TWO_AVAILABLE, characterClass),
       Perk.addPlusOneAndWoundCard(TWO_AVAILABLE, characterClass),
       Perk.addPlusOneAndImmobilizeCard(TWO_AVAILABLE, characterClass),
-      Perk.addCards(
-          AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
-          THREE_AVAILABLE,
-          'Add two [ROLLING] [HEAL 1] cards'),
+      Perk.addTwoRollingHealOneCards(THREE_AVAILABLE, characterClass),
       Perk.addCards(InfusionCard(Infusion.earth, characterClass).times(2),
           ONE_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards')
     ];

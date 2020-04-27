@@ -1,3 +1,5 @@
+import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
+import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
@@ -29,8 +31,7 @@ class Perk {
     unapply = _addCardsToDeck(cards);
   }
 
-  Perk.replaceCards(
-      List<AttackModifierCard> cardsBeingReplaced,
+  Perk.replaceCards(List<AttackModifierCard> cardsBeingReplaced,
       List<AttackModifierCard> replacementCards,
       this.perksAvailable,
       this.description) {
@@ -54,11 +55,11 @@ class Perk {
 
   Perk.removeFourZeros(int perksAvailable)
       : this.removeCards(DamageChangeCard.base(0).times(4), perksAvailable,
-            'Remove four +0 cards');
+      'Remove four +0 cards');
 
   Perk.removeTwoMinusOnes(int perksAvailable)
       : this.removeCards(DamageChangeCard.base(-1).times(2), perksAvailable,
-            'Remove two -1 cards');
+      'Remove two -1 cards');
 
   Perk.addTwoPlusOnes(int perksAvailable, String characterClass)
       : this.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2),
@@ -81,6 +82,12 @@ class Perk {
       : this.addCard(
       ConditionCard(Condition.stun, characterClass), perksAvailable,
       'Add one [ROLLING] [STUN] card');
+
+  Perk.addTwoRollingHealOneCards(int perksAvailable, String characterClass) :
+        this.addCards(
+          AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
+          perksAvailable,
+          'Add two [ROLLING] [HEAL 1] cards');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(
@@ -107,7 +114,7 @@ class Perk {
       : this.addCards(
       DamageChangeCard.forCharacter(1, characterClass).rolling().times(2),
       perksAvailable,
-            'Add two [ROLLING] +1 cards');
+      'Add two [ROLLING] +1 cards');
 
   Function _removeCardsFromDeck(List<AttackModifierCard> cards) {
     return (AttackModifierDeck attackModifierDeck) =>

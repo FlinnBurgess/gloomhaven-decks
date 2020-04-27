@@ -25,10 +25,7 @@ class Sunkeeper extends Character {
       Perk.replaceMinusTwoWithZero(ONE_AVAILABLE, characterClass),
       Perk.replaceZeroWithPlusTwo(ONE_AVAILABLE, characterClass),
       Perk.addTwoRollingPlusOnes(TWO_AVAILABLE, characterClass),
-      Perk.addCards(
-          AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
-          TWO_AVAILABLE,
-          'Add two [ROLLING] [HEAL 1] cards'),
+      Perk.addTwoRollingHealOneCards(TWO_AVAILABLE, characterClass),
       Perk.addOneRollingStunCard(ONE_AVAILABLE, characterClass),
       Perk.addCards(InfusionCard(Infusion.light, characterClass).times(2),
           TWO_AVAILABLE, 'Add two [ROLLING] [LIGHT INFUSION] cards'),
