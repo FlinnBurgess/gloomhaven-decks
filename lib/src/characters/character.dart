@@ -4,6 +4,7 @@ import 'package:gloomhaven_decks/src/characters/berserker/berserker.dart';
 import 'package:gloomhaven_decks/src/characters/doomstalker/doomstalker.dart';
 import 'package:gloomhaven_decks/src/characters/plagueherald/plagueherald.dart';
 import 'package:gloomhaven_decks/src/characters/quartermaster/quartermaster.dart';
+import 'package:gloomhaven_decks/src/characters/sawbones/sawbones.dart';
 import 'package:gloomhaven_decks/src/characters/scoundrel/scoundrel.dart';
 import 'package:gloomhaven_decks/src/characters/spellweaver/spellweaver.dart';
 import 'package:gloomhaven_decks/src/characters/sunkeeper/sunkeeper.dart';
@@ -45,7 +46,8 @@ abstract class Character {
     'Beast Tyrant',
     'Berserker',
     'Doomstalker',
-    'Quartermaster'
+    'Quartermaster',
+    'Sawbones'
   ];
 
   static Character createCharacter(className, name) {
@@ -76,6 +78,8 @@ abstract class Character {
         return Doomstalker(name);
       case 'Quartermaster':
         return Quartermaster(name);
+      case 'Sawbones':
+        return Sawbones(name);
       default:
         return null;
     }
