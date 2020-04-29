@@ -4,8 +4,10 @@ class OutlinedText extends StatelessWidget {
   Color bodyColour;
   Color outlineColour;
   String text;
+  TextAlign alignment;
 
-  OutlinedText(this.text, this.bodyColour, this.outlineColour);
+  OutlinedText(this.text, this.bodyColour, this.outlineColour,
+      [this.alignment = TextAlign.start]);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class OutlinedText extends StatelessWidget {
       children: <Widget>[
         Text(
           text,
+          textAlign: alignment,
           style: TextStyle(
               foreground: Paint()
                 ..style = PaintingStyle.stroke
@@ -21,6 +24,7 @@ class OutlinedText extends StatelessWidget {
         ),
         Text(
           text,
+          textAlign: alignment,
           style: TextStyle(color: bodyColour),
         )
       ],

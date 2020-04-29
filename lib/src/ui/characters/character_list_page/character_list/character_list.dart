@@ -13,8 +13,13 @@ class CharacterList extends StatelessWidget {
         List<Widget> options = List<Widget>();
 
         if (characters.characters.isEmpty) {
-          options.add(Text(
-              "You don't have any characters at the moment! Try adding a new one."));
+          options.add(Padding(
+              padding: EdgeInsets.symmetric(horizontal: 35),
+              child: OutlinedText(
+                  "You don't have any characters at the moment! Try adding a new one.",
+                  Colors.white,
+                  Colors.black,
+                  TextAlign.center)));
         } else {
           options += _getCharacterList(characters, context);
         }
