@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
@@ -11,9 +10,9 @@ class Soothsinger extends Character {
   String name;
   List<Perk> perks;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
-  Icon characterIcon = Icon(CharacterIcons.soothsinger_icon);
 
   Soothsinger(this.name) {
+    characterIcon = CharacterIcons.soothsinger_icon;
     backgroundImagePath = 'images/backgrounds/soothsinger.png';
     String characterClass = this.runtimeType.toString();
 

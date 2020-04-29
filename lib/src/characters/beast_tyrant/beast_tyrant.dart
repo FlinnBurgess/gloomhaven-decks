@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/infusion_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
@@ -14,7 +13,7 @@ class BeastTyrant extends Character {
 
   BeastTyrant(this.name) {
     backgroundImagePath = 'images/backgrounds/beasttyrant.png';
-    characterIcon = Icon(CharacterIcons.beast_tyrant_icon);
+    characterIcon = CharacterIcons.beast_tyrant_icon;
     String characterClass = this.runtimeType.toString();
 
     perks = [

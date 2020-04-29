@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
@@ -17,7 +16,7 @@ class Brute extends Character {
   Brute(this.name) {
     backgroundImagePath = 'images/backgrounds/brute.png';
     attackModifierDeck = AttackModifierDeck();
-    characterIcon = Icon(CharacterIcons.brute_icon);
+    characterIcon = CharacterIcons.brute_icon;
 
     var characterClass = this.runtimeType.toString();
 

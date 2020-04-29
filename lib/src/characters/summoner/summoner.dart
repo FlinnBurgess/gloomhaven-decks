@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/cards/infusion_card.dart';
@@ -13,9 +12,9 @@ class Summoner extends Character {
   String name;
   List<Perk> perks;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
-  Icon characterIcon = Icon(CharacterIcons.summoner_icon);
 
   Summoner(this.name) {
+    characterIcon = CharacterIcons.summoner_icon;
     backgroundImagePath = 'images/backgrounds/summoner.png';
     String characterClass = this.runtimeType.toString();
 

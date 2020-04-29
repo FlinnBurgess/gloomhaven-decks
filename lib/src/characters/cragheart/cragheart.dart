@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
@@ -19,7 +18,7 @@ class Cragheart extends Character {
   Cragheart(this.name) {
     backgroundImagePath = 'images/backgrounds/cragheart.png';
     attackModifierDeck = AttackModifierDeck();
-    characterIcon = Icon(CharacterIcons.cragheart_icon);
+    characterIcon = CharacterIcons.cragheart_icon;
     var characterClass = this.runtimeType.toString();
 
     perks = [

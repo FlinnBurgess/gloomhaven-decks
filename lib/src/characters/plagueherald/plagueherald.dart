@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
@@ -15,7 +14,7 @@ class Plagueherald extends Character {
 
   Plagueherald(this.name) {
     backgroundImagePath = 'images/backgrounds/plagueherald.png';
-    characterIcon = Icon(CharacterIcons.plagueherald_icon);
+    characterIcon = CharacterIcons.plagueherald_icon;
     String characterClass = this.runtimeType.toString();
 
     perks = [

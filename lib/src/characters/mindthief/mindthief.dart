@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
@@ -18,7 +17,7 @@ class Mindthief extends Character {
 
   Mindthief(this.name) {
     backgroundImagePath = 'images/backgrounds/mindthief.png';
-    characterIcon = Icon(CharacterIcons.mindthief_icon);
+    characterIcon = CharacterIcons.mindthief_icon;
 
     var characterClass = this.runtimeType.toString();
 

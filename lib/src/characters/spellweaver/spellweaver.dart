@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/cards/infusion_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
@@ -16,7 +15,7 @@ class Spellweaver extends Character {
 
   Spellweaver(this.name) {
     backgroundImagePath = 'images/backgrounds/spellweaver.png';
-    characterIcon = Icon(CharacterIcons.spellweaver_icon);
+    characterIcon = CharacterIcons.spellweaver_icon;
     String characterClass = this.runtimeType.toString();
 
     perks = [

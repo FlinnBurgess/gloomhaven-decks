@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/character_icons.dart';
@@ -11,9 +10,9 @@ class Berserker extends Character {
   String name;
   List<Perk> perks;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
-  Icon characterIcon = Icon(CharacterIcons.berserker_icon);
 
   Berserker(this.name) {
+    characterIcon = CharacterIcons.berserker_icon;
     backgroundImagePath = 'images/backgrounds/berserker.png';
     String characterClass = this.runtimeType.toString();
 

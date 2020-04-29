@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
@@ -18,7 +17,7 @@ class Tinkerer extends Character {
 
   Tinkerer(this.name) {
     backgroundImagePath = 'images/backgrounds/tinkerer.png';
-    characterIcon = Icon(CharacterIcons.tinkerer_icon);
+    characterIcon = CharacterIcons.tinkerer_icon;
     String characterClass = this.runtimeType.toString();
 
     perks = [

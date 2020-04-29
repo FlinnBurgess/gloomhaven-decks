@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
@@ -18,7 +17,7 @@ class Nightshroud extends Character {
 
   Nightshroud(this.name) {
     backgroundImagePath = 'images/backgrounds/nightshroud.png';
-    characterIcon = Icon(CharacterIcons.nightshroud_icon);
+    characterIcon = CharacterIcons.nightshroud_icon;
     var characterClass = this.runtimeType.toString();
 
     perks = [

@@ -42,9 +42,9 @@ class NewCharacterFormState extends State<NewCharacterForm> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Character
+                              Icon(Character
                                   .createCharacter(className, '')
-                                  .characterIcon,
+                                  .characterIcon),
                               Text(snapshot.data == true &&
                                   !STARTING_CLASSES
                                       .contains(className)

@@ -34,7 +34,7 @@ class CharacterList extends StatelessWidget {
     );
   }
 
-  //TODO Wrap items in card if name is really long and pushes things out of screen
+  //TODO Wrap items inside the card if name is really long and pushes things out of screen
   List<Widget> _getCharacterList(Characters characters, BuildContext context) =>
       characters.characters
           .map<Widget>(
@@ -62,7 +62,7 @@ class CharacterList extends StatelessWidget {
                                 })
                           ],
                         ),
-                        character.characterIcon,
+                        Icon(character.characterIcon),
                         OutlinedText(
                             character.name, Colors.white, Colors.black),
                         RaisedButton(

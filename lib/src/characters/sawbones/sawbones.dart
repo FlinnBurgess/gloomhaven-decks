@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
@@ -12,9 +11,9 @@ class Sawbones extends Character {
   String name;
   List<Perk> perks;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
-  Icon characterIcon = Icon(CharacterIcons.sawbones_icon);
 
   Sawbones(this.name) {
+    characterIcon = CharacterIcons.sawbones_icon;
     backgroundImagePath = 'images/backgrounds/sawbone.png';
     String characterClass = this.runtimeType.toString();
 

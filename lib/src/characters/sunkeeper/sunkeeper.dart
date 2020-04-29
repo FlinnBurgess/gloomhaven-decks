@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
@@ -17,7 +16,7 @@ class Sunkeeper extends Character {
 
   Sunkeeper(this.name) {
     backgroundImagePath = 'images/backgrounds/sunkeeper.png';
-    characterIcon = Icon(CharacterIcons.sunkeeper_icon);
+    characterIcon = CharacterIcons.sunkeeper_icon;
     String characterClass = this.runtimeType.toString();
 
     perks = [

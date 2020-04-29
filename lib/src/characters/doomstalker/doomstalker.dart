@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/character_icons.dart';
@@ -10,9 +9,9 @@ class Doomstalker extends Character {
   String name;
   List<Perk> perks;
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
-  Icon characterIcon = Icon(CharacterIcons.doomstalker_icons);
 
   Doomstalker(this.name) {
+    characterIcon = CharacterIcons.doomstalker_icons;
     backgroundImagePath = 'images/backgrounds/doomstalker.png';
     var characterClass = this.runtimeType.toString();
 
