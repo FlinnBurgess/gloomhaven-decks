@@ -49,6 +49,7 @@ class CharacterList extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
+                        Icon(character.characterIcon, color: Colors.grey[350],),
                         Column(
                           children: <Widget>[
                             OutlinedText('Active', Colors.white, Colors.black),
@@ -62,7 +63,6 @@ class CharacterList extends StatelessWidget {
                                 })
                           ],
                         ),
-                        Icon(character.characterIcon),
                         OutlinedText(
                             character.name, Colors.white, Colors.black),
                         RaisedButton(
@@ -78,7 +78,7 @@ class CharacterList extends StatelessWidget {
                         IconButton(
                           onPressed: () =>
                               characters.deleteCharacter(character),
-                          icon: Icon(Icons.delete),
+                          icon: Icon(Icons.delete, color: Colors.grey[350],),
                         ),
                       ],
                     ))),
