@@ -103,7 +103,8 @@ abstract class Character {
       'name': name,
       'class': this.runtimeType.toString(),
       'isActive': isActive,
-      'perks': perks.map<int>((perk) => perk.perksUsed).toList()
+      'perks': perks.map<int>((perk) => perk.perksUsed).toList(),
+      'extraMinusOneCards': attackModifierDeck.extraMinusOneCards
     };
   }
 
@@ -112,6 +113,7 @@ abstract class Character {
     String className = json['class'];
     bool isActive = json['isActive'];
     List perks = json['perks'];
+    int extraMinusOneCards = json['extraMinusOneCards'];
 
     Character character = createCharacter(className, name);
     character.isActive = isActive;
@@ -122,6 +124,10 @@ abstract class Character {
         character.perks[currentPerk].perksUsed++;
         character.perks[currentPerk].perksAvailable--;
       }
+    }
+
+    for (int i = 0; i < extraMinusOneCards; i++) {
+      character.attackModifierDeck.addNegativeItemEffectMinusOneCard();
     }
 
     return character;

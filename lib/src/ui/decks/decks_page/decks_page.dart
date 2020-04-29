@@ -25,7 +25,9 @@ class DecksPage extends StatelessWidget {
 
         List<AttackModifierDeckTab> characterDeckPages =
         activeCharacters.map((character) =>
-            AttackModifierDeckTab(character: character)).toList();
+            AttackModifierDeckTab(
+              character: character, saveCharacters: () => characters.save(),))
+            .toList();
 
         return DefaultTabController(
           length: activeCharacters.length,

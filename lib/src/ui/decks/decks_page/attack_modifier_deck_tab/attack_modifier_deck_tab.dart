@@ -10,8 +10,10 @@ import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_ta
 
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
+  final Function saveCharacters;
 
-  AttackModifierDeckTab({Key key, @required Character character})
+  AttackModifierDeckTab(
+      {Key key, @required Character character, @required this.saveCharacters})
       : deck = character.attackModifierDeck,
         super(key: key);
 
@@ -174,6 +176,36 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                     ? setState(() => this.widget.deck.addCard(BlessCard()))
                     : null,
               )
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[Text('Negative item effect -1 cards')],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.remove),
+                onPressed: () =>
+                this.widget.deck.extraMinusOneCards > 0
+                    ? setState(() {
+                  this.widget.deck.removeNegativeItemEffectMinusOneCard();
+                  this.widget.saveCharacters();
+                })
+                    : null,
+              ),
+              Text(this.widget.deck.extraMinusOneCards.toString()),
+              IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () =>
+                      setState(() {
+                        this.widget.deck.addNegativeItemEffectMinusOneCard();
+                        this.widget.saveCharacters();
+                      }))
             ],
           ),
         ]));

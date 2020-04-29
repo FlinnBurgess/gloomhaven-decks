@@ -7,7 +7,6 @@ import 'package:gloomhaven_decks/src/cards/null_damage_card.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
 //TODO add modifier cards from negative item effects
-//TODO save characters when deck is modified
 class AttackModifierDeck {
   static const BASE_NUMBER_OF_ZERO_MODIFIERS = 6;
   static const BASE_NUMBER_OF_PLUS_ONE_MODIFIERS = 5;
@@ -20,6 +19,7 @@ class AttackModifierDeck {
   bool needsShuffling = false;
   int blessCardCount = 0;
   int curseCardCount = 0;
+  int extraMinusOneCards = 0;
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
@@ -135,6 +135,16 @@ class AttackModifierDeck {
 
     cards.forEach((card) => containsAllCards = deckCopy.remove(card));
     return containsAllCards;
+  }
+
+  void addNegativeItemEffectMinusOneCard() {
+    addCard(DamageChangeCard.negativeItemEffect());
+    extraMinusOneCards++;
+  }
+
+  void removeNegativeItemEffectMinusOneCard() {
+    _removeCard(DamageChangeCard.negativeItemEffect());
+    extraMinusOneCards--;
   }
 
   bool isBlessed() {
