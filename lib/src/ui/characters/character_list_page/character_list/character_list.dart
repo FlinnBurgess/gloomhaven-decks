@@ -5,7 +5,6 @@ import 'package:gloomhaven_decks/src/ui/characters/new_character_page/new_charac
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 
-//TODO Add confirmation message when delete button is clicked
 class CharacterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -62,8 +61,10 @@ class CharacterList extends StatelessWidget {
                                 })
                           ],
                         ),
-                        Flexible(child: OutlinedText(
-                            character.name, Colors.white, Colors.black),),
+                        Flexible(
+                          child: OutlinedText(
+                              character.name, Colors.white, Colors.black),
+                        ),
                         RaisedButton(
                           onPressed: () =>
                               Navigator.push(
@@ -76,7 +77,8 @@ class CharacterList extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () =>
-                              characters.deleteCharacter(character),
+                              _confirmCharacterDeletion(
+                                  characters, character, context),
                           icon: Icon(
                             Icons.delete,
                             color: Colors.grey[350],
@@ -86,4 +88,31 @@ class CharacterList extends StatelessWidget {
                     ))),
       )
           .toList();
+
+  void _confirmCharacterDeletion(characters, character, context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Delete ' + character.name + '?'),
+            content:
+            Text('Are you sure you would like to delete this character?'),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel')),
+              FlatButton(
+                color: Colors.red[700],
+                onPressed: () {
+                  characters.deleteCharacter(character);
+                  Navigator.of(context).pop();
+                },
+                child: Text('Delete'),
+              )
+            ],
+          );
+        });
+  }
 }
