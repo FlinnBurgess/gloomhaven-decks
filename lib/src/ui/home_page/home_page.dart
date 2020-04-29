@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('images/backgrounds/dark-wood.jpg'),
+                image: AssetImage('images/backgrounds/dark-wood-min.jpg'),
                 fit: BoxFit.cover),
           ),
           child: Column(

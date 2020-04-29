@@ -34,7 +34,6 @@ class CharacterList extends StatelessWidget {
     );
   }
 
-  //TODO Wrap items inside the card if name is really long and pushes things out of screen
   List<Widget> _getCharacterList(Characters characters, BuildContext context) =>
       characters.characters
           .map<Widget>(
@@ -49,7 +48,7 @@ class CharacterList extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Icon(character.characterIcon, color: Colors.grey[350],),
+                        Icon(character.characterIcon, color: Colors.grey[350]),
                         Column(
                           children: <Widget>[
                             OutlinedText('Active', Colors.white, Colors.black),
@@ -63,8 +62,8 @@ class CharacterList extends StatelessWidget {
                                 })
                           ],
                         ),
-                        OutlinedText(
-                            character.name, Colors.white, Colors.black),
+                        Flexible(child: OutlinedText(
+                            character.name, Colors.white, Colors.black),),
                         RaisedButton(
                           onPressed: () =>
                               Navigator.push(
@@ -78,7 +77,10 @@ class CharacterList extends StatelessWidget {
                         IconButton(
                           onPressed: () =>
                               characters.deleteCharacter(character),
-                          icon: Icon(Icons.delete, color: Colors.grey[350],),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.grey[350],
+                          ),
                         ),
                       ],
                     ))),
