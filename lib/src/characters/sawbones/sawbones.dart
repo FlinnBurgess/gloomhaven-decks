@@ -7,6 +7,7 @@ import 'package:gloomhaven_decks/src/characters/character_icons.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 
+// TODO rename character to correct "Sawbone" without an S
 class Sawbones extends Character {
   String name;
   List<Perk> perks;
@@ -14,6 +15,7 @@ class Sawbones extends Character {
   Icon characterIcon = Icon(CharacterIcons.sawbones_icon);
 
   Sawbones(this.name) {
+    backgroundImagePath = 'images/backgrounds/sawbone.png';
     String characterClass = this.runtimeType.toString();
 
     perks = [

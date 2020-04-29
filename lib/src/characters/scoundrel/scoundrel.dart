@@ -15,6 +15,7 @@ class Scoundrel extends Character {
   List<Perk> perks;
 
   Scoundrel(this.name) {
+    backgroundImagePath = 'images/backgrounds/scoundrel.png';
     characterIcon = Icon(CharacterIcons.scoundrel_icon);
     String characterClass = this.runtimeType.toString();
 

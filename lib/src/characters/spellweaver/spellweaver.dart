@@ -15,6 +15,7 @@ class Spellweaver extends Character {
   List<Perk> perks;
 
   Spellweaver(this.name) {
+    backgroundImagePath = 'images/backgrounds/spellweaver.png';
     characterIcon = Icon(CharacterIcons.spellweaver_icon);
     String characterClass = this.runtimeType.toString();
 

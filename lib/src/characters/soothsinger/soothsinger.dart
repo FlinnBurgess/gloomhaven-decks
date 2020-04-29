@@ -14,6 +14,7 @@ class Soothsinger extends Character {
   Icon characterIcon = Icon(CharacterIcons.soothsinger_icon);
 
   Soothsinger(this.name) {
+    backgroundImagePath = 'images/backgrounds/soothsinger.png';
     String characterClass = this.runtimeType.toString();
 
     perks = [

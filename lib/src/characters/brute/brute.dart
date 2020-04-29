@@ -15,6 +15,7 @@ class Brute extends Character {
   List<Perk> perks;
 
   Brute(this.name) {
+    backgroundImagePath = 'images/backgrounds/brute.png';
     attackModifierDeck = AttackModifierDeck();
     characterIcon = Icon(CharacterIcons.brute_icon);
 

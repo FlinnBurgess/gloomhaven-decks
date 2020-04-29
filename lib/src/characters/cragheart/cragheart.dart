@@ -17,6 +17,7 @@ class Cragheart extends Character {
   List<Perk> perks;
 
   Cragheart(this.name) {
+    backgroundImagePath = 'images/backgrounds/cragheart.png';
     attackModifierDeck = AttackModifierDeck();
     characterIcon = Icon(CharacterIcons.cragheart_icon);
     var characterClass = this.runtimeType.toString();

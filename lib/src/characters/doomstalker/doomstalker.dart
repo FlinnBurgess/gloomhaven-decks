@@ -13,6 +13,7 @@ class Doomstalker extends Character {
   Icon characterIcon = Icon(CharacterIcons.doomstalker_icons);
 
   Doomstalker(this.name) {
+    backgroundImagePath = 'images/backgrounds/doomstalker.png';
     var characterClass = this.runtimeType.toString();
 
     perks = [

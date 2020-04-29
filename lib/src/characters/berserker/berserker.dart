@@ -14,6 +14,7 @@ class Berserker extends Character {
   Icon characterIcon = Icon(CharacterIcons.berserker_icon);
 
   Berserker(this.name) {
+    backgroundImagePath = 'images/backgrounds/berserker.png';
     String characterClass = this.runtimeType.toString();
 
     perks = [

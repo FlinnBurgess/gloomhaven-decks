@@ -17,6 +17,7 @@ class Mindthief extends Character {
   List<Perk> perks;
 
   Mindthief(this.name) {
+    backgroundImagePath = 'images/backgrounds/mindthief.png';
     characterIcon = Icon(CharacterIcons.mindthief_icon);
 
     var characterClass = this.runtimeType.toString();

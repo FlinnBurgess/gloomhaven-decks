@@ -16,6 +16,7 @@ class Quartermaster extends Character {
   Icon characterIcon = Icon(CharacterIcons.quartermaster_icon);
 
   Quartermaster(this.name) {
+    backgroundImagePath = 'images/backgrounds/quartermaster.png';
     String characterClass = this.runtimeType.toString();
 
     perks = [

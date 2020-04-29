@@ -4,6 +4,7 @@ import 'package:gloomhaven_decks/src/ui/characters/character_perk_page/character
 import 'package:gloomhaven_decks/src/ui/characters/new_character_page/new_character_page.dart';
 import 'package:provider/provider.dart';
 
+//TODO Add confirmation message when delete button is clicked
 class CharacterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,49 +25,59 @@ class CharacterList extends StatelessWidget {
           child: Text('Add New Character'),
         ));
 
-        return Column(
+        return SingleChildScrollView(child: Column(
           children: options,
-        );
+        ));
       },
     );
   }
 
   List<Widget> _getCharacterList(Characters characters, BuildContext context) =>
       characters.characters
-          .map<Widget>((character) =>
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text('Active'),
-                  Checkbox(
-                      value: character.isActive,
-                      onChanged: (value) {
-                        character.attackModifierDeck.cleanUp();
-                        character.attackModifierDeck.shuffle();
-                        characters.setCharacterActiveState(
-                            character, value);
-                      })
-                ],
-              ),
-              character.characterIcon,
-              Text(character.name),
-              RaisedButton(
-                onPressed: () =>
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CharacterPerkPage(character: character))),
-                child: Text('Perks'),
-              ),
-              IconButton(
-                onPressed: () => characters.deleteCharacter(character),
-                icon: Icon(Icons.delete),
-              ),
-            ],
-          ))
+          .map<Widget>(
+            (character) =>
+            Card(
+                color: Color.fromRGBO(125, 205, 225, 1),
+                child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(character.backgroundImagePath),
+                            fit: BoxFit.cover)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text('Active'),
+                            Checkbox(
+                                value: character.isActive,
+                                onChanged: (value) {
+                                  character.attackModifierDeck.cleanUp();
+                                  character.attackModifierDeck.shuffle();
+                                  characters.setCharacterActiveState(
+                                      character, value);
+                                })
+                          ],
+                        ),
+                        character.characterIcon,
+                        Text(character.name),
+                        RaisedButton(
+                          onPressed: () =>
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CharacterPerkPage(
+                                              character: character))),
+                          child: Text('Perks'),
+                        ),
+                        IconButton(
+                          onPressed: () =>
+                              characters.deleteCharacter(character),
+                          icon: Icon(Icons.delete),
+                        ),
+                      ],
+                    ))),
+      )
           .toList();
 }

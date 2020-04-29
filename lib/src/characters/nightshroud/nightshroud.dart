@@ -17,6 +17,7 @@ class Nightshroud extends Character {
   List<Perk> perks;
 
   Nightshroud(this.name) {
+    backgroundImagePath = 'images/backgrounds/nightshroud.png';
     characterIcon = Icon(CharacterIcons.nightshroud_icon);
     var characterClass = this.runtimeType.toString();
 

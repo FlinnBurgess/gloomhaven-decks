@@ -16,6 +16,7 @@ class Summoner extends Character {
   Icon characterIcon = Icon(CharacterIcons.summoner_icon);
 
   Summoner(this.name) {
+    backgroundImagePath = 'images/backgrounds/summoner.png';
     String characterClass = this.runtimeType.toString();
 
     perks = [

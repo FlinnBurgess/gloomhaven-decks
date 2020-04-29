@@ -16,6 +16,7 @@ class Sunkeeper extends Character {
   List<Perk> perks;
 
   Sunkeeper(this.name) {
+    backgroundImagePath = 'images/backgrounds/sunkeeper.png';
     characterIcon = Icon(CharacterIcons.sunkeeper_icon);
     String characterClass = this.runtimeType.toString();
 

@@ -17,6 +17,7 @@ class Tinkerer extends Character {
   List<Perk> perks;
 
   Tinkerer(this.name) {
+    backgroundImagePath = 'images/backgrounds/tinkerer.png';
     characterIcon = Icon(CharacterIcons.tinkerer_icon);
     String characterClass = this.runtimeType.toString();
 

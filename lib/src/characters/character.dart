@@ -33,7 +33,10 @@ abstract class Character {
   bool isActive = true;
   List<Perk> perks;
   AttackModifierDeck attackModifierDeck;
+
+  //TODO Use IconData instead of Icon, so that you can create icons with custom styling based on context
   Icon characterIcon;
+  String backgroundImagePath;
 
   static final CLASS_LIST = [
     'Brute',

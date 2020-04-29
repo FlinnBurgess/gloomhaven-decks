@@ -14,6 +14,7 @@ class Plagueherald extends Character {
   List<Perk> perks;
 
   Plagueherald(this.name) {
+    backgroundImagePath = 'images/backgrounds/plagueherald.png';
     characterIcon = Icon(CharacterIcons.plagueherald_icon);
     String characterClass = this.runtimeType.toString();
 
