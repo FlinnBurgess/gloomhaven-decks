@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_perk_page/character_perk_page.dart';
 import 'package:gloomhaven_decks/src/ui/characters/new_character_page/new_character_page.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 
 //TODO Add confirmation message when delete button is clicked
@@ -25,13 +26,15 @@ class CharacterList extends StatelessWidget {
           child: Text('Add New Character'),
         ));
 
-        return SingleChildScrollView(child: Column(
+        return SingleChildScrollView(
+            child: Column(
           children: options,
         ));
       },
     );
   }
 
+  //TODO Wrap items in card if name is really long and pushes things out of screen
   List<Widget> _getCharacterList(Characters characters, BuildContext context) =>
       characters.characters
           .map<Widget>(
@@ -48,7 +51,7 @@ class CharacterList extends StatelessWidget {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            Text('Active'),
+                            OutlinedText('Active', Colors.white, Colors.black),
                             Checkbox(
                                 value: character.isActive,
                                 onChanged: (value) {
@@ -60,7 +63,8 @@ class CharacterList extends StatelessWidget {
                           ],
                         ),
                         character.characterIcon,
-                        Text(character.name),
+                        OutlinedText(
+                            character.name, Colors.white, Colors.black),
                         RaisedButton(
                           onPressed: () =>
                               Navigator.push(
