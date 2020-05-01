@@ -82,6 +82,12 @@ class Perk {
       : this.addCard(ConditionCard(Condition.stun, characterClass),
       perksAvailable, 'Add one [ROLLING] [STUN] card');
 
+  Perk.addOnePlusZeroAndStunCard(int perksAvailable, String characterClass)
+      : this.addCard(
+      DamageChangeCard.withCondition(0, Condition.stun, characterClass),
+      perksAvailable,
+      'Add one +0 [STUN] card');
+
   Perk.addTwoRollingWoundCards(int perksAvailable, String characterClass)
       : this.addCards(ConditionCard(Condition.wound, characterClass).times(2),
       perksAvailable, 'Add two [ROLLING] [WOUND] cards');
@@ -126,8 +132,10 @@ class Perk {
       'Add two [ROLLING] +1 cards');
 
   Perk.ignoreNegativeScenarioEffectsAndAddTwoPlusOneCards(String characterClass)
-      : this.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2),
-      ONE_AVAILABLE, 'Ignore negative scenario effects and add two +1 cards');
+      : this.addCards(
+      DamageChangeCard.forCharacter(1, characterClass).times(2),
+      ONE_AVAILABLE,
+      'Ignore negative scenario effects and add two +1 cards');
 
   Function _removeCardsFromDeck(List<AttackModifierCard> cards) {
     return (AttackModifierDeck attackModifierDeck) =>

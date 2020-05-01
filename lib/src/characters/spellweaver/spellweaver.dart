@@ -22,10 +22,7 @@ class Spellweaver extends Character {
       Perk.removeFourZeros(ONE_AVAILABLE),
       Perk.replaceMinusOneWithPlusOne(TWO_AVAILABLE, characterClass),
       Perk.addTwoPlusOnes(TWO_AVAILABLE, characterClass),
-      Perk.addCard(
-          DamageChangeCard.withCondition(0, Condition.stun, characterClass),
-          ONE_AVAILABLE,
-          'Add one +0 [STUN] card'),
+      Perk.addOnePlusZeroAndStunCard(ONE_AVAILABLE, characterClass),
       Perk.addPlusOneAndWoundCard(ONE_AVAILABLE, characterClass),
       Perk.addPlusOneAndImmobilizeCard(ONE_AVAILABLE, characterClass),
       Perk.addCard(
