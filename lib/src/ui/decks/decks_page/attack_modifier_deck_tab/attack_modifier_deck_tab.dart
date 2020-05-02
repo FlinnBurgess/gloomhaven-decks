@@ -86,6 +86,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
             ),
             RaisedButton(
               child: Text("Draw cards"),
+              splashColor: Colors.black,
               onPressed: () {
                 setState(() {
                   resultDisplay = FutureBuilder<Widget>(

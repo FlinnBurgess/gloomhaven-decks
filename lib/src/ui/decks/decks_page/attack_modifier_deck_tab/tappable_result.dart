@@ -4,7 +4,6 @@ import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
-//TODO Add a "details" button instead of tapping on the result
 class TappableResult extends StatelessWidget {
   final AttackModifierResult result;
   final List<AttackModifierCard> cardsApplied;
