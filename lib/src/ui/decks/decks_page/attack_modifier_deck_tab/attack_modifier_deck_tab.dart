@@ -152,16 +152,30 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                 Incrementer(
                   label: '-1 item effect',
                   incrementBehaviour: () {
-                    this.widget.deck.addNegativeItemEffectMinusOneCard();
+                    this.widget.deck.addItemEffectMinusOneCard();
                     this.widget.saveCharacters();
                   },
                   decrementBehaviour: () {
-                    this.widget.deck.removeNegativeItemEffectMinusOneCard();
+                    this.widget.deck.removeItemEffectMinusOneCard();
                     this.widget.saveCharacters();
                   },
                   decrementEnabledCondition: () =>
-                  this.widget.deck.extraMinusOneCards > 0,
-                  valueCalculation: () => this.widget.deck.extraMinusOneCards,
+                  this.widget.deck.itemEffectMinusOneCards > 0,
+                  valueCalculation: () =>
+                  this.widget.deck.itemEffectMinusOneCards,
+                ),
+                Incrementer(
+                  label: '-1 scenario effect',
+                  incrementBehaviour: () {
+                    this.widget.deck.addScenarioEffectMinusOneCard();
+                  },
+                  decrementBehaviour: () {
+                    this.widget.deck.removeScenarioEffectMinusOneCard();
+                  },
+                  decrementEnabledCondition: () =>
+                  this.widget.deck.scenarioEffectMinusOneCards > 0,
+                  valueCalculation: () =>
+                  this.widget.deck.scenarioEffectMinusOneCards,
                 ),
               ],
             ),

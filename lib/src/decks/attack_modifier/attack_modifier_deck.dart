@@ -19,7 +19,8 @@ class AttackModifierDeck {
   bool needsShuffling = false;
   int blessCardCount = 0;
   int curseCardCount = 0;
-  int extraMinusOneCards = 0;
+  int itemEffectMinusOneCards = 0;
+  int scenarioEffectMinusOneCards = 0;
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
@@ -137,14 +138,24 @@ class AttackModifierDeck {
     return containsAllCards;
   }
 
-  void addNegativeItemEffectMinusOneCard() {
-    addCard(DamageChangeCard.negativeItemEffect());
-    extraMinusOneCards++;
+  void addItemEffectMinusOneCard() {
+    addCard(DamageChangeCard.extraMinusOne());
+    itemEffectMinusOneCards++;
   }
 
-  void removeNegativeItemEffectMinusOneCard() {
-    _removeCard(DamageChangeCard.negativeItemEffect());
-    extraMinusOneCards--;
+  void removeItemEffectMinusOneCard() {
+    _removeCard(DamageChangeCard.extraMinusOne());
+    itemEffectMinusOneCards--;
+  }
+
+  void addScenarioEffectMinusOneCard() {
+    addCard(DamageChangeCard.extraMinusOne());
+    scenarioEffectMinusOneCards++;
+  }
+
+  void removeScenarioEffectMinusOneCard() {
+    _removeCard(DamageChangeCard.extraMinusOne());
+    scenarioEffectMinusOneCards--;
   }
 
   bool isBlessed() {
@@ -177,6 +188,7 @@ class AttackModifierDeck {
     if (_drawPile.isEmpty) {
       _drawPile = [..._discardPile];
       _drawPile.shuffle();
+      _discardPile = [];
     }
 
     AttackModifierCard cardDrawn = _drawPile.removeAt(0);
@@ -186,6 +198,8 @@ class AttackModifierDeck {
     } else if (cardDrawn is DoubleDamageCard || cardDrawn is NullDamageCard) {
       needsShuffling = true;
     }
+
+    cardsDrawn.add(cardDrawn);
 
     return cardDrawn;
   }

@@ -10,9 +10,9 @@ class DamageChangeCard extends AttackModifierCard {
       : super(damageChangeEffect(damageChange), false,
       generateBaseImagePath(damageChange));
 
-  DamageChangeCard.negativeItemEffect()
+  DamageChangeCard.extraMinusOne()
       : super(damageChangeEffect(-1), false,
-      'images/cards/base/negative-item-effect.png');
+      'images/cards/base/extra-minus-one.png');
 
   DamageChangeCard.forCharacter(int damageChange, String characterClass)
       : super(damageChangeEffect(damageChange), false,

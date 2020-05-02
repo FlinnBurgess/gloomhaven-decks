@@ -108,7 +108,7 @@ abstract class Character {
       'class': this.runtimeType.toString(),
       'isActive': isActive,
       'perks': perks.map<int>((perk) => perk.perksUsed).toList(),
-      'extraMinusOneCards': attackModifierDeck.extraMinusOneCards
+      'extraMinusOneCards': attackModifierDeck.itemEffectMinusOneCards
     };
   }
 
@@ -131,7 +131,7 @@ abstract class Character {
     }
 
     for (int i = 0; i < extraMinusOneCards; i++) {
-      character.attackModifierDeck.addNegativeItemEffectMinusOneCard();
+      character.attackModifierDeck.addItemEffectMinusOneCard();
     }
 
     return character;
