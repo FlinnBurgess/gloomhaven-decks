@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
+//TODO Add a "details" button instead of tapping on the result
 class TappableResult extends StatelessWidget {
   final AttackModifierResult result;
   final List<AttackModifierCard> cardsApplied;
@@ -45,20 +47,22 @@ class TappableResult extends StatelessWidget {
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text('Select the worst of the two results')],
+          children: <Widget>[
+            OutlinedText.blackAndWhite('Select the worst of the two results')
+          ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Column(
               children: <Widget>[
-                Text('First result:'),
+                OutlinedText.blackAndWhite('First result:'),
                 TappableResult(firstResult, [firstCard])
               ],
             ),
             Column(
               children: <Widget>[
-                Text('Second result:'),
+                OutlinedText.blackAndWhite('Second result:'),
                 TappableResult(secondResult, [secondCard])
               ],
             )
@@ -76,20 +80,22 @@ class TappableResult extends StatelessWidget {
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text('Select the better of the two results')],
+          children: <Widget>[
+            OutlinedText.blackAndWhite('Select the better of the two results')
+          ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Column(
               children: <Widget>[
-                Text('First result:'),
+                OutlinedText.blackAndWhite('First result:'),
                 TappableResult(firstResult, [firstCard])
               ],
             ),
             Column(
               children: <Widget>[
-                Text('Second result:'),
+                OutlinedText.blackAndWhite('Second result:'),
                 TappableResult(secondResult, [secondCard])
               ],
             )
@@ -101,31 +107,39 @@ class TappableResult extends StatelessWidget {
 
   List<Widget> _extractInformationToDisplay(AttackModifierResult result) {
     List<Widget> displayInformation = [
-      Text('Total damage: ' + result.totalDamage.toString()),
-      result.infusions.isEmpty ? null : Text(result.infusions.toString()),
-      result.conditions.isEmpty ? null : Text(result.conditions.toString()),
-      result.isNull ? Text("NULL") : null,
+      OutlinedText.blackAndWhite(
+          'Total damage: ' + result.totalDamage.toString()),
+      result.infusions.isEmpty ? null : OutlinedText.blackAndWhite(
+          result.infusions.toString()),
+      result.conditions.isEmpty ? null : OutlinedText.blackAndWhite(
+          result.conditions.toString()),
+      result.isNull ? OutlinedText.blackAndWhite("NULL") : null,
       result.addTargetAmount == 0
           ? null
-          : Text("Added targets: " + result.addTargetAmount.toString()),
+          : OutlinedText.blackAndWhite(
+          "Added targets: " + result.addTargetAmount.toString()),
       result.pierceAmount == 0
           ? null
-          : Text("Pierce: " + result.pierceAmount.toString()),
+          : OutlinedText.blackAndWhite(
+          "Pierce: " + result.pierceAmount.toString()),
       result.pullAmount == 0
           ? null
-          : Text("Pull: " + result.pullAmount.toString()),
+          : OutlinedText.blackAndWhite("Pull: " + result.pullAmount.toString()),
       result.pushAmount == 0
           ? null
-          : Text("Push: " + result.pushAmount.toString()),
+          : OutlinedText.blackAndWhite("Push: " + result.pushAmount.toString()),
       result.healAmount == 0
           ? null
-          : Text("Heal amount: " + result.healAmount.toString()),
+          : OutlinedText.blackAndWhite(
+          "Heal amount: " + result.healAmount.toString()),
       result.shieldAmount == 0
           ? null
-          : Text("Shield amount: " + result.shieldAmount.toString()),
+          : OutlinedText.blackAndWhite(
+          "Shield amount: " + result.shieldAmount.toString()),
       result.refreshItemAmount == 0
           ? null
-          : Text("Refreshed items: " + result.refreshItemAmount.toString())
+          : OutlinedText.blackAndWhite(
+          "Refreshed items: " + result.refreshItemAmount.toString())
     ];
 
     displayInformation.removeWhere((widget) => widget == null);

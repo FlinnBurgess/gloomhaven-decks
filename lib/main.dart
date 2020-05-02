@@ -23,7 +23,9 @@ class GloomhavenDeckTracker extends StatelessWidget {
     precacheImage(AssetImage('images/backgrounds/dark-wood.jpg'), context);
     return MaterialApp(
       title: 'Gloomhaven Deck Tracker',
-      theme: ThemeData(fontFamily: 'PirataOne', textTheme: customTextTheme),
+      theme: ThemeData(fontFamily: 'PirataOne',
+          textTheme: customTextTheme,
+          unselectedWidgetColor: Colors.white),
       home: HomePage(),
     );
   }

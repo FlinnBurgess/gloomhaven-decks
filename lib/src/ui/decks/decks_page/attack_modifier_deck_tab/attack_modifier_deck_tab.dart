@@ -7,6 +7,7 @@ import 'package:gloomhaven_decks/src/cards/curse_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/tappable_result.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
@@ -28,33 +29,41 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   bool targetIsPoisoned = false;
   bool characterHasAdvantage = false;
   bool characterDisadvantaged = false;
+  ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+        controller: _scrollController,
         child: Column(children: <Widget>[
           resultDisplay == null
-              ? Text("Draw cards to see results")
+              ? OutlinedText.blackAndWhite("Draw cards to see results")
               : resultDisplay,
           Padding(
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Column(
               children: <Widget>[
-                Text('Starting attack damage'),
+                OutlinedText.blackAndWhite('Starting attack damage'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     IconButton(
-                        icon: Icon(Icons.remove),
+                        icon: Icon(
+                          Icons.remove,
+                          color: Colors.white,
+                        ),
                         onPressed: initialDamage == 0
                             ? null
                             : () =>
                             this.setState(
                                   () => initialDamage--,
                             )),
-                    Text(initialDamage.toString()),
+                    OutlinedText.blackAndWhite(initialDamage.toString()),
                     IconButton(
-                      icon: Icon(Icons.add),
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
                       onPressed: () => this.setState(() => initialDamage++),
                     )
                   ],
@@ -79,6 +88,9 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                 );
               });
               this.widget.deck.discardCardsDrawn();
+              _scrollController.animateTo(0.0,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeOut);
             },
           ),
           Padding(
@@ -88,7 +100,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text("Target is poisoned"),
+                      OutlinedText.blackAndWhite("Target is poisoned"),
                       Checkbox(
                         value: targetIsPoisoned,
                         onChanged: (value) =>
@@ -98,7 +110,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                   ),
                   Column(
                     children: <Widget>[
-                      Text("Advantage"),
+                      OutlinedText.blackAndWhite("Advantage"),
                       Checkbox(
                         value: characterHasAdvantage,
                         onChanged: characterDisadvantaged
@@ -110,7 +122,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                   ),
                   Column(
                     children: <Widget>[
-                      Text("Disadvantage"),
+                      OutlinedText.blackAndWhite("Disadvantage"),
                       Checkbox(
                         value: characterDisadvantaged,
                         onChanged: characterHasAdvantage
@@ -126,23 +138,30 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[Text('Curse cards')],
+              children: <Widget>[OutlinedText.blackAndWhite('Curse cards')],
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.remove),
+                icon: Icon(
+                  Icons.remove,
+                  color: Colors.white,
+                ),
                 onPressed: () =>
                 this.widget.deck.isCursed()
-                    ? setState(() =>
-                    this.widget.deck.removeCards([CurseCard()]))
+                    ? setState(
+                        () => this.widget.deck.removeCards([CurseCard()]))
                     : null,
               ),
-              Text(this.widget.deck.curseCardCount.toString()),
+              OutlinedText.blackAndWhite(
+                  this.widget.deck.curseCardCount.toString()),
               IconButton(
-                icon: Icon(Icons.add),
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
                 onPressed: () =>
                 CurseCard.totalCurseCardsInPlay < 10
                     ? setState(() => this.widget.deck.addCard(CurseCard()))
@@ -154,23 +173,30 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[Text('Bless cards')],
+              children: <Widget>[OutlinedText.blackAndWhite('Bless cards')],
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.remove),
+                icon: Icon(
+                  Icons.remove,
+                  color: Colors.white,
+                ),
                 onPressed: () =>
                 this.widget.deck.isBlessed()
-                    ? setState(() =>
-                    this.widget.deck.removeCards([BlessCard()]))
+                    ? setState(
+                        () => this.widget.deck.removeCards([BlessCard()]))
                     : null,
               ),
-              Text(this.widget.deck.blessCardCount.toString()),
+              OutlinedText.blackAndWhite(
+                  this.widget.deck.blessCardCount.toString()),
               IconButton(
-                icon: Icon(Icons.add),
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
                 onPressed: () =>
                 BlessCard.totalBlessCardsInPlay < 10
                     ? setState(() => this.widget.deck.addCard(BlessCard()))
@@ -182,14 +208,19 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[Text('Negative item effect -1 cards')],
+              children: <Widget>[
+                OutlinedText.blackAndWhite('Negative item effect -1 cards')
+              ],
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.remove),
+                icon: Icon(
+                  Icons.remove,
+                  color: Colors.white,
+                ),
                 onPressed: () =>
                 this.widget.deck.extraMinusOneCards > 0
                     ? setState(() {
@@ -198,9 +229,13 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                 })
                     : null,
               ),
-              Text(this.widget.deck.extraMinusOneCards.toString()),
+              OutlinedText.blackAndWhite(
+                  this.widget.deck.extraMinusOneCards.toString()),
               IconButton(
-                  icon: Icon(Icons.add),
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                   onPressed: () =>
                       setState(() {
                         this.widget.deck.addNegativeItemEffectMinusOneCard();

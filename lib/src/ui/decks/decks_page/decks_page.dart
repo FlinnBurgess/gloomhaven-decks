@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/ui/app_background.dart';
 import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/attack_modifier_deck_tab.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -32,15 +34,20 @@ class DecksPage extends StatelessWidget {
         return DefaultTabController(
           length: activeCharacters.length,
           child: Scaffold(
+            extendBodyBehindAppBar: true,
             appBar: AppBar(
-              title: Text('Decks'),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: OutlinedText.blackAndWhite('Decks'),
               bottom: TabBar(
                 tabs: characterTabs,
+                indicatorWeight: 3,
+                indicatorColor: Colors.white,
               ),
             ),
-            body: TabBarView(
+            body: AppBackground(child: SafeArea(child: TabBarView(
               children: characterDeckPages,
-            ),
+            ))),
           ),
         );
       },

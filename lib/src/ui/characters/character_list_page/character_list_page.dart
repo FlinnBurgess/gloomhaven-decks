@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/ui/app_background.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
 import 'character_list/character_list.dart';
 
@@ -6,16 +8,14 @@ class CharacterListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Text('Gloomhaven Deck Tracker'),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: OutlinedText.blackAndWhite('Characters'),
         ),
-        body: Container(
-          constraints: BoxConstraints.expand(),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('images/backgrounds/dark-wood.jpg'),
-                  fit: BoxFit.cover)),
-          child: CharacterList(),
+        body: AppBackground(
+          child: SafeArea(child: CharacterList()),
         ));
   }
 }

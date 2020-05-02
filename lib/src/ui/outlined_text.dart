@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class OutlinedText extends StatelessWidget {
   Color bodyColour;
@@ -8,6 +9,9 @@ class OutlinedText extends StatelessWidget {
 
   OutlinedText(this.text, this.bodyColour, this.outlineColour,
       [this.alignment = TextAlign.start]);
+
+  OutlinedText.blackAndWhite(text, [alignment = TextAlign.start])
+      : this(text, Colors.white, Colors.black, alignment);
 
   @override
   Widget build(BuildContext context) {

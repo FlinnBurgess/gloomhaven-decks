@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/settings/settings.dart';
+import 'package:gloomhaven_decks/src/ui/app_background.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -11,8 +13,12 @@ class SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
-      body: Column(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(title: OutlinedText.blackAndWhite('Settings'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,),
+      body: AppBackground(
+          child: SafeArea(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           FutureBuilder<bool>(
@@ -23,7 +29,8 @@ class SettingsPageState extends State<SettingsPage> {
                   ? Column(
                 children: <Widget>[
                   Wrap(children: [
-                    Text('2x cards act as +2 and Null cards act as -2')
+                    OutlinedText.blackAndWhite(
+                        '2x cards act as +2 and Null cards act as -2')
                   ]),
                   Switch(
                       value: snapshot.data,
@@ -43,9 +50,9 @@ class SettingsPageState extends State<SettingsPage> {
                   Wrap(children: [
                     Padding(
                       padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text(
+                      child: OutlinedText.blackAndWhite(
                         'Hide non-starting character class names on new character page',
-                        textAlign: TextAlign.center,
+                        TextAlign.center,
                       ),
                     )
                   ]),
@@ -58,7 +65,7 @@ class SettingsPageState extends State<SettingsPage> {
               )
                   : Container())
         ],
-      ),
+          ))),
     );
   }
 }

@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/ui/app_background.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 
+// TODO replace placeholder with icons in text (https://stackoverflow.com/questions/56840994/how-to-show-icon-in-text-widget-in-flutter)
 class CharacterPerkPage extends StatefulWidget {
   final Character character;
 
@@ -64,7 +67,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         perkOptions.add(Flexible(
             child: Padding(
           padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
-          child: Text(perk.description),
+              child: OutlinedText.blackAndWhite(perk.description),
             )));
         perkRows.add(Align(
             alignment: Alignment.centerLeft,
@@ -76,14 +79,18 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
       var perkList = ListView(children: perkRows);
 
       return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Text(this.widget.character.name +
-              ' the ' +
-              this.widget.character.runtimeType.toString()),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: OutlinedText.blackAndWhite(
+              'Perks for ' + this.widget.character.name +
+                  ' the ' +
+                  this.widget.character.runtimeType.toString()),
         ),
-        body: Center(
+        body: AppBackground(child: SafeArea(child: Center(
           child: perkList,
-        ),
+        ))),
       );
     });
   }

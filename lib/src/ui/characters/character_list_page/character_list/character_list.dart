@@ -15,10 +15,8 @@ class CharacterList extends StatelessWidget {
         if (characters.characters.isEmpty) {
           options.add(Padding(
               padding: EdgeInsets.symmetric(horizontal: 35),
-              child: OutlinedText(
+              child: OutlinedText.blackAndWhite(
                   "You don't have any characters at the moment! Try adding a new one.",
-                  Colors.white,
-                  Colors.black,
                   TextAlign.center)));
         } else {
           options += _getCharacterList(characters, context);
@@ -55,7 +53,7 @@ class CharacterList extends StatelessWidget {
                         Icon(character.characterIcon, color: Colors.grey[350]),
                         Column(
                           children: <Widget>[
-                            OutlinedText('Active', Colors.white, Colors.black),
+                            OutlinedText.blackAndWhite('Active'),
                             Checkbox(
                                 value: character.isActive,
                                 onChanged: (value) {
@@ -67,8 +65,7 @@ class CharacterList extends StatelessWidget {
                           ],
                         ),
                         Flexible(
-                          child: OutlinedText(
-                              character.name, Colors.white, Colors.black),
+                          child: OutlinedText.blackAndWhite(character.name),
                         ),
                         RaisedButton(
                           onPressed: () =>
