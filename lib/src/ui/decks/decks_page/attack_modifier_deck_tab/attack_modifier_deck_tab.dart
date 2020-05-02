@@ -71,28 +71,37 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
               ],
             ),
           ),
-          RaisedButton(
-            child: Text("Draw cards"),
-            onPressed: () {
-              if (this.widget.deck.needsShuffling) {
-                this.widget.deck.shuffle();
-              }
-              setState(() {
-                resultDisplay = FutureBuilder<Widget>(
-                  future: getResultsBasedOnSettings(),
-                  initialData: Container(),
-                  builder: (context, snapshot) =>
-                  snapshot.hasData
-                      ? resultDisplay = snapshot.data
-                      : Container(),
-                );
-              });
-              this.widget.deck.discardCardsDrawn();
-              _scrollController.animateTo(0.0,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeOut);
-            },
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            RaisedButton(
+              child: Text('Shuffle deck'),
+              onPressed: this.widget.deck.needsShuffling
+                  ? () =>
+                  setState(() {
+                    this.widget.deck.shuffle();
+                    resultDisplay = null;
+                  })
+                  : null,
+            ),
+            RaisedButton(
+              child: Text("Draw cards"),
+              onPressed: () {
+                setState(() {
+                  resultDisplay = FutureBuilder<Widget>(
+                    future: getResultsBasedOnSettings(),
+                    initialData: Container(),
+                    builder: (context, snapshot) =>
+                    snapshot.hasData
+                        ? resultDisplay = snapshot.data
+                        : Container(),
+                  );
+                });
+                this.widget.deck.discardCardsDrawn();
+                _scrollController.animateTo(0.0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut);
+              },
+            )
+          ]),
           Padding(
               padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
               child: Row(
@@ -134,6 +143,45 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                   )
                 ],
               )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                OutlinedText.blackAndWhite('Negative item effect -1 cards')
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.remove,
+                  color: Colors.white,
+                ),
+                onPressed: () =>
+                this.widget.deck.extraMinusOneCards > 0
+                    ? setState(() {
+                  this.widget.deck.removeNegativeItemEffectMinusOneCard();
+                  this.widget.saveCharacters();
+                })
+                    : null,
+              ),
+              OutlinedText.blackAndWhite(
+                  this.widget.deck.extraMinusOneCards.toString()),
+              IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  onPressed: () =>
+                      setState(() {
+                        this.widget.deck.addNegativeItemEffectMinusOneCard();
+                        this.widget.saveCharacters();
+                      }))
+            ],
+          ),
           Padding(
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Row(
@@ -202,45 +250,6 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                     ? setState(() => this.widget.deck.addCard(BlessCard()))
                     : null,
               )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                OutlinedText.blackAndWhite('Negative item effect -1 cards')
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.remove,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                this.widget.deck.extraMinusOneCards > 0
-                    ? setState(() {
-                  this.widget.deck.removeNegativeItemEffectMinusOneCard();
-                  this.widget.saveCharacters();
-                })
-                    : null,
-              ),
-              OutlinedText.blackAndWhite(
-                  this.widget.deck.extraMinusOneCards.toString()),
-              IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  onPressed: () =>
-                      setState(() {
-                        this.widget.deck.addNegativeItemEffectMinusOneCard();
-                        this.widget.saveCharacters();
-                      }))
             ],
           ),
         ]));
