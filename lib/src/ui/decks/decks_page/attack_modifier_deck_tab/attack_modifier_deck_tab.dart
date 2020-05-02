@@ -7,6 +7,7 @@ import 'package:gloomhaven_decks/src/cards/curse_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/tappable_result.dart';
+import 'package:gloomhaven_decks/src/ui/icrementer.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
 class AttackModifierDeckTab extends StatefulWidget {
@@ -146,111 +147,54 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                OutlinedText.blackAndWhite('Negative item effect -1 cards')
+                Incrementer(
+                  label: '-1 item effect',
+                  incrementBehaviour: () {
+                    this.widget.deck.addNegativeItemEffectMinusOneCard();
+                    this.widget.saveCharacters();
+                  },
+                  decrementBehaviour: () {
+                    this.widget.deck.removeNegativeItemEffectMinusOneCard();
+                    this.widget.saveCharacters();
+                  },
+                  decrementEnabledCondition: () =>
+                  this.widget.deck.extraMinusOneCards > 0,
+                  valueCalculation: () => this.widget.deck.extraMinusOneCards,
+                ),
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.remove,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                this.widget.deck.extraMinusOneCards > 0
-                    ? setState(() {
-                  this.widget.deck.removeNegativeItemEffectMinusOneCard();
-                  this.widget.saveCharacters();
-                })
-                    : null,
-              ),
-              OutlinedText.blackAndWhite(
-                  this.widget.deck.extraMinusOneCards.toString()),
-              IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  onPressed: () =>
-                      setState(() {
-                        this.widget.deck.addNegativeItemEffectMinusOneCard();
-                        this.widget.saveCharacters();
-                      }))
-            ],
-          ),
           Padding(
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[OutlinedText.blackAndWhite('Curse cards')],
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Incrementer(
+                  label: 'Curse Cards',
+                  incrementBehaviour: () =>
+                      this.widget.deck.addCard(CurseCard()),
+                  incrementEnabledCondition: () =>
+                  CurseCard.totalCurseCardsInPlay < 10,
+                  decrementBehaviour: () =>
+                      this.widget.deck.removeCards([CurseCard()]),
+                  decrementEnabledCondition: () => this.widget.deck.isCursed(),
+                  valueCalculation: () => this.widget.deck.curseCardCount,
+                ),
+                Incrementer(
+                  label: 'Bless Cards',
+                  incrementBehaviour: () =>
+                      this.widget.deck.addCard(BlessCard()),
+                  incrementEnabledCondition: () =>
+                  BlessCard.totalBlessCardsInPlay < 10,
+                  decrementBehaviour: () =>
+                      this.widget.deck.removeCards([BlessCard()]),
+                  decrementEnabledCondition: () => this.widget.deck.isBlessed(),
+                  valueCalculation: () => this.widget.deck.blessCardCount,
+                )
+              ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.remove,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                this.widget.deck.isCursed()
-                    ? setState(
-                        () => this.widget.deck.removeCards([CurseCard()]))
-                    : null,
-              ),
-              OutlinedText.blackAndWhite(
-                  this.widget.deck.curseCardCount.toString()),
-              IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                CurseCard.totalCurseCardsInPlay < 10
-                    ? setState(() => this.widget.deck.addCard(CurseCard()))
-                    : null,
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[OutlinedText.blackAndWhite('Bless cards')],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.remove,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                this.widget.deck.isBlessed()
-                    ? setState(
-                        () => this.widget.deck.removeCards([BlessCard()]))
-                    : null,
-              ),
-              OutlinedText.blackAndWhite(
-                  this.widget.deck.blessCardCount.toString()),
-              IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                BlessCard.totalBlessCardsInPlay < 10
-                    ? setState(() => this.widget.deck.addCard(BlessCard()))
-                    : null,
-              )
-            ],
           ),
         ]));
   }
