@@ -14,11 +14,14 @@ class SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(title: OutlinedText.blackAndWhite('Settings'),
+      appBar: AppBar(
+        title: OutlinedText.blackAndWhite('Settings'),
         elevation: 0,
-        backgroundColor: Colors.transparent,),
+        backgroundColor: Colors.transparent,
+      ),
       body: AppBackground(
-          child: SafeArea(child: Column(
+          child: SafeArea(
+              child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           FutureBuilder<bool>(
@@ -33,6 +36,10 @@ class SettingsPageState extends State<SettingsPage> {
                         '2x cards act as +2 and Null cards act as -2')
                   ]),
                   Switch(
+                      inactiveTrackColor: Colors.red,
+                      inactiveThumbColor: Colors.grey,
+                      activeTrackColor: Colors.green,
+                      activeColor: Colors.grey,
                       value: snapshot.data,
                       onChanged: (value) {
                         setLessRandomnessSetting(value);
@@ -57,6 +64,10 @@ class SettingsPageState extends State<SettingsPage> {
                     )
                   ]),
                   Switch(
+                      inactiveTrackColor: Colors.red,
+                      inactiveThumbColor: Colors.grey,
+                      activeTrackColor: Colors.green,
+                      activeColor: Colors.grey,
                       value: snapshot.data,
                       onChanged: (value) {
                         setHideUnlockableClassNamesSetting(value);
@@ -65,7 +76,7 @@ class SettingsPageState extends State<SettingsPage> {
               )
                   : Container())
         ],
-          ))),
+              ))),
     );
   }
 }
