@@ -48,5 +48,6 @@ flutter:
     - images/cards/summoner/
     - images/cards/sunkeeper/
     - images/cards/tinkerer/
+    - images/cards/elementalist/
     - images/backgrounds/
   uses-material-design: true

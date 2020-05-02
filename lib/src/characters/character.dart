@@ -16,6 +16,7 @@ import 'package:gloomhaven_decks/src/perks/perk.dart';
 
 import 'brute/brute.dart';
 import 'cragheart/cragheart.dart';
+import 'elementalist/elementalist.dart';
 import 'mindthief/mindthief.dart';
 import 'nightshroud/nightshroud.dart';
 
@@ -43,16 +44,17 @@ abstract class Character {
     'Scoundrel',
     'Spellweaver',
     'Tinkerer',
-    'Nightshroud',
-    'Sunkeeper',
-    'Plagueherald',
     'Beast Tyrant',
     'Berserker',
     'Doomstalker',
+    'Elementalist',
+    'Nightshroud',
+    'Plagueherald',
     'Quartermaster',
     'Sawbones',
     'Soothsinger',
-    'Summoner'
+    'Summoner',
+    'Sunkeeper',
   ];
 
   static Character createCharacter(className, name) {
@@ -89,6 +91,8 @@ abstract class Character {
         return Soothsinger(name);
       case 'Summoner':
         return Summoner(name);
+      case 'Elementalist':
+        return Elementalist(name);
       default:
         return null;
     }
