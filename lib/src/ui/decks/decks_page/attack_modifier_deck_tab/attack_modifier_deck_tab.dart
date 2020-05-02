@@ -10,6 +10,7 @@ import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_ta
 import 'package:gloomhaven_decks/src/ui/icrementer.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
+//TODO Animate the result when user draws cards, to make it more obvious that they tapped it when thee result is the same
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
   final Function saveCharacters;
@@ -23,7 +24,6 @@ class AttackModifierDeckTab extends StatefulWidget {
   State<StatefulWidget> createState() => AttackModifierDeckTabState();
 }
 
-//TODO Persist state of the decks page tabs so that navigating away doesn't reset them
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   Widget resultDisplay;
   int initialDamage = 0;
@@ -36,7 +36,8 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         controller: _scrollController,
-        child: Column(children: <Widget>[
+        child: Padding(
+            padding: EdgeInsets.only(top: 25), child: Column(children: <Widget>[
           resultDisplay == null
               ? OutlinedText.blackAndWhite("Draw cards to see results")
               : resultDisplay,
@@ -210,7 +211,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
               ],
             ),
           ),
-        ]));
+        ])));
   }
 
   Future<Widget> getResultsBasedOnSettings() async {

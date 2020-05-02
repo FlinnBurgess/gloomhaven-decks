@@ -15,28 +15,38 @@ class TappableResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  backgroundColor: Colors.transparent,
-                  content: Container(
-                    width: double.maxFinite,
-                    child: ListView(
-                      children: cardsApplied
-                          .map((card) =>
-                          Padding(
-                              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                              child: card.getImage()))
-                          .toList(),
-                    ),
-                  ),
-                );
-              });
+          showCardList(context);
         },
         child: Column(
-          children: _extractInformationToDisplay(result),
+          children: _extractInformationToDisplay(result) +
+              [
+                RaisedButton(
+                  child: Text('See cards'),
+                  onPressed: () => showCardList(context),
+                )
+              ],
         ));
+  }
+
+  showCardList(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: Container(
+              width: double.maxFinite,
+              child: ListView(
+                children: cardsApplied
+                    .map((card) =>
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                        child: card.getImage()))
+                    .toList(),
+              ),
+            ),
+          );
+        });
   }
 
   static Widget ambiguousDisadvantage(AttackModifierResult firstResult,
@@ -109,10 +119,12 @@ class TappableResult extends StatelessWidget {
     List<Widget> displayInformation = [
       OutlinedText.blackAndWhite(
           'Total damage: ' + result.totalDamage.toString()),
-      result.infusions.isEmpty ? null : OutlinedText.blackAndWhite(
-          result.infusions.toString()),
-      result.conditions.isEmpty ? null : OutlinedText.blackAndWhite(
-          result.conditions.toString()),
+      result.infusions.isEmpty
+          ? null
+          : OutlinedText.blackAndWhite(result.infusions.toString()),
+      result.conditions.isEmpty
+          ? null
+          : OutlinedText.blackAndWhite(result.conditions.toString()),
       result.isNull ? OutlinedText.blackAndWhite("NULL") : null,
       result.addTargetAmount == 0
           ? null
