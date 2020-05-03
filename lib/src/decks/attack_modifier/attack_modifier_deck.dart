@@ -106,6 +106,8 @@ class AttackModifierDeck {
 
   void _removeCard(card) {
     _cardsInDeck.remove(card);
+    _drawPile.remove(card);
+    _drawPile.shuffle();
 
     if (card is BlessCard) {
       blessCardCount--;
