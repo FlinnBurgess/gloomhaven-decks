@@ -4,9 +4,13 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sentry/sentry.dart';
 
 class Characters extends ChangeNotifier {
   List<Character> _characters = [];
+  static var sentry = SentryClient(
+      dsn:
+      "https://c4b85bb56d4f4514824ea548a80013a7@o387184.ingest.sentry.io/5222123");
 
   List<Character> get characters => _characters;
 
@@ -47,15 +51,26 @@ class Characters extends ChangeNotifier {
       String encodedCharacters = await file.readAsString();
       List<dynamic> decodedCharacters = jsonDecode(encodedCharacters);
       return Characters(fromJson(decodedCharacters));
-    } catch (e) {
+    } catch (error, stackTrace) {
+      try {
+        await sentry.captureException(exception: error, stackTrace: stackTrace);
+        print('Error sent to sentry.io: $error');
+      } catch (e) {
+        print('Sending report to sentry.io failed: $e');
+        print('Original error: $error');
+      }
       return Characters([]);
     }
   }
 
   Future<void> save() async {
-    final file = await _localFile;
-
-    return file.writeAsString(jsonEncode(this.toJson()));
+    try {
+      final file = await _localFile;
+      print('Characters as string: ' + jsonEncode(this.toJson().toString()));
+      return file.writeAsString(jsonEncode(this.toJson()));
+    } catch (e) {
+      print('Error saving characters: $e');
+    }
   }
 
   static Future<String> get _localPath async {

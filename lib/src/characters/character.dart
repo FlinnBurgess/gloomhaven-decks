@@ -13,6 +13,7 @@ import 'package:gloomhaven_decks/src/characters/sunkeeper/sunkeeper.dart';
 import 'package:gloomhaven_decks/src/characters/tinkerer/tinkerer.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
+import 'package:recase/recase.dart';
 
 import 'brute/brute.dart';
 import 'cragheart/cragheart.dart';
@@ -94,7 +95,7 @@ abstract class Character {
       case 'Elementalist':
         return Elementalist(name);
       default:
-        return null;
+        throw Exception('Unrecognised class: $className');
     }
   }
 
@@ -119,7 +120,7 @@ abstract class Character {
     List perks = json['perks'];
     int extraMinusOneCards = json['extraMinusOneCards'];
 
-    Character character = createCharacter(className, name);
+    Character character = createCharacter(className.titleCase, name);
     character.isActive = isActive;
 
     for (int currentPerk = 0; currentPerk < perks.length; currentPerk++) {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/ui/home_page/home_page.dart';
 import 'package:provider/provider.dart';
-import 'package:sentry/browser_client.dart';
+import 'package:sentry/sentry.dart';
 
 TextTheme customTextTheme = TextTheme(
   body1: TextStyle(fontSize: 20),

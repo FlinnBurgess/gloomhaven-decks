@@ -5,6 +5,7 @@ import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
+import 'package:recase/recase.dart';
 
 // TODO replace placeholder with icons in text (https://stackoverflow.com/questions/56840994/how-to-show-icon-in-text-widget-in-flutter)
 class CharacterPerkPage extends StatefulWidget {
@@ -86,7 +87,9 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
           title: OutlinedText.blackAndWhite(
               'Perks for ' + this.widget.character.name +
                   ' the ' +
-                  this.widget.character.runtimeType.toString()),
+                  this.widget.character.runtimeType
+                      .toString()
+                      .titleCase),
         ),
         body: AppBackground(child: SafeArea(child: Center(
           child: perkList,
