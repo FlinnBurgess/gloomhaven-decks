@@ -9,6 +9,7 @@ TextTheme customTextTheme = TextTheme(
 );
 
 //TODO add splash screen
+//TODO IMPORTANT: app crashes after being closed for a while, and deletes all characters in the process. Could have something to do with the change in the way characters are serialized.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Characters characters = await Characters.load();
@@ -20,7 +21,8 @@ Future<void> main() async {
 class GloomhavenDeckTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage('images/backgrounds/dark-wood.jpg'), context);
+    precacheImage(
+        AssetImage('images/backgrounds/atmospheric-dark-min.jpg'), context);
     return MaterialApp(
       title: 'Gloomhaven Deck Tracker',
       theme: ThemeData(fontFamily: 'PirataOne',
