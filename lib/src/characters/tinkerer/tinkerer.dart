@@ -36,7 +36,7 @@ class Tinkerer extends Character {
           DamageChangeCard.withAttackEffect(
               1, AttackEffect.heal, 2, characterClass),
           TWO_AVAILABLE,
-          'Add one +1 [HEAL 2] card'),
+          'Add one +1 [HEAL] 2 card'),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               0, AttackEffect.addTarget, 1, characterClass),

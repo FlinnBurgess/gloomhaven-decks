@@ -31,6 +31,18 @@ RichText perkText(String description) {
         return lightIcon;
       case '[DARK INFUSION]':
         return darkIcon;
+      case '[ADD TARGET]':
+        return addTargetIcon;
+      case '[PUSH]':
+        return pushIcon;
+      case '[PULL]':
+        return pullIcon;
+      case '[HEAL]':
+        return healIcon;
+      case '[SHIELD]':
+        return shieldIcon;
+      case '[PIERCE]':
+        return pierceIcon;
       default:
         return OutlinedText.blackAndWhite(match.group(0));
     }
@@ -139,7 +151,7 @@ class Perk {
       : this.addCards(
       AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
       perksAvailable,
-      'Add two [ROLLING] [HEAL 1] cards');
+      'Add two [ROLLING] [HEAL] 1 cards');
 
   Perk.addOneRollingAddTargetCard(int perksAvailable, String characterClass)
       : this.addCard(

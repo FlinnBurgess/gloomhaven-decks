@@ -31,6 +31,9 @@ flutter:
     - family: InfusionIcons
       fonts:
         - asset: fonts/InfusionIcons.ttf
+    - family: AttackEffectIcons
+      fonts:
+        - asset: fonts/AttackEffectIcons.ttf
     - family: PirataOne
       fonts:
         - asset: fonts/PirataOne-Gloomhaven.ttf

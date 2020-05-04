@@ -42,7 +42,7 @@ class Nightshroud extends Character {
       Perk.addCards(
           AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [ROLLING] [HEAL+1] cards'),
+          'Add two [ROLLING] [HEAL] 1 cards'),
       Perk.addCards(ConditionCard(Condition.curse, characterClass).times(2),
           ONE_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
       Perk.addOneRollingAddTargetCard(ONE_AVAILABLE, characterClass),

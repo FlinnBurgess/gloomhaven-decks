@@ -38,7 +38,7 @@ class Mindthief extends Character {
       Perk.addCards(
           AttackEffectCard(AttackEffect.pull, 1, characterClass).times(3),
           ONE_AVAILABLE,
-          'Add three [ROLLING] [PULL 1] cards'),
+          'Add three [ROLLING] [PULL] 1 cards'),
       Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
           ONE_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
       Perk.addCards(

@@ -29,7 +29,7 @@ class Scoundrel extends Character {
           AttackEffectCard(AttackEffect.pierce, 3, characterClass)
               .times(2),
           ONE_AVAILABLE,
-          'Add three [ROLLING] [PIERCE 3] cards'),
+          'Add three [ROLLING] [PIERCE] 3 cards'),
       Perk.addCards(
           ConditionCard(Condition.poison, characterClass).times(2),
           TWO_AVAILABLE,

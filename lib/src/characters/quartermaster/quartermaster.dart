@@ -28,7 +28,7 @@ class Quartermaster extends Character {
       Perk.addCards(
           AttackEffectCard(AttackEffect.pierce, 3, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [ROLLING] [PIERCE 3] cards'),
+          'Add two [ROLLING] [PIERCE] 3 cards'),
       Perk.addOneRollingStunCard(ONE_AVAILABLE, characterClass),
       Perk.addOneRollingAddTargetCard(ONE_AVAILABLE, characterClass),
       Perk.addCard(

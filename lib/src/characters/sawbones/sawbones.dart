@@ -27,7 +27,7 @@ class Sawbones extends Character {
       Perk.addTwoRollingWoundCards(TWO_AVAILABLE, characterClass),
       Perk.addOneRollingStunCard(ONE_AVAILABLE, characterClass),
       Perk.addCard(AttackEffectCard(AttackEffect.heal, 3, characterClass),
-          TWO_AVAILABLE, 'Add one [ROLLING] [HEAL 3] card'),
+          TWO_AVAILABLE, 'Add one [ROLLING] [HEAL] 3 card'),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               0, AttackEffect.refreshItem, 1, characterClass),
