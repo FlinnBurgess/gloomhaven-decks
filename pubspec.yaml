@@ -34,6 +34,9 @@ flutter:
     - family: AttackEffectIcons
       fonts:
         - asset: fonts/AttackEffectIcons.ttf
+    - family: ConditionIcons
+      fonts:
+        - asset: fonts/ConditionIcons.ttf
     - family: PirataOne
       fonts:
         - asset: fonts/PirataOne-Gloomhaven.ttf

@@ -43,6 +43,26 @@ RichText perkText(String description) {
         return shieldIcon;
       case '[PIERCE]':
         return pierceIcon;
+      case '[BLESS]':
+        return blessIcon;
+      case '[CURSE]':
+        return curseIcon;
+      case '[DISARM]':
+        return disarmIcon;
+      case '[IMMOBILIZE]':
+        return immobilizeIcon;
+      case '[INVISIBLE]':
+        return invisibleIcon;
+      case '[MUDDLE]':
+        return muddleIcon;
+      case '[POISON]':
+        return poisonIcon;
+      case '[STRENGTHEN]':
+        return strengthenIcon;
+      case '[STUN]':
+        return stunIcon;
+      case '[WOUND]':
+        return woundIcon;
       default:
         return OutlinedText.blackAndWhite(match.group(0));
     }
