@@ -37,6 +37,9 @@ flutter:
     - family: ConditionIcons
       fonts:
         - asset: fonts/ConditionIcons.ttf
+    - family: MiscIcons
+      fonts:
+        - asset: fonts/MiscIcons.ttf
     - family: PirataOne
       fonts:
         - asset: fonts/PirataOne-Gloomhaven.ttf

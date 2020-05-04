@@ -8,6 +8,7 @@ import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
+import 'package:gloomhaven_decks/src/ui/misc_icons.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
 const int ONE_AVAILABLE = 1;
@@ -63,6 +64,8 @@ RichText perkText(String description) {
         return stunIcon;
       case '[WOUND]':
         return woundIcon;
+      case '[ROLLING]':
+        return Icon(MiscIcons.rolling, color: Color.fromRGBO(77, 121, 68, 1));
       default:
         return OutlinedText.blackAndWhite(match.group(0));
     }
@@ -71,17 +74,15 @@ RichText perkText(String description) {
   var textSpanChildren = <InlineSpan>[];
 
   for (int i = 0; i < textSections.length; i++) {
-    textSpanChildren.add(
-        WidgetSpan(child: OutlinedText.blackAndWhite(textSections[i])));
+    textSpanChildren
+        .add(WidgetSpan(child: OutlinedText.blackAndWhite(textSections[i])));
     if (icons.length >= i + 1) {
       textSpanChildren.add(WidgetSpan(child: icons[i]));
     }
   }
 
   return RichText(
-    text: TextSpan(
-        children: textSpanChildren
-    ),
+    text: TextSpan(children: textSpanChildren),
   );
 }
 
