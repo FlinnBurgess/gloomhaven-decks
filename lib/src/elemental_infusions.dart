@@ -11,3 +11,20 @@ Icon earthIcon = Icon(
 Icon lightIcon = Icon(
   InfusionIcons.light, color: Color.fromRGBO(219, 168, 72, 1),);
 Icon darkIcon = Icon(InfusionIcons.dark);
+
+Icon getInfusionIcon(Infusion infusion) {
+  switch (infusion) {
+    case Infusion.fire:
+      return fireIcon;
+    case Infusion.ice:
+      return iceIcon;
+    case Infusion.air:
+      return airIcon;
+    case Infusion.earth:
+      return earthIcon;
+    case Infusion.light:
+      return lightIcon;
+    case Infusion.dark:
+      return darkIcon;
+  }
+}
