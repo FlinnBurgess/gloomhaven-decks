@@ -32,3 +32,28 @@ Icon(ConditionIcons.poison, color: Color.fromRGBO(117, 120, 99, 1));
 Icon invisibleIcon = Icon(ConditionIcons.invisible);
 Icon strengthenIcon =
 Icon(ConditionIcons.strengthen, color: Color.fromRGBO(90, 139, 185, 1));
+
+Icon getConditionIcon(Condition condition) {
+  switch (condition) {
+    case Condition.bless:
+      return blessIcon;
+    case Condition.curse:
+      return curseIcon;
+    case Condition.disarm:
+      return disarmIcon;
+    case Condition.immobilize:
+      return immobilizeIcon;
+    case Condition.invisible:
+      return invisibleIcon;
+    case Condition.muddle:
+      return muddleIcon;
+    case Condition.poison:
+      return poisonIcon;
+    case Condition.strengthen:
+      return strengthenIcon;
+    case Condition.stun:
+      return stunIcon;
+    case Condition.wound:
+      return woundIcon;
+  }
+}

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
+import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
@@ -124,7 +125,7 @@ class TappableResult extends StatelessWidget {
           : infusionsDisplay(result.infusions),
       result.conditions.isEmpty
           ? null
-          : OutlinedText.blackAndWhite(result.conditions.toString()),
+          : conditionsDisplay(result.conditions),
       result.isNull ? OutlinedText.blackAndWhite("NULL") : null,
       result.addTargetAmount == 0
           ? null
@@ -170,6 +171,20 @@ class TappableResult extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[OutlinedText.blackAndWhite('Infusions: ')] + children,
+    );
+  }
+
+  Widget conditionsDisplay(List conditions) {
+    var children = conditions
+        .map<Widget>((condition) =>
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: getConditionIcon(condition)))
+        .toList();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[OutlinedText.blackAndWhite('Conditions: ')] + children,
     );
   }
 }
