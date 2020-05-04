@@ -126,7 +126,6 @@ class TappableResult extends StatelessWidget {
       result.conditions.isEmpty
           ? null
           : conditionsDisplay(result.conditions),
-      result.isNull ? OutlinedText.blackAndWhite("NULL") : null,
       result.addTargetAmount == 0
           ? null
           : OutlinedText.blackAndWhite(
