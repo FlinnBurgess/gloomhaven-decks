@@ -28,6 +28,9 @@ flutter:
     - family: CharacterIcons
       fonts:
         - asset: fonts/CharacterIcons.ttf
+    - family: InfusionIcons
+      fonts:
+        - asset: fonts/InfusionIcons.ttf
     - family: PirataOne
       fonts:
         - asset: fonts/PirataOne-Gloomhaven.ttf

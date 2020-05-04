@@ -66,7 +66,6 @@ class Characters extends ChangeNotifier {
   Future<void> save() async {
     try {
       final file = await _localFile;
-      print('Characters as string: ' + jsonEncode(this.toJson().toString()));
       return file.writeAsString(jsonEncode(this.toJson()));
     } catch (e) {
       print('Error saving characters: $e');

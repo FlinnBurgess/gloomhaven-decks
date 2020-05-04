@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/perks/perk.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
@@ -68,7 +69,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         perkOptions.add(Flexible(
             child: Padding(
           padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
-              child: OutlinedText.blackAndWhite(perk.description),
+              child: perkText(perk.description),
             )));
         perkRows.add(Align(
             alignment: Alignment.centerLeft,

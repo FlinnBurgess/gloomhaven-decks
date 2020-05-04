@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/attack_effects/attack_effect.dart';
 import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
@@ -5,10 +7,51 @@ import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
+import 'package:gloomhaven_decks/src/elemental_infusions.dart';
+import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
 const int ONE_AVAILABLE = 1;
 const int TWO_AVAILABLE = 2;
 const int THREE_AVAILABLE = 3;
+
+RichText perkText(String description) {
+  var textSections = description.split(RegExp(r"\[[A-Z0-9\s]+\]"));
+  var iconPlaceholders = RegExp(r"\[[A-Z0-9\s]+\]").allMatches(description);
+  var icons = iconPlaceholders.map<Widget>((match) {
+    switch (match.group(0)) {
+      case '[FIRE INFUSION]':
+        return fireIcon;
+      case '[ICE INFUSION]':
+        return iceIcon;
+      case '[AIR INFUSION]':
+        return airIcon;
+      case '[EARTH INFUSION]':
+        return earthIcon;
+      case '[LIGHT INFUSION]':
+        return lightIcon;
+      case '[DARK INFUSION]':
+        return darkIcon;
+      default:
+        return OutlinedText.blackAndWhite(match.group(0));
+    }
+  }).toList();
+
+  var textSpanChildren = <InlineSpan>[];
+
+  for (int i = 0; i < textSections.length; i++) {
+    textSpanChildren.add(
+        WidgetSpan(child: OutlinedText.blackAndWhite(textSections[i])));
+    if (icons.length >= i + 1) {
+      textSpanChildren.add(WidgetSpan(child: icons[i]));
+    }
+  }
+
+  return RichText(
+    text: TextSpan(
+        children: textSpanChildren
+    ),
+  );
+}
 
 class Perk {
   Function(AttackModifierDeck) apply;
