@@ -29,19 +29,19 @@ class Tinkerer extends Character {
       Perk.addCards(InfusionCard(Infusion.fire, characterClass).times(2),
           TWO_AVAILABLE, 'Add two [ROLLING] [FIRE INFUSION] cards'),
       Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
-          ONE_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
+          ONE_AVAILABLE, 'Add three [ROLLING] MUDDLE [MUDDLE] cards'),
       Perk.addPlusOneAndWoundCard(TWO_AVAILABLE, characterClass),
       Perk.addPlusOneAndImmobilizeCard(TWO_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               1, AttackEffect.heal, 2, characterClass),
           TWO_AVAILABLE,
-          'Add one +1 [HEAL] 2 card'),
+          'Add one +1 Heal [HEAL] 2 card'),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               0, AttackEffect.addTarget, 1, characterClass),
           ONE_AVAILABLE,
-          'Add one +0 [ADD TARGET] card')
+          'Add one +0 ADD TARGET [ADD TARGET] card')
     ];
   }
 }

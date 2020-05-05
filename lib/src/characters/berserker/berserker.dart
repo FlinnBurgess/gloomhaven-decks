@@ -31,7 +31,7 @@ class Berserker extends Character {
           DamageChangeCard.withCondition(1, Condition.disarm, characterClass)
               .rolling(),
           ONE_AVAILABLE,
-          'Add one [ROLLING] +1 [DISARM] card'),
+          'Add one [ROLLING] +1 DISARM [DISARM] card'),
       Perk.addTwoRollingHealOneCards(ONE_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withInfusion(2, Infusion.fire, characterClass),

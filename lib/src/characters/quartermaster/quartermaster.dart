@@ -24,11 +24,11 @@ class Quartermaster extends Character {
       Perk.replaceZeroWithPlusTwo(TWO_AVAILABLE, characterClass),
       Perk.addTwoRollingPlusOnes(TWO_AVAILABLE, characterClass),
       Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
-          ONE_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
+          ONE_AVAILABLE, 'Add three [ROLLING] MUDDLE [MUDDLE] cards'),
       Perk.addCards(
           AttackEffectCard(AttackEffect.pierce, 3, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [ROLLING] [PIERCE] 3 cards'),
+          'Add two [ROLLING] PIERCE [PIERCE] 3 cards'),
       Perk.addOneRollingStunCard(ONE_AVAILABLE, characterClass),
       Perk.addOneRollingAddTargetCard(ONE_AVAILABLE, characterClass),
       Perk.addCard(

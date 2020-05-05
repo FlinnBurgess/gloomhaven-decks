@@ -125,40 +125,40 @@ class Perk {
       : this.addCard(
       DamageChangeCard.withCondition(1, Condition.wound, characterClass),
       perksAvailable,
-      'Add one +1 [WOUND] card');
+      'Add one +1 WOUND [WOUND] card');
 
   Perk.addPlusOneAndImmobilizeCard(int perksAvailable, String characterClass)
       : this.addCard(
       DamageChangeCard.withCondition(
           1, Condition.immobilize, characterClass),
       perksAvailable,
-      'Add one +1 [IMMOBILIZE] card');
+      'Add one +1 IMMOBILIZE [IMMOBILIZE] card');
 
   Perk.addOneRollingStunCard(int perksAvailable, String characterClass)
       : this.addCard(ConditionCard(Condition.stun, characterClass),
-      perksAvailable, 'Add one [ROLLING] [STUN] card');
+      perksAvailable, 'Add one [ROLLING] STUN [STUN] card');
 
   Perk.addOnePlusZeroAndStunCard(int perksAvailable, String characterClass)
       : this.addCard(
       DamageChangeCard.withCondition(0, Condition.stun, characterClass),
       perksAvailable,
-      'Add one +0 [STUN] card');
+      'Add one +0 STUN [STUN] card');
 
   Perk.addTwoRollingWoundCards(int perksAvailable, String characterClass)
       : this.addCards(ConditionCard(Condition.wound, characterClass).times(2),
-      perksAvailable, 'Add two [ROLLING] [WOUND] cards');
+      perksAvailable, 'Add two [ROLLING] WOUND [WOUND] cards');
 
   Perk.addTwoRollingHealOneCards(int perksAvailable, String characterClass)
       : this.addCards(
       AttackEffectCard(AttackEffect.heal, 1, characterClass).times(2),
       perksAvailable,
-      'Add two [ROLLING] [HEAL] 1 cards');
+      'Add two [ROLLING] Heal [HEAL] 1 cards');
 
   Perk.addOneRollingAddTargetCard(int perksAvailable, String characterClass)
       : this.addCard(
       AttackEffectCard(AttackEffect.addTarget, 1, characterClass),
       perksAvailable,
-      'Add one [ROLLING] [ADD TARGET] card');
+      'Add one [ROLLING] ADD TARGET [ADD TARGET] card');
 
   Perk.replaceMinusTwoWithZero(int perksAvailable, String characterClass)
       : this.replaceCards(

@@ -26,7 +26,7 @@ class Summoner extends Character {
           TWO_AVAILABLE, 'Add one +2 card'),
       Perk.addTwoRollingWoundCards(ONE_AVAILABLE, characterClass),
       Perk.addCards(ConditionCard(Condition.poison, characterClass).times(2),
-          ONE_AVAILABLE, 'Add two [ROLLING] [POISON] cards'),
+          ONE_AVAILABLE, 'Add two [ROLLING] POISON [POISON] cards'),
       Perk.addTwoRollingHealOneCards(THREE_AVAILABLE, characterClass),
       Perk.addCards([
         InfusionCard(Infusion.fire, characterClass),

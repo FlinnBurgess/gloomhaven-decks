@@ -33,11 +33,11 @@ class Cragheart extends Character {
       Perk.addCard(
           DamageChangeCard.withCondition(2, Condition.muddle, characterClass),
           TWO_AVAILABLE,
-          'Add one +2 [MUDDLE] card'),
+          'Add one +2 MUDDLE [MUDDLE] card'),
       Perk.addCards(
           AttackEffectCard(AttackEffect.push, 2, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [PUSH] 2 cards'),
+          'Add two PUSH [PUSH] 2 cards'),
       Perk.addCards(InfusionCard(Infusion.earth, characterClass).times(2),
           TWO_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards'),
       Perk.addCards(InfusionCard(Infusion.air, characterClass).times(2),

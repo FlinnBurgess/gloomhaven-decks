@@ -29,19 +29,19 @@ class Scoundrel extends Character {
           AttackEffectCard(AttackEffect.pierce, 3, characterClass)
               .times(2),
           ONE_AVAILABLE,
-          'Add three [ROLLING] [PIERCE] 3 cards'),
+          'Add three [ROLLING] PIERCE [PIERCE] 3 cards'),
       Perk.addCards(
           ConditionCard(Condition.poison, characterClass).times(2),
           TWO_AVAILABLE,
-          'Add two [ROLLING] [POISON] cards'),
+          'Add two [ROLLING] POISON [POISON] cards'),
       Perk.addCards(
           ConditionCard(Condition.muddle, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [ROLLING] [MUDDLE] cards'),
+          'Add two [ROLLING] MUDDLE [MUDDLE] cards'),
       Perk.addCard(
           ConditionCard(Condition.invisible, characterClass),
           ONE_AVAILABLE,
-          'Add one [ROLLING] [INVISIBLE] perk'),
+          'Add one [ROLLING] INVISIBLE [INVISIBLE] perk'),
     ];
   }
 }

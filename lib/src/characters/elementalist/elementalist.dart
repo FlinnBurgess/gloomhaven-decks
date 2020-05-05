@@ -62,14 +62,14 @@ class Elementalist extends Character {
                   1, AttackEffect.push, 1, characterClass)
               .times(2),
           ONE_AVAILABLE,
-          'Add two +1 [PUSH] 1 cards'),
+          'Add two +1 PUSH [PUSH] 1 cards'),
       Perk.addPlusOneAndWoundCard(ONE_AVAILABLE, characterClass),
       Perk.addOnePlusZeroAndStunCard(ONE_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               0, AttackEffect.addTarget, 1, characterClass),
           ONE_AVAILABLE,
-          'Add one +0 [ADD TARGET] card')
+          'Add one +0 ADD TARGET [ADD TARGET] card')
     ];
   }
 }

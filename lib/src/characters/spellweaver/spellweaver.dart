@@ -28,7 +28,7 @@ class Spellweaver extends Character {
       Perk.addCard(
           DamageChangeCard.withCondition(1, Condition.curse, characterClass),
           ONE_AVAILABLE,
-          'Add one +1 [CURSE] card'),
+          'Add one +1 CURSE [CURSE] card'),
       Perk.addCard(
           DamageChangeCard.withInfusion(2, Infusion.fire, characterClass),
           TWO_AVAILABLE,

@@ -38,19 +38,19 @@ class Mindthief extends Character {
       Perk.addCards(
           AttackEffectCard(AttackEffect.pull, 1, characterClass).times(3),
           ONE_AVAILABLE,
-          'Add three [ROLLING] [PULL] 1 cards'),
+          'Add three [ROLLING] PULL [PULL] 1 cards'),
       Perk.addCards(ConditionCard(Condition.muddle, characterClass).times(3),
-          ONE_AVAILABLE, 'Add three [ROLLING] [MUDDLE] cards'),
+          ONE_AVAILABLE, 'Add three [ROLLING] MUDDLE [MUDDLE] cards'),
       Perk.addCards(
           ConditionCard(Condition.immobilize, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [ROLLING] [IMMOBILIZE] cards'),
+          'Add two [ROLLING] IMMOBILIZE [IMMOBILIZE] cards'),
       Perk.addOneRollingStunCard(ONE_AVAILABLE, characterClass),
       Perk.addCards([
         ConditionCard(Condition.disarm, characterClass),
         ConditionCard(Condition.muddle, characterClass)
       ], ONE_AVAILABLE,
-          'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card')
+          'Add one [ROLLING] DISARM [DISARM] card and one [ROLLING] MUDDLE [MUDDLE] card')
     ];
   }
 }

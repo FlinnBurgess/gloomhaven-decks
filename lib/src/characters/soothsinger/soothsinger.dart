@@ -30,43 +30,43 @@ class Soothsinger extends Character {
           DamageChangeCard.withCondition(
               1, Condition.immobilize, characterClass),
           ONE_AVAILABLE,
-          'Replace one +0 card with one +1 [IMMOBILIZE] card'),
+          'Replace one +0 card with one +1 IMMOBILIZE [IMMOBILIZE] card'),
       Perk.replaceCard(
           DamageChangeCard.base(0),
           DamageChangeCard.withCondition(1, Condition.disarm, characterClass),
           ONE_AVAILABLE,
-          'Replace one +0 card with one +1 [DISARM] card'),
+          'Replace one +0 card with one +1 DISARM [DISARM] card'),
       Perk.replaceCard(
           DamageChangeCard.base(0),
           DamageChangeCard.withCondition(2, Condition.wound, characterClass),
           ONE_AVAILABLE,
-          'Replace one +0 card with one +2 [WOUND] card'),
+          'Replace one +0 card with one +2 WOUND [WOUND] card'),
       Perk.replaceCard(
           DamageChangeCard.base(0),
           DamageChangeCard.withCondition(2, Condition.poison, characterClass),
           ONE_AVAILABLE,
-          'Replace one +0 card with one +2 [POISON] card'),
+          'Replace one +0 card with one +2 POISON [POISON] card'),
       Perk.replaceCard(
           DamageChangeCard.base(0),
           DamageChangeCard.withCondition(2, Condition.curse, characterClass),
           ONE_AVAILABLE,
-          'Replace one +0 card with one +2 [CURSE] card'),
+          'Replace one +0 card with one +2 CURSE [CURSE] card'),
       Perk.replaceCard(
           DamageChangeCard.base(0),
           DamageChangeCard.withCondition(3, Condition.muddle, characterClass),
           ONE_AVAILABLE,
-          'Replace one +0 card with one +3 [MUDDLE] card'),
+          'Replace one +0 card with one +3 MUDDLE [MUDDLE] card'),
       Perk.replaceCard(
           DamageChangeCard.base(-1),
           DamageChangeCard.withCondition(0, Condition.stun, characterClass),
           ONE_AVAILABLE,
-          'Replace one -1 card with one +0 [STUN] card'),
+          'Replace one -1 card with one +0 STUN [STUN] card'),
       Perk.addCards(
           DamageChangeCard.forCharacter(1, characterClass).rolling().times(3),
           ONE_AVAILABLE,
           'Add three [ROLLING] +1 cards'),
       Perk.addCards(ConditionCard(Condition.curse, characterClass).times(2),
-          TWO_AVAILABLE, 'Add two [ROLLING] [CURSE] cards')
+          TWO_AVAILABLE, 'Add two [ROLLING] CURSE [CURSE] cards')
     ];
   }
 }

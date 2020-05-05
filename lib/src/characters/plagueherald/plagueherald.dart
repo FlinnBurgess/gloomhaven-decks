@@ -28,13 +28,13 @@ class Plagueherald extends Character {
           THREE_AVAILABLE,
           'Add one +1 [AIR INFUSION] card'),
       Perk.addCards(ConditionCard(Condition.poison, characterClass).times(3),
-          ONE_AVAILABLE, 'Add three [ROLLING] [POISON] cards'),
+          ONE_AVAILABLE, 'Add three [ROLLING] POISON [POISON] cards'),
       Perk.addCards(ConditionCard(Condition.curse, characterClass).times(2),
-          ONE_AVAILABLE, 'Add two [ROLLING] [CURSE] cards'),
+          ONE_AVAILABLE, 'Add two [ROLLING] CURSE [CURSE] cards'),
       Perk.addCards(
           ConditionCard(Condition.immobilize, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [ROLLING] [IMMOBILIZE] cards'),
+          'Add two [ROLLING] IMMOBILIZE [IMMOBILIZE] cards'),
       Perk.addOneRollingStunCard(TWO_AVAILABLE, characterClass),
       Perk.addCards(
           DamageChangeCard.forCharacter(1, characterClass).times(2),

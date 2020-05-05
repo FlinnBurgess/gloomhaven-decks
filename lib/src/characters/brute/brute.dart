@@ -29,23 +29,23 @@ class Brute extends Character {
       Perk.addCards(
           AttackEffectCard(AttackEffect.push, 1, characterClass).times(3),
           TWO_AVAILABLE,
-          'Add three [ROLLING] [PUSH] 1 cards'),
+          'Add three [ROLLING] PUSH [PUSH] 1 cards'),
       Perk.addCards(
           AttackEffectCard(AttackEffect.pierce, 3, characterClass).times(2),
           ONE_AVAILABLE,
-          'Add two [ROLLING] [PIERCE] 3 cards'),
+          'Add two [ROLLING] PIERCE [PIERCE] 3 cards'),
       Perk.addOneRollingStunCard(TWO_AVAILABLE, characterClass),
       Perk.addCards([
         ConditionCard(Condition.disarm, characterClass),
         ConditionCard(Condition.muddle, characterClass)
       ], ONE_AVAILABLE,
-          'Add one [ROLLING] [DISARM] card and one [ROLLING] [MUDDLE] card'),
+          'Add one [ROLLING] DISARM [DISARM] card and one [ROLLING] MUDDLE [MUDDLE] card'),
       Perk.addOneRollingAddTargetCard(TWO_AVAILABLE, characterClass),
       Perk.addCard(
           DamageChangeCard.withAttackEffect(
               1, AttackEffect.shield, 1, characterClass),
           ONE_AVAILABLE,
-          'Add one +1 [SHIELD] 1, Self card'),
+          'Add one +1 Shield [SHIELD] 1, Self card'),
       Perk.addCard(DamageChangeCard.forCharacter(1, characterClass),
           ONE_AVAILABLE, 'Ignore negative item effects and add one +1 card')
     ];
