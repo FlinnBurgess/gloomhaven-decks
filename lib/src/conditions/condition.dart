@@ -18,15 +18,15 @@ enum Condition {
 Icon blessIcon =
 Icon(ConditionIcons.bless, color: Color.fromRGBO(197, 159, 71, 1));
 Icon curseIcon =
-Icon(ConditionIcons.curse, color: Color.fromRGBO(109, 84, 141, 1));
+Icon(ConditionIcons.curse, color: Color.fromRGBO(125, 75, 191, 1));
 Icon disarmIcon = Icon(ConditionIcons.disarm, color: Colors.grey);
 Icon immobilizeIcon =
-Icon(ConditionIcons.immobilize, color: Color.fromRGBO(127, 56, 51, 1));
+Icon(ConditionIcons.immobilize, color: Color.fromRGBO(139, 46, 44, 1));
 Icon woundIcon =
 Icon(ConditionIcons.wound, color: Color.fromRGBO(199, 98, 57, 1));
 Icon muddleIcon =
 Icon(ConditionIcons.muddle, color: Colors.brown);
-Icon stunIcon = Icon(ConditionIcons.stun, color: Color.fromRGBO(47, 62, 85, 1));
+Icon stunIcon = Icon(ConditionIcons.stun, color: Colors.blue[800]);
 Icon poisonIcon =
 Icon(ConditionIcons.poison, color: Color.fromRGBO(117, 120, 99, 1));
 Icon invisibleIcon = Icon(ConditionIcons.invisible);

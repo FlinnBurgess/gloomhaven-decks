@@ -15,60 +15,40 @@ const int ONE_AVAILABLE = 1;
 const int TWO_AVAILABLE = 2;
 const int THREE_AVAILABLE = 3;
 
+var placeholderConversions = {
+  '[FIRE INFUSION]': fireIcon,
+  '[ICE INFUSION]': iceIcon,
+  '[AIR INFUSION]': airIcon,
+  '[EARTH INFUSION]': earthIcon,
+  '[LIGHT INFUSION]': lightIcon,
+  '[DARK INFUSION]': darkIcon,
+  '[ADD TARGET]': addTargetIcon,
+  '[PUSH]': pushIcon,
+  '[PULL]': pullIcon,
+  '[HEAL]': healIcon,
+  '[SHIELD]': shieldIcon,
+  '[PIERCE]': pierceIcon,
+  '[BLESS]': blessIcon,
+  '[CURSE]': curseIcon,
+  '[DISARM]': disarmIcon,
+  '[IMMOBILIZE]': immobilizeIcon,
+  '[INVISIBLE]': invisibleIcon,
+  '[MUDDLE]': muddleIcon,
+  '[POISON]': poisonIcon,
+  '[STRENGTHEN]': strengthenIcon,
+  '[STUN]': stunIcon,
+  '[WOUND]': woundIcon,
+  '[ROLLING]': Icon(MiscIcons.rolling, color: Color.fromRGBO(77, 121, 68, 1)),
+};
+
 RichText perkText(String description) {
   var textSections = description.split(RegExp(r"\[[A-Z0-9\s]+\]"));
   var iconPlaceholders = RegExp(r"\[[A-Z0-9\s]+\]").allMatches(description);
   var icons = iconPlaceholders.map<Widget>((match) {
-    switch (match.group(0)) {
-      case '[FIRE INFUSION]':
-        return fireIcon;
-      case '[ICE INFUSION]':
-        return iceIcon;
-      case '[AIR INFUSION]':
-        return airIcon;
-      case '[EARTH INFUSION]':
-        return earthIcon;
-      case '[LIGHT INFUSION]':
-        return lightIcon;
-      case '[DARK INFUSION]':
-        return darkIcon;
-      case '[ADD TARGET]':
-        return addTargetIcon;
-      case '[PUSH]':
-        return pushIcon;
-      case '[PULL]':
-        return pullIcon;
-      case '[HEAL]':
-        return healIcon;
-      case '[SHIELD]':
-        return shieldIcon;
-      case '[PIERCE]':
-        return pierceIcon;
-      case '[BLESS]':
-        return blessIcon;
-      case '[CURSE]':
-        return curseIcon;
-      case '[DISARM]':
-        return disarmIcon;
-      case '[IMMOBILIZE]':
-        return immobilizeIcon;
-      case '[INVISIBLE]':
-        return invisibleIcon;
-      case '[MUDDLE]':
-        return muddleIcon;
-      case '[POISON]':
-        return poisonIcon;
-      case '[STRENGTHEN]':
-        return strengthenIcon;
-      case '[STUN]':
-        return stunIcon;
-      case '[WOUND]':
-        return woundIcon;
-      case '[ROLLING]':
-        return Icon(MiscIcons.rolling, color: Color.fromRGBO(77, 121, 68, 1));
-      default:
-        return OutlinedText.blackAndWhite(match.group(0));
-    }
+    return placeholderConversions.containsKey(match.group(0))
+        ? Container(child: placeholderConversions[match.group(0)],
+      decoration: BoxDecoration(color: Colors.black38, shape: BoxShape.circle),)
+        : OutlinedText.blackAndWhite(match.group(0));
   }).toList();
 
   var textSpanChildren = <InlineSpan>[];
