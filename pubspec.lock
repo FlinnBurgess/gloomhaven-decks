@@ -100,7 +100,7 @@ packages:
     source: hosted
     version: "7.3.0"
   firebase_admob:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_admob
       url: "https://pub.dartlang.org"

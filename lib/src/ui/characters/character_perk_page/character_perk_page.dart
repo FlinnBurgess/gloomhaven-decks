@@ -1,5 +1,7 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/app_ads.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
@@ -19,6 +21,18 @@ class CharacterPerkPage extends StatefulWidget {
 }
 
 class _CharacterPerkPageState extends State<CharacterPerkPage> {
+  @override
+  void initState() {
+    initAds();
+    ads.showBannerAd(adUnitId: perkBannerAdId, size: AdSize.smartBanner);
+  }
+
+  @override
+  void dispose() {
+    ads?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Characters>(builder: (context, characters, child) {
@@ -68,7 +82,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         ));
         perkOptions.add(Flexible(
             child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
               child: perkText(perk.description),
             )));
         perkRows.add(Align(
@@ -78,6 +92,12 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
                 children: perkOptions)));
       });
 
+      perkRows.add(Row(
+        children: <Widget>[
+          Container(height: 60,)
+        ],
+      ));
+
       var perkList = ListView(children: perkRows);
 
       return Scaffold(
@@ -85,16 +105,18 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: OutlinedText.blackAndWhite(
-              'Perks for ' + this.widget.character.name +
-                  ' the ' +
-                  this.widget.character.runtimeType
-                      .toString()
-                      .titleCase),
+          title: OutlinedText.blackAndWhite('Perks for ' +
+              this.widget.character.name +
+              ' the ' +
+              this.widget.character.runtimeType
+                  .toString()
+                  .titleCase),
         ),
-        body: AppBackground(child: SafeArea(child: Center(
-          child: perkList,
-        ))),
+        body: AppBackground(
+            child: SafeArea(
+                child: Center(
+                  child: perkList,
+                ))),
       );
     });
   }
