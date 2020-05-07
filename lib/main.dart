@@ -15,7 +15,6 @@ var sentry = SentryClient(
     dsn:
     "https://c4b85bb56d4f4514824ea548a80013a7@o387184.ingest.sentry.io/5222123");
 
-//TODO add splash screen
 //TODO IMPORTANT: app crashes after being closed for a while, and deletes all characters in the process. Could have something to do with the change in the way characters are serialized.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

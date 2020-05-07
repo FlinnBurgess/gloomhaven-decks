@@ -15,11 +15,12 @@ class AttackModifierDeck {
   List _drawPile = [];
   List _discardPile = [];
   List cardsDrawn = [];
-  bool needsShuffling = false;
   int blessCardCount = 0;
   int curseCardCount = 0;
   int itemEffectMinusOneCards = 0;
   int scenarioEffectMinusOneCards = 0;
+  bool doubleDamageDrawn = false;
+  bool nullDrawn = false;
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
@@ -72,7 +73,8 @@ class AttackModifierDeck {
     _drawPile = [..._cardsInDeck];
     _drawPile.shuffle();
     _discardPile = [];
-    needsShuffling = false;
+    nullDrawn = false;
+    doubleDamageDrawn = false;
   }
 
   void addCards(List<AttackModifierCard> cards) {
@@ -196,8 +198,10 @@ class AttackModifierDeck {
 
     if (cardDrawn is BlessCard || cardDrawn is CurseCard) {
       _removeCard(cardDrawn);
-    } else if (cardDrawn is DoubleDamageCard || cardDrawn is NullDamageCard) {
-      needsShuffling = true;
+    } else if (cardDrawn is DoubleDamageCard) {
+      doubleDamageDrawn = true;
+    } else if (cardDrawn is NullDamageCard) {
+      nullDrawn = true;
     }
 
     cardsDrawn.add(cardDrawn);

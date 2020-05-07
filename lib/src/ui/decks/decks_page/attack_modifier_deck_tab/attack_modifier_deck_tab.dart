@@ -1,5 +1,7 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/app_ads.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/bless_card.dart';
@@ -13,13 +15,11 @@ import 'package:gloomhaven_decks/src/ui/misc_icons.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
 //TODO Animate the result when user draws cards, to make it more obvious that they tapped it when thee result is the same
-//TODO Users should be able to shuffle at all times, in case they start a new scenario
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
   final Function saveCharacters;
 
-  AttackModifierDeckTab(
-      {Key key, @required Character character, @required this.saveCharacters})
+  AttackModifierDeckTab({Key key, @required Character character, @required this.saveCharacters})
       : deck = character.attackModifierDeck,
         super(key: key);
 
@@ -34,6 +34,22 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   bool characterHasAdvantage = false;
   bool characterDisadvantaged = false;
   ScrollController _scrollController = ScrollController();
+  AssetImage nullImage = AssetImage('images/attack_modifiers/null.png');
+  AssetImage doubleDamageImage = AssetImage(
+      'images/attack_modifiers/double.png');
+
+  @override
+  void initState() {
+    initAds();
+    super.initState();
+    ads.showBannerAd(adUnitId: deckPageBannerAdId, size: AdSize.smartBanner);
+  }
+
+  @override
+  void dispose() {
+    ads.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +95,22 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 RaisedButton(
-                  child: Text('Shuffle deck'),
-                  onPressed: this.widget.deck.needsShuffling
-                      ? () =>
+                  child: Row(
+                    children: <Widget>[
+                      Text('Shuffle deck'),
+                      this.widget.deck.doubleDamageDrawn
+                          ? Image(
+                        image: doubleDamageImage, width: 40, height: 40,)
+                          : Container(),
+                      this.widget.deck.nullDrawn ? Image(
+                        image: nullImage, width: 40, height: 40,) : Container(),
+                    ],
+                  ),
+                  onPressed: () =>
                       setState(() {
                         this.widget.deck.shuffle();
                         resultDisplay = null;
-                      })
-                      : null,
+                      }),
                 ),
                 RaisedButton(
                   child: Text("Draw cards"),
@@ -241,6 +265,9 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                   ],
                 ),
               ),
+              Container(
+                height: 60,
+              )
             ])));
   }
 

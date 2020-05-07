@@ -10,7 +10,6 @@ import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 
-// TODO replace placeholder with icons in text (https://stackoverflow.com/questions/56840994/how-to-show-icon-in-text-widget-in-flutter)
 class CharacterPerkPage extends StatefulWidget {
   final Character character;
 
