@@ -1,5 +1,7 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/app_ads.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
@@ -8,7 +10,26 @@ import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
-class DecksPage extends StatelessWidget {
+class DecksPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DecksPageState();
+}
+
+class DecksPageState extends State<DecksPage> {
+
+  @override
+  void initState() {
+    initAds();
+    super.initState();
+    ads.showBannerAd(adUnitId: deckPageBannerAdId, size: AdSize.smartBanner);
+  }
+
+  @override
+  void dispose() {
+    ads.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Wakelock.enable();

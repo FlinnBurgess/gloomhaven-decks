@@ -1,4 +1,3 @@
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/app_ads.dart';
@@ -39,19 +38,6 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   AssetImage nullImage = AssetImage('images/attack_modifiers/null.png');
   AssetImage doubleDamageImage = AssetImage(
       'images/attack_modifiers/double.png');
-
-  @override
-  void initState() {
-    initAds();
-    super.initState();
-    ads.showBannerAd(adUnitId: deckPageBannerAdId, size: AdSize.smartBanner);
-  }
-
-  @override
-  void dispose() {
-    ads.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
