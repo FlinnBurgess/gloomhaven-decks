@@ -14,6 +14,8 @@ import 'package:gloomhaven_decks/src/ui/icrementer.dart';
 import 'package:gloomhaven_decks/src/ui/misc_icons.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
+int _numberOfShuffles = 0;
+
 //TODO Animate the result when user draws cards, to make it more obvious that they tapped it when thee result is the same
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
@@ -108,6 +110,12 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                   ),
                   onPressed: () =>
                       setState(() {
+                        if (_numberOfShuffles == 5) {
+                          ads.showFullScreenAd(
+                              adUnitId: shuffleInterstitialAdId);
+                          _numberOfShuffles = 0;
+                        }
+                        _numberOfShuffles++;
                         this.widget.deck.shuffle();
                         resultDisplay = null;
                       }),
