@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "981155364317",
+    "firebase_url": "https://gloomhaven-deck-tracker.firebaseio.com",
+    "project_id": "gloomhaven-deck-tracker",
+    "storage_bucket": "gloomhaven-deck-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981155364317:android:b2ce55e044b78d3e2c8a34",
+        "android_client_info": {
+          "package_name": "com.flinnburgess.gloomhaven_deck_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981155364317-8dto5du6at6s83mj1edcplrgk7tbk5jh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL-CwAxp_XWSUa9G-Jh1HKPUF6V11XrxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981155364317-8dto5du6at6s83mj1edcplrgk7tbk5jh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

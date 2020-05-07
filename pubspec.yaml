@@ -1,5 +1,5 @@
 name: gloomhaven_decks
-description: A sample command-line application.
+description: A companion app for the popular board game Gloomhaven.
 # version: 1.0.0
 # homepage: https://www.example.com
 
@@ -15,6 +15,7 @@ dependencies:
   shared_preferences: ^0.5.7
   recase: ^3.0.0
   sentry: ^3.0.1
+  ads: ^1.0.0
 
 
 dev_dependencies:
