@@ -9,4 +9,12 @@ final String shuffleInterstitialAdId = 'ca-app-pub-3940256099942544/1033173712';
 
 void initAds() => ads ??= Ads(
       _adsAppId,
+    keywords: [
+      'Board Games',
+      'Gloomhaven',
+      'Frosthaven',
+      'Games',
+      'Fantasy',
+      'Story'
+    ]
     );
