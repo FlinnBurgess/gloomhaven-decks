@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Privacy Policy"
-permalink: /privacy-policy
+permalink: /privacy-policy/
 ---
 # Privacy Policy
 * **Personal information**: In our ad-supported apps we use the IP address and mobile advertising ID of your device in order to show personalized ads. It is possible to opt out of personalised ads.
