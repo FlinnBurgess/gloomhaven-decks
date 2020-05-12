@@ -17,6 +17,7 @@ dependencies:
   sentry: ^3.0.1
   ads: ^1.0.0
   firebase_admob: ^0.9.3+2
+  url_launcher: ^5.0.0
 
 
 dev_dependencies:

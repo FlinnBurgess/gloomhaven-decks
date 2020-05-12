@@ -6,8 +6,10 @@ import 'package:gloomhaven_decks/src/ui/home_page/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
 
+import 'src/settings/settings.dart';
+
 TextTheme customTextTheme = TextTheme(
-  body1: TextStyle(fontSize: 20),
+  bodyText2: TextStyle(fontSize: 20),
   button: TextStyle(fontSize: 20),
 );
 
@@ -15,15 +17,17 @@ var sentry = SentryClient(
     dsn:
     "https://c4b85bb56d4f4514824ea548a80013a7@o387184.ingest.sentry.io/5222123");
 
-//TODO IMPORTANT: app crashes after being closed for a while, and deletes all characters in the process. Could have something to do with the change in the way characters are serialized.
+//TODO IMPORTANT: app crashes after being closed for a while. No other side-effects at this point.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Characters characters = await Characters.load();
+  bool userHasSeenConsentMessage = await userHasSeenPrivacyConsentMessage();
 
   runZoned(
           () =>
           runApp(ChangeNotifierProvider(
-              create: (context) => characters, child: GloomhavenDeckTracker())),
+              create: (context) => characters,
+              child: GloomhavenDeckTracker(userHasSeenConsentMessage))),
       onError: (Object error, StackTrace stacktrace) {
         try {
           sentry.captureException(exception: error, stackTrace: stacktrace);
@@ -36,6 +40,10 @@ Future<void> main() async {
 }
 
 class GloomhavenDeckTracker extends StatelessWidget {
+  final bool userHasSeenConsentMessage;
+
+  GloomhavenDeckTracker(this.userHasSeenConsentMessage);
+
   @override
   Widget build(BuildContext context) {
     precacheImage(
@@ -46,7 +54,7 @@ class GloomhavenDeckTracker extends StatelessWidget {
           fontFamily: 'PirataOne',
           textTheme: customTextTheme,
           unselectedWidgetColor: Colors.white),
-      home: HomePage(),
+      home: HomePage(userHasSeenConsentMessage),
     );
   }
 }
