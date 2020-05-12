@@ -19,9 +19,10 @@ class DecksPageState extends State<DecksPage> {
 
   @override
   void initState() {
-    initAds();
     super.initState();
-    ads.showBannerAd(adUnitId: deckPageBannerAdId, size: AdSize.smartBanner);
+    initAds().whenComplete(() =>
+        ads.showBannerAd(
+            adUnitId: deckPageBannerAdId, size: AdSize.smartBanner));
   }
 
   @override

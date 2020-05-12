@@ -22,8 +22,9 @@ class CharacterPerkPage extends StatefulWidget {
 class _CharacterPerkPageState extends State<CharacterPerkPage> {
   @override
   void initState() {
-    initAds();
-    ads.showBannerAd(adUnitId: perkBannerAdId, size: AdSize.smartBanner);
+    super.initState();
+    initAds().whenComplete(() =>
+        ads.showBannerAd(adUnitId: perkBannerAdId, size: AdSize.smartBanner));
   }
 
   @override
