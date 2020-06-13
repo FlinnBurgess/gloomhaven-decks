@@ -5,6 +5,8 @@ import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
 import 'conditions/condition.dart';
 
+Function eq = const ListEquality().equals;
+
 AttackModifierResult betterResult(AttackModifierResult firstResult,
     AttackModifierResult secondResult) {
   if (addedEffectsAreEqual(firstResult, secondResult)) {
@@ -48,8 +50,8 @@ AttackModifierResult worseResult(AttackModifierResult firstResult,
 
 bool addedEffectsAreEqual(AttackModifierResult firstResult,
     AttackModifierResult secondResult) {
-  return firstResult.infusions == secondResult.infusions &&
-      firstResult.conditions == secondResult.conditions &&
+  return eq(firstResult.infusions, secondResult.infusions) &&
+      eq(firstResult.conditions, secondResult.conditions) &&
       firstResult.healAmount == secondResult.healAmount &&
       firstResult.addTargetAmount == secondResult.addTargetAmount &&
       firstResult.pierceAmount == secondResult.pierceAmount &&
