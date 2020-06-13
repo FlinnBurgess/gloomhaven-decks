@@ -216,4 +216,12 @@ class AttackModifierDeck {
     blessCardCount = 0;
     curseCardCount = 0;
   }
+
+  int drawPileSize() {
+    return _drawPile.length;
+  }
+
+  int discardPileSize() {
+    return _discardPile.length;
+  }
 }

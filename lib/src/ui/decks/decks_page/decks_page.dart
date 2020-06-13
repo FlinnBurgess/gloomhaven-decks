@@ -1,7 +1,5 @@
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gloomhaven_decks/src/app_ads.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
@@ -16,21 +14,6 @@ class DecksPage extends StatefulWidget {
 }
 
 class DecksPageState extends State<DecksPage> {
-
-  @override
-  void initState() {
-    super.initState();
-    initAds().whenComplete(() =>
-        ads.showBannerAd(
-            adUnitId: deckPageBannerAdId, size: AdSize.smartBanner));
-  }
-
-  @override
-  void dispose() {
-    ads.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     Wakelock.enable();

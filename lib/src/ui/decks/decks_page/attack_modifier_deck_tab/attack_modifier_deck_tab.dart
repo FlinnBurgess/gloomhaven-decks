@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gloomhaven_decks/src/app_ads.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/bless_card.dart';
@@ -13,14 +12,13 @@ import 'package:gloomhaven_decks/src/ui/icrementer.dart';
 import 'package:gloomhaven_decks/src/ui/misc_icons.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
-int _numberOfShuffles = 0;
-
 //TODO Animate the result when user draws cards, to make it more obvious that they tapped it when thee result is the same
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
   final Function saveCharacters;
 
-  AttackModifierDeckTab({Key key, @required Character character, @required this.saveCharacters})
+  AttackModifierDeckTab(
+      {Key key, @required Character character, @required this.saveCharacters})
       : deck = character.attackModifierDeck,
         super(key: key);
 
@@ -36,8 +34,8 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
   bool characterDisadvantaged = false;
   ScrollController _scrollController = ScrollController();
   AssetImage nullImage = AssetImage('images/attack_modifiers/null.png');
-  AssetImage doubleDamageImage = AssetImage(
-      'images/attack_modifiers/double.png');
+  AssetImage doubleDamageImage =
+  AssetImage('images/attack_modifiers/double.png');
 
   @override
   Widget build(BuildContext context) {
@@ -85,29 +83,35 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                 RaisedButton(
                   child: Row(
                     children: <Widget>[
-                      Text('Shuffle deck'),
+                      Text('Shuffle deck (' +
+                          this.widget.deck.discardPileSize().toString() +
+                          ')'),
                       this.widget.deck.doubleDamageDrawn
                           ? Image(
-                        image: doubleDamageImage, width: 40, height: 40,)
+                        image: doubleDamageImage,
+                        width: 40,
+                        height: 40,
+                      )
                           : Container(),
-                      this.widget.deck.nullDrawn ? Image(
-                        image: nullImage, width: 40, height: 40,) : Container(),
+                      this.widget.deck.nullDrawn
+                          ? Image(
+                        image: nullImage,
+                        width: 40,
+                        height: 40,
+                      )
+                          : Container(),
                     ],
                   ),
                   onPressed: () =>
                       setState(() {
-                        if (_numberOfShuffles == 5) {
-                          ads.showFullScreenAd(
-                              adUnitId: shuffleInterstitialAdId);
-                          _numberOfShuffles = 0;
-                        }
-                        _numberOfShuffles++;
                         this.widget.deck.shuffle();
                         resultDisplay = null;
                       }),
                 ),
                 RaisedButton(
-                  child: Text("Draw cards"),
+                  child: Text("Draw cards (" +
+                      this.widget.deck.drawPileSize().toString() +
+                      ')'),
                   splashColor: Colors.black,
                   onPressed: () {
                     setState(() {
@@ -259,9 +263,6 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                   ],
                 ),
               ),
-              Container(
-                height: 60,
-              )
             ])));
   }
 
