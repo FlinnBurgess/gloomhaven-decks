@@ -79,36 +79,6 @@ class SettingsPageState extends State<SettingsPage> {
                 ],
               )
                   : Container()),
-          FutureBuilder<bool>(
-              future: getPersonalizedAdsSetting(),
-              initialData: false,
-              builder: (context, snapshot) =>
-              snapshot.hasData
-                  ? Column(
-                children: <Widget>[
-                  Wrap(children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: OutlinedText.blackAndWhite(
-                        'Personalize ads',
-                        TextAlign.center,
-                      ),
-                    )
-                  ]),
-                  Switch(
-                      inactiveTrackColor: Colors.red,
-                      inactiveThumbColor: Colors.grey,
-                      activeTrackColor: Colors.green,
-                      activeColor: Colors.grey,
-                      value: snapshot.data,
-                      onChanged: (value) {
-                        setState(() {
-                          setPersonalizedAdsSetting(value);
-                        });
-                      })
-                ],
-              )
-                  : Container())
         ],
               ))),
     );
