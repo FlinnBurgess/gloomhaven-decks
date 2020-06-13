@@ -33,6 +33,19 @@ AttackModifierResult betterResult(AttackModifierResult firstResult,
   return null;
 }
 
+AttackModifierResult worseResult(AttackModifierResult firstResult,
+    AttackModifierResult secondResult) {
+  AttackModifierResult bestResult = betterResult(firstResult, secondResult);
+
+  if (bestResult == null) {
+    return null;
+  } else if (bestResult == firstResult) {
+    return secondResult;
+  } else {
+    return firstResult;
+  }
+}
+
 bool addedEffectsAreEqual(AttackModifierResult firstResult,
     AttackModifierResult secondResult) {
   return firstResult.infusions == secondResult.infusions &&

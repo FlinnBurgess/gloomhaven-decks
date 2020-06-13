@@ -361,8 +361,12 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
       } else {
         firstResult = await firstResult.applyCardEffect(cardsInPlay[0]);
         secondResult = await secondResult.applyCardEffect(cardsInPlay[1]);
-        return TappableResult.ambiguousDisadvantage(
-            firstResult, cardsInPlay[0], secondResult, cardsInPlay[1]);
+        AttackModifierResult result = worseResult(firstResult, secondResult);
+        if (result == null || result == firstResult) {
+          return TappableResult(firstResult, cardsInPlay);
+        } else {
+          return TappableResult(secondResult, cardsInPlay);
+        }
       }
     } else {
       var result = await firstResult.applyCardEffect(cardsInPlay.last);
