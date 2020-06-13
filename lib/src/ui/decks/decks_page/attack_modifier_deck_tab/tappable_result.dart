@@ -35,7 +35,9 @@ class TappableResult extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Colors.transparent,
-            content: Container(
+            content: GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Container(
               width: double.maxFinite,
               child: ListView(
                 children: cardsApplied
@@ -45,7 +47,7 @@ class TappableResult extends StatelessWidget {
                         child: card.getImage()))
                     .toList(),
               ),
-            ),
+                )),
           );
         });
   }
@@ -120,12 +122,8 @@ class TappableResult extends StatelessWidget {
     List<Widget> displayInformation = [
       OutlinedText.blackAndWhite(
           'Total damage: ' + result.totalDamage.toString()),
-      result.infusions.isEmpty
-          ? null
-          : infusionsDisplay(result.infusions),
-      result.conditions.isEmpty
-          ? null
-          : conditionsDisplay(result.conditions),
+      result.infusions.isEmpty ? null : infusionsDisplay(result.infusions),
+      result.conditions.isEmpty ? null : conditionsDisplay(result.conditions),
       result.addTargetAmount == 0
           ? null
           : OutlinedText.blackAndWhite(
