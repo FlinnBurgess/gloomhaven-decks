@@ -5,6 +5,47 @@ import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 
 import 'conditions/condition.dart';
 
+AttackModifierResult betterResult(AttackModifierResult firstResult,
+    AttackModifierResult secondResult) {
+  if (addedEffectsAreEqual(firstResult, secondResult)) {
+    if (firstResult.totalDamage > secondResult.totalDamage) {
+      return firstResult;
+    } else if (secondResult.totalDamage > firstResult.totalDamage) {
+      return secondResult;
+    }
+    return null;
+  }
+
+  if (firstResult.hasAddedEffect() && !secondResult.hasAddedEffect()) {
+    if (firstResult.totalDamage >= secondResult.totalDamage) {
+      return firstResult;
+    }
+    return null;
+  }
+
+  if (secondResult.hasAddedEffect() && !firstResult.hasAddedEffect()) {
+    if (secondResult.totalDamage >= firstResult.totalDamage) {
+      return secondResult;
+    }
+    return null;
+  }
+
+  return null;
+}
+
+bool addedEffectsAreEqual(AttackModifierResult firstResult,
+    AttackModifierResult secondResult) {
+  return firstResult.infusions == secondResult.infusions &&
+      firstResult.conditions == secondResult.conditions &&
+      firstResult.healAmount == secondResult.healAmount &&
+      firstResult.addTargetAmount == secondResult.addTargetAmount &&
+      firstResult.pierceAmount == secondResult.pierceAmount &&
+      firstResult.pullAmount == secondResult.pullAmount &&
+      firstResult.pushAmount == secondResult.pushAmount &&
+      firstResult.shieldAmount == secondResult.shieldAmount &&
+      firstResult.refreshItemAmount == secondResult.refreshItemAmount;
+}
+
 class AttackModifierResult {
   int totalDamage;
   List infusions = [];
@@ -16,7 +57,7 @@ class AttackModifierResult {
   int pullAmount = 0;
   int pushAmount = 0;
   int shieldAmount = 0;
-  int refreshItemAmount = 0; 
+  int refreshItemAmount = 0;
 
   Future<AttackModifierResult> applyCardEffect(AttackModifierCard card) async {
     await card.applyEffect(this);
@@ -92,6 +133,12 @@ class AttackModifierResult {
         refreshItemAmount += amount;
         return;
     }
+  }
+
+  bool hasAddedEffect() {
+    return infusions.isNotEmpty || conditions.isNotEmpty || healAmount > 0 ||
+        addTargetAmount > 0 || pierceAmount > 0 || pullAmount > 0 ||
+        pushAmount > 0 || shieldAmount > 0 || refreshItemAmount > 0;
   }
 
   @override

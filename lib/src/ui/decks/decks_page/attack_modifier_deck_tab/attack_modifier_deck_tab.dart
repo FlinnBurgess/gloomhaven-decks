@@ -328,8 +328,13 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
       if (!cardsInPlay[1].isRolling) {
         firstResult = await firstResult.applyCardEffect(cardsInPlay[0]);
         secondResult = await secondResult.applyCardEffect(cardsInPlay[1]);
-        return TappableResult.ambiguousAdvantage(
-            firstResult, cardsInPlay[0], secondResult, cardsInPlay[1]);
+
+        AttackModifierResult result = betterResult(firstResult, secondResult);
+        if (result == null || result == firstResult) {
+          return TappableResult(firstResult, cardsInPlay);
+        } else {
+          return TappableResult(secondResult, cardsInPlay);
+        }
       }
     }
 
