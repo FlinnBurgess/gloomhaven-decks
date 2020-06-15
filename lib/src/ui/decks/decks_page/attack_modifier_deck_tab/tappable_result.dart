@@ -6,6 +6,8 @@ import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 
+import '../../../card_list.dart';
+
 class TappableResult extends StatelessWidget {
   final AttackModifierResult result;
   final List<AttackModifierCard> cardsApplied;
@@ -16,40 +18,17 @@ class TappableResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          showCardList(context);
+          showCardList(context, cardsApplied);
         },
         child: Column(
           children: _extractInformationToDisplay(result) +
               [
                 RaisedButton(
                   child: Text('See cards'),
-                  onPressed: () => showCardList(context),
+                  onPressed: () => showCardList(context, cardsApplied),
                 )
               ],
         ));
-  }
-
-  showCardList(context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Colors.transparent,
-            content: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: Container(
-              width: double.maxFinite,
-              child: ListView(
-                children: cardsApplied
-                    .map((card) =>
-                    Padding(
-                        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                        child: card.getImage()))
-                    .toList(),
-              ),
-                )),
-          );
-        });
   }
 
   List<Widget> _extractInformationToDisplay(AttackModifierResult result) {

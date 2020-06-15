@@ -77,6 +77,10 @@ class AttackModifierDeck {
     doubleDamageDrawn = false;
   }
 
+  List<AttackModifierCard> getDeck() {
+    return _cardsInDeck;
+  }
+
   void addCards(List<AttackModifierCard> cards) {
     cards.forEach((card) => addCard(card));
     this.shuffle();

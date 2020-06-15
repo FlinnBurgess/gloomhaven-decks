@@ -4,6 +4,7 @@ import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
+import 'package:gloomhaven_decks/src/ui/card_list.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
@@ -21,7 +22,17 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<Characters>(builder: (context, characters, child) {
-      List<Widget> perkRows = [];
+      List<Widget> perkRows = [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          RaisedButton(
+            child: Text("View deck"),
+            onPressed: () =>
+                showCardList(
+                    context,
+                    this.widget.character.attackModifierDeck.getDeck()),
+          )
+        ])
+      ];
       this.widget.character.perks.forEach((perk) {
         List<Widget> perkOptions = [];
         List<Widget> checkboxes = [];
