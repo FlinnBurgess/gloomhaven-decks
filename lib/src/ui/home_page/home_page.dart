@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
             title: Text('Privacy and data usage'),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Text(
-                  'By using this app, you are agreeing to the terms laid out in the privacy policy. Please indicate below whether you consent to being served personalised ads.'),
+                  'By using this app, you are agreeing to the terms laid out in the privacy policy.'),
               InkWell(
                 child: Text(
                   'Privacy Policy',
@@ -78,26 +78,15 @@ class HomePage extends StatelessWidget {
             ]),
             actions: <Widget>[
               RaisedButton(
-                  color: Colors.green[200],
-                  textColor: Colors.black,
                   onPressed: () {
                     setPersonalizedAdsSetting(true);
                     Navigator.pop(context);
                   },
                   child: Center(
                       child: Text(
-                        'I would like to be provided personalized ads.',
+                        'Okay.',
                         textAlign: TextAlign.center,
                       ))),
-              RaisedButton(
-                color: Colors.red[200],
-                textColor: Colors.black,
-                onPressed: () {
-                  setPersonalizedAdsSetting(false);
-                  Navigator.pop(context);
-                },
-                child: Center(child: Text('I do not want personalized ads.')),
-              )
             ],
           );
         });
