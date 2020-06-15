@@ -81,25 +81,27 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 RaisedButton(
-                  child: Row(
+                  child: Column(
                     children: <Widget>[
                       Text('Shuffle deck (' +
                           this.widget.deck.discardPileSize().toString() +
                           ')'),
-                      this.widget.deck.doubleDamageDrawn
-                          ? Image(
-                        image: doubleDamageImage,
-                        width: 40,
-                        height: 40,
-                      )
-                          : Container(),
-                      this.widget.deck.nullDrawn
-                          ? Image(
-                        image: nullImage,
-                        width: 40,
-                        height: 40,
-                      )
-                          : Container(),
+                      Row(children: [
+                        this.widget.deck.doubleDamageDrawn
+                            ? Image(
+                          image: doubleDamageImage,
+                          width: 20,
+                          height: 20,
+                        )
+                            : Container(),
+                        this.widget.deck.nullDrawn
+                            ? Image(
+                          image: nullImage,
+                          width: 20,
+                          height: 20,
+                        )
+                            : Container(),
+                      ])
                     ],
                   ),
                   onPressed: () =>
