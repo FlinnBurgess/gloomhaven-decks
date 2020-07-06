@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/app_rating.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/ui/decks/decks_page/decks_page.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,10 @@ class GloomhavenDeckTracker extends StatelessWidget {
   Widget build(BuildContext context) {
     precacheImage(
         AssetImage('images/backgrounds/atmospheric-dark-min.jpg'), context);
+    Future.delayed(Duration.zero, () {
+      rateMyApp.init();
+    });
+
     return MaterialApp(
       title: 'Gloomhaven Deck Tracker',
       theme: ThemeData(
