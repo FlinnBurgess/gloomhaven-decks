@@ -8,7 +8,7 @@ import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/tappable_result.dart';
-import 'package:gloomhaven_decks/src/ui/icrementer.dart';
+import 'package:gloomhaven_decks/src/ui/incrementer.dart';
 import 'package:gloomhaven_decks/src/ui/misc_icons.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 

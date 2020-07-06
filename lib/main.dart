@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
-import 'package:gloomhaven_decks/src/ui/home_page/home_page.dart';
+import 'package:gloomhaven_decks/src/ui/decks/decks_page/decks_page.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
 
@@ -54,7 +54,7 @@ class GloomhavenDeckTracker extends StatelessWidget {
           fontFamily: 'PirataOne',
           textTheme: customTextTheme,
           unselectedWidgetColor: Colors.white),
-      home: HomePage(userHasSeenConsentMessage),
+      home: DecksPage(userHasSeenConsentMessage),
     );
   }
 }

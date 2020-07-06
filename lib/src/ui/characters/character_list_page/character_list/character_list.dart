@@ -14,9 +14,9 @@ class CharacterList extends StatelessWidget {
 
         if (characters.characters.isEmpty) {
           options.add(Padding(
-              padding: EdgeInsets.symmetric(horizontal: 35),
+              padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
               child: OutlinedText.blackAndWhite(
-                  "You don't have any characters at the moment! Try adding a new one.",
+                  "You don't have any characters at the moment!",
                   TextAlign.center)));
         } else {
           options += _getCharacterList(characters, context);
@@ -39,8 +39,7 @@ class CharacterList extends StatelessWidget {
   List<Widget> _getCharacterList(Characters characters, BuildContext context) =>
       characters.characters
           .map<Widget>(
-            (character) =>
-            Card(
+            (character) => Card(
                 color: Color.fromRGBO(125, 205, 225, 1),
                 child: Container(
                     decoration: BoxDecoration(
@@ -68,19 +67,16 @@ class CharacterList extends StatelessWidget {
                           child: OutlinedText.blackAndWhite(character.name),
                         ),
                         RaisedButton(
-                          onPressed: () =>
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CharacterPerkPage(
-                                              character: character))),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CharacterPerkPage(character: character))),
                           child: Text('Perks'),
                         ),
                         IconButton(
-                          onPressed: () =>
-                              _confirmCharacterDeletion(
-                                  characters, character, context),
+                          onPressed: () => _confirmCharacterDeletion(
+                              characters, character, context),
                           icon: Icon(
                             Icons.delete,
                             color: Colors.grey[350],
@@ -88,7 +84,7 @@ class CharacterList extends StatelessWidget {
                         ),
                       ],
                     ))),
-      )
+          )
           .toList();
 
   void _confirmCharacterDeletion(characters, character, context) {
@@ -98,7 +94,7 @@ class CharacterList extends StatelessWidget {
           return AlertDialog(
             title: Text('Delete ' + character.name + '?'),
             content:
-            Text('Are you sure you would like to delete this character?'),
+                Text('Are you sure you would like to delete this character?'),
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
