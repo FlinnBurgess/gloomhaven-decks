@@ -161,7 +161,7 @@ const items = {
     'name': 'Chainmail',
     'cost': 20,
     'stock': 2,
-    'usage': Usage.passive,
+    'usage': Usage.spend,
     'type': ItemType.body
   },
   24: {
@@ -308,7 +308,7 @@ const items = {
     'name': 'Splintmail',
     'cost': 35,
     'stock': 2,
-    'usage': Usage.passive,
+    'usage': Usage.spend,
     'type': ItemType.body
   },
   45: {
@@ -483,14 +483,14 @@ const items = {
     'name': 'Star Earring',
     'cost': 70,
     'stock': 2,
-    'usage': Usage.passive,
+    'usage': Usage.consume,
     'type': ItemType.smallItem
   },
   70: {
     'name': 'Second Chance Ring',
     'cost': 75,
     'stock': 2,
-    'usage': Usage.passive,
+    'usage': Usage.consume,
     'type': ItemType.smallItem
   },
   71: {
