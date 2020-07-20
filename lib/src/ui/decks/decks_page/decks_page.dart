@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gloomhaven_decks/src/app_rating.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/settings/settings.dart';
@@ -10,7 +9,6 @@ import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_ta
 import 'package:gloomhaven_decks/src/ui/navigation_drawer.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
-import 'package:rate_my_app/rate_my_app.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -27,21 +25,6 @@ class DecksPageState extends State<DecksPage> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
-      if (rateMyApp.shouldOpenDialog) {
-        rateMyApp.showRateDialog(
-          context,
-          message:
-              'If you like this app, please take a little bit of your time to review it!\n\nIt really helps me and it shouldn\'t take you more than one minute.\n\nIf there are improvements you would like to see, you can contact me at flinn@thetimelydeveloper.com',
-          // The dialog message.
-          rateButton: 'RATE',
-          noButton: 'NO THANKS',
-          laterButton: 'MAYBE LATER',
-          ignoreIOS: false,
-          onDismissed: () =>
-              rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed),
-        );
-      }
-
       if (!this.widget.userHasSeenConsentMessage) {
         showPrivacyConsentMessage(context);
       }
