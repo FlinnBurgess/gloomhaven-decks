@@ -5,6 +5,7 @@ import 'package:gloomhaven_decks/src/ui/settings/settings_page/settings_page.dar
 
 import 'characters/character_list_page/character_list_page.dart';
 import 'decks/decks_page/decks_page.dart';
+import 'items/shop_page.dart';
 
 class NavigationDrawer extends StatelessWidget {
   @override
@@ -33,6 +34,15 @@ class NavigationDrawer extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CharacterListPage()));
+                },
+              ),
+              FlatButton(
+                child: OutlinedText.blackAndWhite('Shop'),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShopPage()));
                 },
               ),
               FlatButton(

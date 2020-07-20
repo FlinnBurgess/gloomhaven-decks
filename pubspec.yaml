@@ -66,4 +66,5 @@ flutter:
     - images/cards/elementalist/
     - images/backgrounds/
     - images/attack_modifiers/
+    - images/items/
   uses-material-design: true
