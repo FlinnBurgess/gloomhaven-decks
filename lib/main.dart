@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
 
 import 'src/settings/settings.dart';
+import 'src/shop/shop.dart';
 
 TextTheme customTextTheme = TextTheme(
   bodyText2: TextStyle(fontSize: 20),
@@ -16,28 +17,35 @@ TextTheme customTextTheme = TextTheme(
 
 var sentry = SentryClient(
     dsn:
-    "https://c4b85bb56d4f4514824ea548a80013a7@o387184.ingest.sentry.io/5222123");
+        "https://c4b85bb56d4f4514824ea548a80013a7@o387184.ingest.sentry.io/5222123");
 
 //TODO IMPORTANT: app crashes after being closed for a while. No other side-effects at this point.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Characters characters = await Characters.load();
+  Shop shop = await Shop.load();
   bool userHasSeenConsentMessage = await userHasSeenPrivacyConsentMessage();
 
   runZoned(
-          () =>
-          runApp(ChangeNotifierProvider(
-              create: (context) => characters,
-              child: GloomhavenDeckTracker(userHasSeenConsentMessage))),
-      onError: (Object error, StackTrace stacktrace) {
-        try {
-          sentry.captureException(exception: error, stackTrace: stacktrace);
-          print('Error sent to sentry.io: $error');
-        } catch (e) {
-          print('Sending report to sentry.io failed: $e');
-          print('Original error: $error');
-        }
-      });
+      () => runApp(MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (_) => characters,
+              ),
+              ChangeNotifierProvider(
+                create: (_) => shop,
+              )
+            ],
+            child: GloomhavenDeckTracker(userHasSeenConsentMessage),
+          )), onError: (Object error, StackTrace stacktrace) {
+    try {
+      sentry.captureException(exception: error, stackTrace: stacktrace);
+      print('Error sent to sentry.io: $error');
+    } catch (e) {
+      print('Sending report to sentry.io failed: $e');
+      print('Original error: $error');
+    }
+  });
 }
 
 class GloomhavenDeckTracker extends StatelessWidget {
