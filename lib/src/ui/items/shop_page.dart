@@ -77,28 +77,27 @@ class _ShopItemsState extends State<ShopItems> {
               ),
               RaisedButton(
                 child: Text('Add Items'),
-                onPressed: (() => showDialog(
+                onPressed: (() => showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(18.0))),
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Add items to shop'),
-                        content: Column(
-                          children: <Widget>[
-                            Text(
-                                'Insert a comma-separated list of item numbers to add to the shop. e.g. 1 or 1, 2, 3'),
-                            AddItemsForm(
-                                (itemNumbers) => shop.unlockItems(itemNumbers)),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                              color: Colors.red[700],
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Cancel')),
-                        ],
-                      );
+                      return Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 30, horizontal: 25),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                  'Insert a comma-separated list of item numbers to add to the shop. e.g. 1 or 1, 2, 3'),
+                              Padding(
+                                  padding: EdgeInsets.only(top: 25),
+                                  child: AddItemsForm((itemNumbers) =>
+                                      shop.unlockItems(itemNumbers))),
+                            ],
+                          ));
                     })),
               ),
               RaisedButton(
@@ -181,7 +180,9 @@ class AddItemsFormState extends State<AddItemsForm> {
                 },
                 onChanged: (value) => setState(() => _input = value),
               )),
-          RaisedButton(
+          Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: RaisedButton(
             color: Colors.green[700],
             textColor: Colors.white,
             onPressed: () {
@@ -194,7 +195,7 @@ class AddItemsFormState extends State<AddItemsForm> {
               }
             },
             child: Text('Add Items'),
-          )
+          ))
         ],
       ),
     );
@@ -311,7 +312,8 @@ class _ShopFilterOptionsState extends State<ShopFilterOptions> {
                         Expanded(
                             child: TextFormField(
                           textAlign: TextAlign.center,
-                          controller: _itemSearchInputController..text = currentItemSearchTerm,
+                          controller: _itemSearchInputController
+                            ..text = currentItemSearchTerm,
                           onFieldSubmitted: (value) => {
                             if (int.tryParse(value) != null)
                               {shop.itemNumberSearchTerm = int.parse(value)}
