@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/ui/items/items.dart';
 import 'package:path_provider/path_provider.dart';
 
+enum ShopSortType { none, itemType, cost }
+
 class Shop extends ChangeNotifier {
   List<int> _unlockedItems;
   int _prosperity;
@@ -17,8 +19,19 @@ class Shop extends ChangeNotifier {
   int _filterByLessThan;
   int _itemNumberSearchTerm;
   String _itemNameSearchTerm;
+  ShopSortType _sortBy;
 
-  int get prosperity => _prosperity;
+  Map _prosperityItems = {
+    1: 14,
+    2: 21,
+    3: 28,
+    4: 35,
+    5: 42,
+    6: 49,
+    7: 56,
+    8: 63,
+    9: 70,
+  };
 
   Shop(this._unlockedItems, this._prosperity) {
     _includeHeadItems = true;
@@ -27,6 +40,18 @@ class Shop extends ChangeNotifier {
     _includeOneHandedItems = true;
     _includeSmallItems = true;
     _includeFeetItems = true;
+    _sortBy = ShopSortType.none;
+  }
+
+  Map itemsToDisplay() {
+    var itemsAvailable = Map.from(items)
+      ..removeWhere((key, value) =>
+      (key > _prosperityItems[prosperity] &&
+          !unlockedItems.contains(key)) ||
+          value['stock'] < 1);
+
+    filterItems(itemsAvailable);
+    return sortItems(itemsAvailable);
   }
 
   void unlockItems(List<int> itemNumbers) {
@@ -41,12 +66,6 @@ class Shop extends ChangeNotifier {
 
       unlockedItems.add(itemNumber);
     }
-    save();
-    notifyListeners();
-  }
-
-  void setProsperity(int prosperity) {
-    _prosperity = prosperity;
     save();
     notifyListeners();
   }
@@ -115,6 +134,16 @@ class Shop extends ChangeNotifier {
                 .toLowerCase()
                 .contains(_itemNameSearchTerm.toLowerCase())) ||
         _itemNumberSearchTerm != null && itemNumber != _itemNumberSearchTerm);
+  }
+
+  Map sortItems(Map items) {
+    if (_sortBy == ShopSortType.cost) {
+      return Map.fromEntries(items.entries.toList()..sort((e1, e2) => e1.value['cost'].compareTo(e2.value['cost'])));
+    } else if (_sortBy == ShopSortType.itemType) {
+      return Map.fromEntries(items.entries.toList()..sort((e1, e2) => e1.value['type'].toString().compareTo(e2.value['type'].toString())));
+    }
+
+    return items;
   }
 
   void resetFilters() {
@@ -194,6 +223,21 @@ class Shop extends ChangeNotifier {
   set itemNumberSearchTerm(int value) {
     _itemNameSearchTerm = null;
     _itemNumberSearchTerm = value;
+    notifyListeners();
+  }
+
+  ShopSortType get sortBy => _sortBy;
+
+  set sortBy(ShopSortType value) {
+    _sortBy = value;
+    notifyListeners();
+  }
+
+  int get prosperity => _prosperity;
+
+  void setProsperity(int prosperity) {
+    _prosperity = prosperity;
+    save();
     notifyListeners();
   }
 }

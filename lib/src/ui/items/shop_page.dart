@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/incrementer.dart';
-import 'package:gloomhaven_decks/src/ui/items/items.dart';
 import 'package:provider/provider.dart';
 
 import '../app_background.dart';
@@ -37,29 +36,12 @@ class ShopItems extends StatefulWidget {
 
 class _ShopItemsState extends State<ShopItems> {
   Map itemsAvailable;
-  Map prosperityItems = {
-    1: 14,
-    2: 21,
-    3: 28,
-    4: 35,
-    5: 42,
-    6: 49,
-    7: 56,
-    8: 63,
-    9: 70,
-  };
 
   @override
   Widget build(BuildContext context) {
     return Consumer<Shop>(
       builder: (context, shop, child) {
-        itemsAvailable = Map.from(items)
-          ..removeWhere((key, value) =>
-              (key > prosperityItems[shop.prosperity] &&
-                  !shop.unlockedItems.contains(key)) ||
-              value['stock'] < 1);
-
-        shop.filterItems(itemsAvailable);
+        itemsAvailable = shop.itemsToDisplay();
 
         return Column(children: [
           Row(
@@ -112,6 +94,29 @@ class _ShopItemsState extends State<ShopItems> {
               )
             ],
           ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            OutlinedText.blackAndWhite('Sort by: '),
+            Radio(
+              value: ShopSortType.none,
+              groupValue: shop.sortBy,
+              onChanged: (value) => shop.sortBy = value,
+            ),
+            OutlinedText.blackAndWhite('None'),
+            SizedBox(width: 15,),
+            Radio(
+              value: ShopSortType.cost,
+              groupValue: shop.sortBy,
+              onChanged: (value) => shop.sortBy = value,
+            ),
+            OutlinedText.blackAndWhite('Cost'),
+            SizedBox(width: 15,),
+            Radio(
+              value: ShopSortType.itemType,
+              groupValue: shop.sortBy,
+              onChanged: (value) => shop.sortBy = value,
+            ),
+            OutlinedText.blackAndWhite('Type'),
+          ],),
           Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,

@@ -474,7 +474,7 @@ const items = {
   },
   68: {
     'name': 'Halberd',
-    'cost': 60,
+    'cost': 75,
     'stock': 2,
     'usage': Usage.passive,
     'type': ItemType.twoHanded
