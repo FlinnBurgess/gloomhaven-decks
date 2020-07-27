@@ -8,12 +8,24 @@ import 'package:path_provider/path_provider.dart';
 class Shop extends ChangeNotifier {
   List<int> _unlockedItems;
   int _prosperity;
-
-  List<int> get unlockedItems => _unlockedItems;
+  bool _includeHeadItems;
+  bool _includeBodyItems;
+  bool _includeTwoHandedItems;
+  bool _includeOneHandedItems;
+  bool _includeSmallItems;
+  bool _includeFeetItems;
+  int _filterByLessThan;
 
   int get prosperity => _prosperity;
 
-  Shop(this._unlockedItems, this._prosperity);
+  Shop(this._unlockedItems, this._prosperity) {
+    _includeHeadItems = true;
+    _includeBodyItems = true;
+    _includeTwoHandedItems = true;
+    _includeOneHandedItems = true;
+    _includeSmallItems = true;
+    _includeFeetItems = true;
+  }
 
   void unlockItems(List<int> itemNumbers) {
     for (var i = 0; i < itemNumbers.length; i++) {
@@ -42,7 +54,8 @@ class Shop extends ChangeNotifier {
       final file = await _localFile;
       String encodedShopInfo = await file.readAsString();
       Map<String, dynamic> decodedShopInfo = jsonDecode(encodedShopInfo);
-      return Shop(decodedShopInfo['unlockedItems'].cast<int>(), decodedShopInfo['prosperity']);
+      return Shop(decodedShopInfo['unlockedItems'].cast<int>(),
+          decodedShopInfo['prosperity']);
     } catch (error) {
       try {
         print('Error sent to sentry.io: $error');
@@ -80,5 +93,67 @@ class Shop extends ChangeNotifier {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
+  }
+
+  void filterItems(Map<dynamic, dynamic> itemsAvailable) {
+    itemsAvailable.removeWhere((key, value) =>
+        (value['type'] == ItemType.head && !_includeHeadItems) ||
+        (value['type'] == ItemType.body && !_includeBodyItems) ||
+        (value['type'] == ItemType.oneHanded && !_includeOneHandedItems) ||
+        (value['type'] == ItemType.twoHanded && !_includeTwoHandedItems) ||
+        (value['type'] == ItemType.smallItem && !_includeSmallItems) ||
+        (value['type'] == ItemType.feet && !_includeFeetItems) ||
+        _filterByLessThan != null && value['cost'] > _filterByLessThan);
+  }
+
+  bool get includeTwoHandedItems => _includeTwoHandedItems;
+
+  bool get includeOneHandedItems => _includeOneHandedItems;
+
+  bool get includeSmallItems => _includeSmallItems;
+
+  bool get includeFeetItems => _includeFeetItems;
+
+  bool get includeHeadItems => _includeHeadItems;
+
+  bool get includeBodyItems => _includeBodyItems;
+
+  List<int> get unlockedItems => _unlockedItems;
+
+  set includeFeetItems(bool value) {
+    _includeFeetItems = value;
+    notifyListeners();
+  }
+
+  set includeSmallItems(bool value) {
+    _includeSmallItems = value;
+    notifyListeners();
+  }
+
+  set includeOneHandedItems(bool value) {
+    _includeOneHandedItems = value;
+    notifyListeners();
+  }
+
+  set includeTwoHandedItems(bool value) {
+    _includeTwoHandedItems = value;
+    notifyListeners();
+  }
+
+  set includeBodyItems(bool value) {
+    _includeBodyItems = value;
+    notifyListeners();
+  }
+
+  set includeHeadItems(bool value) {
+    _includeHeadItems = value;
+    notifyListeners();
+  }
+
+  int get filterByLessThan => _filterByLessThan;
+
+  set filterByLessThan(int value) {
+    _filterByLessThan = value;
+    notifyListeners();
   }
 }

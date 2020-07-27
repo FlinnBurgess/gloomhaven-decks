@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/incrementer.dart';
 import 'package:gloomhaven_decks/src/ui/items/items.dart';
@@ -8,12 +9,15 @@ import 'package:provider/provider.dart';
 import '../app_background.dart';
 import '../navigation_drawer.dart';
 import '../outlined_text.dart';
+import 'item_type_icons.dart';
 
 class ShopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
+        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -55,6 +59,8 @@ class _ShopItemsState extends State<ShopItems> {
                   !shop.unlockedItems.contains(key)) ||
               value['stock'] < 1);
 
+        shop.filterItems(itemsAvailable);
+
         return Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,6 +100,16 @@ class _ShopItemsState extends State<ShopItems> {
                         ],
                       );
                     })),
+              ),
+              RaisedButton(
+                child: Text('Filter'),
+                onPressed: () => showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(18.0))),
+                    context: context,
+                    builder: (_) => ShopFilterOptions()),
               )
             ],
           ),
@@ -171,6 +187,9 @@ class AddItemsFormState extends State<AddItemsForm> {
             onPressed: () {
               if (_formKey.currentState.validate()) {
                 this.widget.unlockItems(_convertInput(_input));
+                Fluttertoast.showToast(
+                    msg: 'Added items: ' + _input,
+                    backgroundColor: Colors.black);
                 Navigator.pop(context);
               }
             },
@@ -196,5 +215,80 @@ class AddItemsFormState extends State<AddItemsForm> {
     return itemNumbers.map((itemNumberString) {
       return int.parse(itemNumberString);
     }).toList();
+  }
+}
+
+class ShopFilterOptions extends StatefulWidget {
+  @override
+  _ShopFilterOptionsState createState() => _ShopFilterOptionsState();
+}
+
+class _ShopFilterOptionsState extends State<ShopFilterOptions> {
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+        data: ThemeData(),
+        child: Consumer<Shop>(builder: (context, shop, child) {
+          return Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: <Widget>[
+                    Icon(ItemTypeIcons.head),
+                    Checkbox(
+                      value: shop.includeHeadItems,
+                      onChanged: (value) => shop.includeHeadItems = value,
+                    ),
+                    Icon(ItemTypeIcons.body),
+                    Checkbox(
+                      value: shop.includeBodyItems,
+                      onChanged: (value) => shop.includeBodyItems = value,
+                    ),
+                    Icon(ItemTypeIcons.two_handed),
+                    Checkbox(
+                      value: shop.includeTwoHandedItems,
+                      onChanged: (value) => shop.includeTwoHandedItems = value,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(ItemTypeIcons.one_handed),
+                    Checkbox(
+                      value: shop.includeOneHandedItems,
+                      onChanged: (value) => shop.includeOneHandedItems = value,
+                    ),
+                    Icon(ItemTypeIcons.small_item),
+                    Checkbox(
+                      value: shop.includeSmallItems,
+                      onChanged: (value) => shop.includeSmallItems = value,
+                    ),
+                    Icon(ItemTypeIcons.feet),
+                    Checkbox(
+                      value: shop.includeFeetItems,
+                      onChanged: (value) => shop.includeFeetItems = value,
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Row(
+                      children: <Widget>[
+                        Text('Costing less than: '),
+                        Expanded(
+                            child: TextField(
+                          onChanged: (value) => {
+                            if (int.tryParse(value) != null)
+                              {shop.filterByLessThan = int.parse(value)}
+                            else
+                              {shop.filterByLessThan = null}
+                          },
+                        ))
+                      ],
+                    )),
+              ]);
+        }));
   }
 }

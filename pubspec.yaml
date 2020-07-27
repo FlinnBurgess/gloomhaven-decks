@@ -17,6 +17,7 @@ dependencies:
   sentry: ^3.0.1
   url_launcher: ^5.0.0
   rate_my_app: ^0.6.1+6
+  fluttertoast: ^7.0.1+1
 
 
 dev_dependencies:
@@ -42,6 +43,9 @@ flutter:
     - family: MiscIcons
       fonts:
         - asset: fonts/MiscIcons.ttf
+    - family: ItemTypeIcons
+      fonts:
+        - asset: fonts/ItemTypeIcons.ttf
     - family: PirataOne
       fonts:
         - asset: fonts/PirataOne-Gloomhaven.ttf
