@@ -15,6 +15,8 @@ class Shop extends ChangeNotifier {
   bool _includeSmallItems;
   bool _includeFeetItems;
   int _filterByLessThan;
+  int _itemNumberSearchTerm;
+  String _itemNameSearchTerm;
 
   int get prosperity => _prosperity;
 
@@ -96,14 +98,36 @@ class Shop extends ChangeNotifier {
   }
 
   void filterItems(Map<dynamic, dynamic> itemsAvailable) {
-    itemsAvailable.removeWhere((key, value) =>
-        (value['type'] == ItemType.head && !_includeHeadItems) ||
-        (value['type'] == ItemType.body && !_includeBodyItems) ||
-        (value['type'] == ItemType.oneHanded && !_includeOneHandedItems) ||
-        (value['type'] == ItemType.twoHanded && !_includeTwoHandedItems) ||
-        (value['type'] == ItemType.smallItem && !_includeSmallItems) ||
-        (value['type'] == ItemType.feet && !_includeFeetItems) ||
-        _filterByLessThan != null && value['cost'] > _filterByLessThan);
+    itemsAvailable.removeWhere((itemNumber, itemDetails) =>
+        (itemDetails['type'] == ItemType.head && !_includeHeadItems) ||
+        (itemDetails['type'] == ItemType.body && !_includeBodyItems) ||
+        (itemDetails['type'] == ItemType.oneHanded &&
+            !_includeOneHandedItems) ||
+        (itemDetails['type'] == ItemType.twoHanded &&
+            !_includeTwoHandedItems) ||
+        (itemDetails['type'] == ItemType.smallItem && !_includeSmallItems) ||
+        (itemDetails['type'] == ItemType.feet && !_includeFeetItems) ||
+        (_filterByLessThan != null &&
+            itemDetails['cost'] > _filterByLessThan) ||
+        (_itemNameSearchTerm != null &&
+            !itemDetails['name']
+                .toString()
+                .toLowerCase()
+                .contains(_itemNameSearchTerm.toLowerCase())) ||
+        _itemNumberSearchTerm != null && itemNumber != _itemNumberSearchTerm);
+  }
+
+  void resetFilters() {
+    _itemNameSearchTerm = null;
+    _itemNumberSearchTerm = null;
+    _includeHeadItems = true;
+    _includeBodyItems = true;
+    _includeTwoHandedItems = true;
+    _includeOneHandedItems = true;
+    _includeSmallItems = true;
+    _includeFeetItems = true;
+    _filterByLessThan = null;
+    notifyListeners();
   }
 
   bool get includeTwoHandedItems => _includeTwoHandedItems;
@@ -154,6 +178,22 @@ class Shop extends ChangeNotifier {
 
   set filterByLessThan(int value) {
     _filterByLessThan = value;
+    notifyListeners();
+  }
+
+  String get itemNameSearchTerm => _itemNameSearchTerm;
+
+  set itemNameSearchTerm(String value) {
+    _itemNumberSearchTerm = null;
+    _itemNameSearchTerm = value;
+    notifyListeners();
+  }
+
+  int get itemNumberSearchTerm => _itemNumberSearchTerm;
+
+  set itemNumberSearchTerm(int value) {
+    _itemNameSearchTerm = null;
+    _itemNumberSearchTerm = value;
     notifyListeners();
   }
 }

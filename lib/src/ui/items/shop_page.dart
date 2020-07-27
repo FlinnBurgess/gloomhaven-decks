@@ -224,62 +224,79 @@ class ShopFilterOptions extends StatefulWidget {
 }
 
 class _ShopFilterOptionsState extends State<ShopFilterOptions> {
+  var _itemSearchInputController = TextEditingController();
+  var _itemPriceFilterController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Theme(
         data: ThemeData(),
         child: Consumer<Shop>(builder: (context, shop, child) {
-          return Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: <Widget>[
-                    Icon(ItemTypeIcons.head),
-                    Checkbox(
-                      value: shop.includeHeadItems,
-                      onChanged: (value) => shop.includeHeadItems = value,
+          String currentItemSearchTerm;
+          if (shop.itemNameSearchTerm != null) {
+            currentItemSearchTerm = shop.itemNameSearchTerm;
+          } else if (shop.itemNumberSearchTerm != null) {
+            currentItemSearchTerm = shop.itemNumberSearchTerm.toString();
+          }
+          return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(ItemTypeIcons.head),
+                        Checkbox(
+                          value: shop.includeHeadItems,
+                          onChanged: (value) => shop.includeHeadItems = value,
+                        ),
+                        Icon(ItemTypeIcons.body),
+                        Checkbox(
+                          value: shop.includeBodyItems,
+                          onChanged: (value) => shop.includeBodyItems = value,
+                        ),
+                        Icon(ItemTypeIcons.two_handed),
+                        Checkbox(
+                          value: shop.includeTwoHandedItems,
+                          onChanged: (value) =>
+                              shop.includeTwoHandedItems = value,
+                        ),
+                      ],
                     ),
-                    Icon(ItemTypeIcons.body),
-                    Checkbox(
-                      value: shop.includeBodyItems,
-                      onChanged: (value) => shop.includeBodyItems = value,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(ItemTypeIcons.one_handed),
+                        Checkbox(
+                          value: shop.includeOneHandedItems,
+                          onChanged: (value) =>
+                              shop.includeOneHandedItems = value,
+                        ),
+                        Icon(ItemTypeIcons.small_item),
+                        Checkbox(
+                          value: shop.includeSmallItems,
+                          onChanged: (value) => shop.includeSmallItems = value,
+                        ),
+                        Icon(ItemTypeIcons.feet),
+                        Checkbox(
+                          value: shop.includeFeetItems,
+                          onChanged: (value) => shop.includeFeetItems = value,
+                        ),
+                      ],
                     ),
-                    Icon(ItemTypeIcons.two_handed),
-                    Checkbox(
-                      value: shop.includeTwoHandedItems,
-                      onChanged: (value) => shop.includeTwoHandedItems = value,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(ItemTypeIcons.one_handed),
-                    Checkbox(
-                      value: shop.includeOneHandedItems,
-                      onChanged: (value) => shop.includeOneHandedItems = value,
-                    ),
-                    Icon(ItemTypeIcons.small_item),
-                    Checkbox(
-                      value: shop.includeSmallItems,
-                      onChanged: (value) => shop.includeSmallItems = value,
-                    ),
-                    Icon(ItemTypeIcons.feet),
-                    Checkbox(
-                      value: shop.includeFeetItems,
-                      onChanged: (value) => shop.includeFeetItems = value,
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: Row(
+                    Row(
                       children: <Widget>[
                         Text('Costing less than: '),
                         Expanded(
-                            child: TextField(
-                          onChanged: (value) => {
+                            child: TextFormField(
+                          textAlign: TextAlign.center,
+                          controller: _itemPriceFilterController
+                            ..text = shop.filterByLessThan == null
+                                ? null
+                                : shop.filterByLessThan.toString(),
+                          onFieldSubmitted: (value) => {
                             if (int.tryParse(value) != null)
                               {shop.filterByLessThan = int.parse(value)}
                             else
@@ -287,8 +304,42 @@ class _ShopFilterOptionsState extends State<ShopFilterOptions> {
                           },
                         ))
                       ],
-                    )),
-              ]);
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text('Item name or number: '),
+                        Expanded(
+                            child: TextFormField(
+                          textAlign: TextAlign.center,
+                          controller: _itemSearchInputController..text = currentItemSearchTerm,
+                          onFieldSubmitted: (value) => {
+                            if (int.tryParse(value) != null)
+                              {shop.itemNumberSearchTerm = int.parse(value)}
+                            else
+                              {shop.itemNameSearchTerm = value}
+                          },
+                        ))
+                      ],
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: 20,
+                            bottom:
+                                MediaQuery.of(context).viewInsets.bottom + 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RaisedButton(
+                              child: Text('Reset Filters'),
+                              onPressed: () {
+                                shop.resetFilters();
+                                _itemPriceFilterController.clear();
+                                _itemSearchInputController.clear();
+                              },
+                            )
+                          ],
+                        )),
+                  ]));
         }));
   }
 }
