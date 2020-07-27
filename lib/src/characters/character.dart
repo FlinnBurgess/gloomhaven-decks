@@ -142,4 +142,6 @@ abstract class Character {
 
     return character;
   }
+
+  Map<int, bool> get items => _items;
 }

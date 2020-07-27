@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/ui/items/items_page.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:gloomhaven_decks/src/ui/settings/settings_page/settings_page.dart';
 
@@ -25,6 +26,15 @@ class NavigationDrawer extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DecksPage(true)));
+                },
+              ),
+              FlatButton(
+                child: OutlinedText.blackAndWhite('Items'),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ItemsPage()));
                 },
               ),
               FlatButton(
