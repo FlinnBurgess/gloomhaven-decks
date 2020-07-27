@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/incrementer.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import '../app_background.dart';
 import '../navigation_drawer.dart';
 import '../outlined_text.dart';
 import 'item_type_icons.dart';
+import 'items.dart';
 
 class ShopPage extends StatelessWidget {
   @override
@@ -39,8 +41,8 @@ class _ShopItemsState extends State<ShopItems> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Shop>(
-      builder: (context, shop, child) {
+    return Consumer2<Shop, Characters>(
+      builder: (context, shop, characters, child) {
         itemsAvailable = shop.itemsToDisplay();
 
         return Column(children: [
@@ -94,45 +96,54 @@ class _ShopItemsState extends State<ShopItems> {
               )
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            OutlinedText.blackAndWhite('Sort by: '),
-            Radio(
-              value: ShopSortType.none,
-              groupValue: shop.sortBy,
-              onChanged: (value) => shop.sortBy = value,
-            ),
-            OutlinedText.blackAndWhite('None'),
-            SizedBox(width: 15,),
-            Radio(
-              value: ShopSortType.cost,
-              groupValue: shop.sortBy,
-              onChanged: (value) => shop.sortBy = value,
-            ),
-            OutlinedText.blackAndWhite('Cost'),
-            SizedBox(width: 15,),
-            Radio(
-              value: ShopSortType.itemType,
-              groupValue: shop.sortBy,
-              onChanged: (value) => shop.sortBy = value,
-            ),
-            OutlinedText.blackAndWhite('Type'),
-          ],),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              OutlinedText.blackAndWhite('Sort by: '),
+              Radio(
+                value: ShopSortType.none,
+                groupValue: shop.sortBy,
+                onChanged: (value) => shop.sortBy = value,
+              ),
+              OutlinedText.blackAndWhite('None'),
+              SizedBox(
+                width: 15,
+              ),
+              Radio(
+                value: ShopSortType.cost,
+                groupValue: shop.sortBy,
+                onChanged: (value) => shop.sortBy = value,
+              ),
+              OutlinedText.blackAndWhite('Cost'),
+              SizedBox(
+                width: 15,
+              ),
+              Radio(
+                value: ShopSortType.itemType,
+                groupValue: shop.sortBy,
+                onChanged: (value) => shop.sortBy = value,
+              ),
+              OutlinedText.blackAndWhite('Type'),
+            ],
+          ),
           Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: itemsAvailable.length,
                   itemBuilder: (BuildContext context, int index) {
+                    int itemNumber = itemsAvailable.keys.toList()[index];
                     return Padding(
                         padding: EdgeInsets.only(left: 15, right: 15),
                         child: Stack(
                           alignment: Alignment.center,
                           children: <Widget>[
                             Image.asset(
-                              'images/items/${itemsAvailable.keys.toList()[index]}.png',
-                              scale: 1.2,
+                              'images/items/${itemNumber}.png',
+                              scale: 1.3,
                             ),
                             RaisedButton(
-                              onPressed: () => null,
+                              onPressed: () => _showBuyModal(
+                                  context, itemNumber, characters),
                               child: Text(
                                 "Buy",
                                 style: TextStyle(fontSize: 30),
@@ -144,6 +155,38 @@ class _ShopItemsState extends State<ShopItems> {
         ]);
       },
     );
+  }
+
+  _showBuyModal(BuildContext context, int index, Characters characters) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          List<Widget> buyButtons = characters.characters.map((character) {
+            return RaisedButton(
+              onPressed: () {
+                character.addItem(index);
+                Fluttertoast.showToast(
+                    backgroundColor: Colors.black12,
+                    msg: character.name + ' gained ' + items[index]['name']);
+                Navigator.pop(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(character.characterIcon),
+                  Text(character.name)
+                ],
+              ),
+            );
+          }).toList();
+          return AlertDialog(
+            title: Text('Select a character'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: buyButtons,
+            ),
+          );
+        });
   }
 }
 
@@ -186,21 +229,22 @@ class AddItemsFormState extends State<AddItemsForm> {
                 onChanged: (value) => setState(() => _input = value),
               )),
           Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: RaisedButton(
-            color: Colors.green[700],
-            textColor: Colors.white,
-            onPressed: () {
-              if (_formKey.currentState.validate()) {
-                this.widget.unlockItems(_convertInput(_input));
-                Fluttertoast.showToast(
-                    msg: 'Added items: ' + _input,
-                    backgroundColor: Colors.black);
-                Navigator.pop(context);
-              }
-            },
-            child: Text('Add Items'),
-          ))
+                color: Colors.green[700],
+                textColor: Colors.white,
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    this.widget.unlockItems(_convertInput(_input));
+                    Fluttertoast.showToast(
+                        msg: 'Added items: ' + _input,
+                        backgroundColor: Colors.black);
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text('Add Items'),
+              ))
         ],
       ),
     );

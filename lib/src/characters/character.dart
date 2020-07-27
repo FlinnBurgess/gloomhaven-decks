@@ -37,6 +37,7 @@ abstract class Character {
   AttackModifierDeck attackModifierDeck;
   IconData characterIcon;
   String backgroundImagePath;
+  Map<int, bool> _items = {};
 
   static final CLASS_LIST = [
     'Brute',
@@ -101,6 +102,10 @@ abstract class Character {
 
   void toggleActiveState() {
     isActive = !isActive;
+  }
+
+  void addItem(int itemNumber) {
+    _items[itemNumber] = false;
   }
 
   Map<String, dynamic> toJson() {
