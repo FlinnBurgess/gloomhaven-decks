@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/item/item.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/incrementer.dart';
 import 'package:provider/provider.dart';
@@ -157,17 +158,17 @@ class _ShopItemsState extends State<ShopItems> {
     );
   }
 
-  _showBuyModal(BuildContext context, int index, Characters characters) {
+  _showBuyModal(BuildContext context, int itemNumber, Characters characters) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           List<Widget> buyButtons = characters.characters.map((character) {
             return RaisedButton(
               onPressed: () {
-                character.addItem(index);
+                character.addItem(Item(itemNumber));
                 Fluttertoast.showToast(
                     backgroundColor: Colors.black12,
-                    msg: character.name + ' gained ' + items[index]['name']);
+                    msg: character.name + ' gained ' + items[itemNumber]['name']);
                 Navigator.pop(context);
               },
               child: Row(

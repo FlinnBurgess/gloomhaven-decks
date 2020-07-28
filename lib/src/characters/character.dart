@@ -12,6 +12,7 @@ import 'package:gloomhaven_decks/src/characters/summoner/summoner.dart';
 import 'package:gloomhaven_decks/src/characters/sunkeeper/sunkeeper.dart';
 import 'package:gloomhaven_decks/src/characters/tinkerer/tinkerer.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
+import 'package:gloomhaven_decks/src/item/item.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 import 'package:recase/recase.dart';
 
@@ -37,7 +38,7 @@ abstract class Character {
   AttackModifierDeck attackModifierDeck;
   IconData characterIcon;
   String backgroundImagePath;
-  Map<int, bool> _items = {};
+  List<Item> _items = [];
 
   static final CLASS_LIST = [
     'Brute',
@@ -104,8 +105,10 @@ abstract class Character {
     isActive = !isActive;
   }
 
-  void addItem(int itemNumber) {
-    _items[itemNumber] = false;
+  void addItem(Item item) {
+    if (!_items.contains(item)) {
+      _items.add(item);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -143,5 +146,5 @@ abstract class Character {
     return character;
   }
 
-  Map<int, bool> get items => _items;
+  List<Item> get items => _items;
 }
