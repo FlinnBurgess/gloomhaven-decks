@@ -122,7 +122,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
               child: Text("Rest / Refresh Spent Items"),
               onPressed: () => setState(() {
                 usedItems.forEach((item) {
-                  if (items[item.itemNumber]['usage'] == Usage.spend) {
+                  if (items[item.itemNumber]['usage'] == 'spend') {
                     item.used = false;
                   }
                 });

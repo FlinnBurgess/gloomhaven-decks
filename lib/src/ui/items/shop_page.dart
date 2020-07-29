@@ -133,32 +133,55 @@ class _ShopItemsState extends State<ShopItems> {
                   itemCount: itemsAvailable.length,
                   itemBuilder: (BuildContext context, int index) {
                     int itemNumber = itemsAvailable.keys.toList()[index];
-                    return Padding(
-                        padding: EdgeInsets.only(left: 15, right: 15),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'images/items/${itemNumber}.png',
-                              scale: 1.3,
-                            ),
-                            RaisedButton(
-                              onPressed: () => _showBuyModal(
-                                  context, itemNumber, characters),
-                              child: Text(
-                                "Buy",
-                                style: TextStyle(fontSize: 30),
-                              ),
-                            )
-                          ],
-                        ));
+                    return itemsAvailable[itemNumber]['stock'] > 0
+                        ? Padding(
+                            padding: EdgeInsets.only(left: 15, right: 15),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: <Widget>[
+                                Image.asset(
+                                  'images/items/${itemNumber}.png',
+                                  scale: 1.3,
+                                ),
+                                RaisedButton(
+                                  onPressed: () => _showBuyModal(
+                                      context, itemNumber, characters, shop),
+                                  child: Text(
+                                    "Buy",
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                )
+                              ],
+                            ))
+                        : ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                                Colors.grey, BlendMode.saturation),
+                            child: Padding(
+                                padding: EdgeInsets.only(left: 15, right: 15),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Image.asset(
+                                      'images/items/${itemNumber}.png',
+                                      scale: 1.3,
+                                    ),
+                                    RaisedButton(
+                                      onPressed: () => null,
+                                      child: Text(
+                                        "OUT OF STOCK",
+                                        style: TextStyle(fontSize: 30),
+                                      ),
+                                    )
+                                  ],
+                                )));
                   }))
         ]);
       },
     );
   }
 
-  _showBuyModal(BuildContext context, int itemNumber, Characters characters) {
+  _showBuyModal(
+      BuildContext context, int itemNumber, Characters characters, Shop shop) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -166,9 +189,12 @@ class _ShopItemsState extends State<ShopItems> {
             return RaisedButton(
               onPressed: () {
                 character.addItem(Item(itemNumber));
+                shop.removeItem(itemNumber);
                 Fluttertoast.showToast(
                     backgroundColor: Colors.black12,
-                    msg: character.name + ' gained ' + items[itemNumber]['name']);
+                    msg: character.name +
+                        ' gained ' +
+                        items[itemNumber]['name']);
                 Navigator.pop(context);
               },
               child: Row(

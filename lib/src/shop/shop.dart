@@ -20,6 +20,7 @@ class Shop extends ChangeNotifier {
   int _itemNumberSearchTerm;
   String _itemNameSearchTerm;
   ShopSortType _sortBy;
+  Map _items = {};
 
   Map _prosperityItems = {
     1: 14,
@@ -33,7 +34,7 @@ class Shop extends ChangeNotifier {
     9: 70,
   };
 
-  Shop(this._unlockedItems, this._prosperity) {
+  Shop(this._unlockedItems, this._prosperity, this._items) {
     _includeHeadItems = true;
     _includeBodyItems = true;
     _includeTwoHandedItems = true;
@@ -44,11 +45,10 @@ class Shop extends ChangeNotifier {
   }
 
   Map itemsToDisplay() {
-    var itemsAvailable = Map.from(items)
-      ..removeWhere((key, value) =>
-      (key > _prosperityItems[prosperity] &&
-          !unlockedItems.contains(key)) ||
-          value['stock'] < 1);
+    var itemsAvailable = Map.from(_items)
+      ..removeWhere((itemNumber, _) =>
+          (itemNumber > _prosperityItems[prosperity] &&
+              !unlockedItems.contains(itemNumber)));
 
     filterItems(itemsAvailable);
     return sortItems(itemsAvailable);
@@ -60,7 +60,7 @@ class Shop extends ChangeNotifier {
 
       if (unlockedItems.contains(itemNumber) ||
           itemNumber < 1 ||
-          itemNumber > items.length) {
+          itemNumber > _items.length) {
         continue;
       }
 
@@ -75,8 +75,20 @@ class Shop extends ChangeNotifier {
       final file = await _localFile;
       String encodedShopInfo = await file.readAsString();
       Map<String, dynamic> decodedShopInfo = jsonDecode(encodedShopInfo);
-      return Shop(decodedShopInfo['unlockedItems'].cast<int>(),
-          decodedShopInfo['prosperity']);
+      Map decodedItems;
+
+      if (decodedShopInfo['items'] == null) {
+        decodedItems = Map.from(items);
+      } else {
+        decodedItems = decodedShopInfo['items'];
+        decodedItems = decodedItems.map((itemNumber, itemDetails) =>
+            MapEntry(int.parse(itemNumber), itemDetails));
+      }
+
+      return Shop(
+          decodedShopInfo['unlockedItems'].cast<int>(),
+          decodedShopInfo['prosperity'],
+          decodedItems);
     } catch (error) {
       try {
         print('Error sent to sentry.io: $error');
@@ -84,7 +96,7 @@ class Shop extends ChangeNotifier {
         print('Sending report to sentry.io failed: $e');
         print('Original error: $error');
       }
-      return Shop([], 1);
+      return Shop([], 1, Map.from(items));
     }
   }
 
@@ -101,6 +113,9 @@ class Shop extends ChangeNotifier {
     Map<String, dynamic> asJson = {};
     asJson['prosperity'] = _prosperity;
     asJson['unlockedItems'] = _unlockedItems;
+    print(_items);
+    asJson['items'] = _items.map((itemNumber, itemDetails) =>
+        MapEntry(itemNumber.toString(), itemDetails));
     return asJson;
   }
 
@@ -118,14 +133,12 @@ class Shop extends ChangeNotifier {
 
   void filterItems(Map<dynamic, dynamic> itemsAvailable) {
     itemsAvailable.removeWhere((itemNumber, itemDetails) =>
-        (itemDetails['type'] == ItemType.head && !_includeHeadItems) ||
-        (itemDetails['type'] == ItemType.body && !_includeBodyItems) ||
-        (itemDetails['type'] == ItemType.oneHanded &&
-            !_includeOneHandedItems) ||
-        (itemDetails['type'] == ItemType.twoHanded &&
-            !_includeTwoHandedItems) ||
-        (itemDetails['type'] == ItemType.smallItem && !_includeSmallItems) ||
-        (itemDetails['type'] == ItemType.feet && !_includeFeetItems) ||
+        (itemDetails['type'] == 'head' && !_includeHeadItems) ||
+        (itemDetails['type'] == 'body' && !_includeBodyItems) ||
+        (itemDetails['type'] == 'one handed' && !_includeOneHandedItems) ||
+        (itemDetails['type'] == 'two handed' && !_includeTwoHandedItems) ||
+        (itemDetails['type'] == 'small item' && !_includeSmallItems) ||
+        (itemDetails['type'] == 'feet' && !_includeFeetItems) ||
         (_filterByLessThan != null &&
             itemDetails['cost'] > _filterByLessThan) ||
         (_itemNameSearchTerm != null &&
@@ -138,12 +151,22 @@ class Shop extends ChangeNotifier {
 
   Map sortItems(Map items) {
     if (_sortBy == ShopSortType.cost) {
-      return Map.fromEntries(items.entries.toList()..sort((e1, e2) => e1.value['cost'].compareTo(e2.value['cost'])));
+      return Map.fromEntries(items.entries.toList()
+        ..sort((e1, e2) => e1.value['cost'].compareTo(e2.value['cost'])));
     } else if (_sortBy == ShopSortType.itemType) {
-      return Map.fromEntries(items.entries.toList()..sort((e1, e2) => e1.value['type'].toString().compareTo(e2.value['type'].toString())));
+      return Map.fromEntries(items.entries.toList()
+        ..sort((e1, e2) => e1.value['type']
+            .toString()
+            .compareTo(e2.value['type'].toString())));
     }
 
     return items;
+  }
+
+  void removeItem(int itemNumber) {
+    _items[itemNumber]['stock'] = _items[itemNumber]['stock'] - 1;
+    save();
+    notifyListeners();
   }
 
   void resetFilters() {
