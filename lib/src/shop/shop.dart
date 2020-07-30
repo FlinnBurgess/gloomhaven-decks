@@ -113,7 +113,6 @@ class Shop extends ChangeNotifier {
     Map<String, dynamic> asJson = {};
     asJson['prosperity'] = _prosperity;
     asJson['unlockedItems'] = _unlockedItems;
-    print(_items);
     asJson['items'] = _items.map((itemNumber, itemDetails) =>
         MapEntry(itemNumber.toString(), itemDetails));
     return asJson;

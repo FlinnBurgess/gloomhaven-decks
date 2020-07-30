@@ -117,7 +117,8 @@ abstract class Character {
       'class': this.runtimeType.toString(),
       'isActive': isActive,
       'perks': perks.map<int>((perk) => perk.perksUsed).toList(),
-      'extraMinusOneCards': attackModifierDeck.itemEffectMinusOneCards
+      'extraMinusOneCards': attackModifierDeck.itemEffectMinusOneCards,
+      'items': _items.map((item) => item.itemNumber).toList()
     };
   }
 
@@ -127,6 +128,9 @@ abstract class Character {
     bool isActive = json['isActive'];
     List perks = json['perks'];
     int extraMinusOneCards = json['extraMinusOneCards'];
+    List<Item> savedItems = json['items'] == null
+        ? []
+        : json['items'].map<Item>((itemNumber) => Item(itemNumber)).toList();
 
     Character character = createCharacter(className.titleCase, name);
     character.isActive = isActive;
@@ -142,6 +146,8 @@ abstract class Character {
     for (int i = 0; i < extraMinusOneCards; i++) {
       character.attackModifierDeck.addItemEffectMinusOneCard();
     }
+
+    character._items = savedItems;
 
     return character;
   }

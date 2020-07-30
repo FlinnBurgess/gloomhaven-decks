@@ -189,6 +189,7 @@ class _ShopItemsState extends State<ShopItems> {
             return RaisedButton(
               onPressed: () {
                 character.addItem(Item(itemNumber));
+                characters.save();
                 shop.removeItem(itemNumber);
                 Fluttertoast.showToast(
                     backgroundColor: Colors.black12,
