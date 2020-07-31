@@ -113,33 +113,37 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
     List<Item> unequippedItems =
         this.widget.character.items.where((item) => !item.equipped).toList();
 
+    List<int> wishList = this.widget.character.itemWishList;
+
     return SingleChildScrollView(
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            RaisedButton(
-              child: Text("Refresh Spent Items"),
-              onPressed: () => setState(() {
-                usedItems.forEach((item) {
-                  if (items[item.itemNumber]['usage'] == 'spend') {
-                    item.used = false;
-                  }
-                });
-              }),
-            ),
-            RaisedButton(
-              child: Text("Unequip all items"),
-              onPressed: () => setState(() {
-                this.widget.character.items.forEach((item) {
-                  item.equipped = false;
-                });
-              }),
-            )
-          ],
-        ),
+        Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text("Refresh spent items"),
+                  onPressed: () => setState(() {
+                    usedItems.forEach((item) {
+                      if (items[item.itemNumber]['usage'] == 'spend') {
+                        item.used = false;
+                      }
+                    });
+                  }),
+                ),
+                RaisedButton(
+                  child: Text("Unequip all items"),
+                  onPressed: () => setState(() {
+                    this.widget.character.items.forEach((item) {
+                      item.equipped = false;
+                    });
+                  }),
+                )
+              ],
+            )),
         Padding(
             padding: EdgeInsets.symmetric(vertical: 15),
             child: OutlinedText.blackAndWhite('Available:')),
@@ -304,6 +308,86 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                     ]));
               },
             )),
+        Padding(
+            padding: EdgeInsets.symmetric(vertical: 15),
+            child: OutlinedText.blackAndWhite('Wish List:')),
+        SizedBox(
+            height: 350,
+            child: ListView.builder(
+              primary: false,
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: wishList.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                var itemNumber = index == 0 ? null : wishList[index - 1];
+
+                return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: index == 0
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                                SizedBox(
+                                    height: 80,
+                                    width: 100,
+                                    child: IconButton(
+                                      onPressed: () => _addItemToWishlist(
+                                          context),
+                                      icon: Icon(
+                                        Icons.add_circle_outline,
+                                        color: Colors.black,
+                                        size: 80,
+                                      ),
+                                    ))
+                              ])
+                        : Stack(alignment: Alignment.center, children: [
+                            Image.asset(
+                              'images/items/${itemNumber}.png',
+                              scale: 1.7,
+                            ),
+                            RaisedButton(
+                              onPressed: () => setState(() {
+                                Shop shop = Provider.of<Shop>(context);
+                                if (shop.itemsToDisplay().containsKey(itemNumber) && shop.itemsToDisplay()[itemNumber]['stock'] < 1) {
+                                  Fluttertoast.showToast(
+                                      msg: items[itemNumber]['name'].toString() + ' out of stock.',
+                                      backgroundColor: Colors.red[900]);
+                                } else {
+                                  shop.removeItem(itemNumber);
+                                  this
+                                      .widget
+                                      .character
+                                      .addItem(Item(itemNumber));
+                                  this
+                                      .widget
+                                      .character
+                                      .removeWishListItem(itemNumber);
+                                  Provider.of<Characters>(context).save();
+                                }
+                              }),
+                              child: Text(
+                                "Buy",
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            ),
+                            Positioned(
+                                left: 0,
+                                top: 110,
+                                child: IconButton(
+                                  onPressed: () => setState(() => this
+                                      .widget
+                                      .character
+                                      .removeWishListItem(itemNumber)),
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Colors.red[900],
+                                    size: 50,
+                                  ),
+                                ))
+                          ]));
+              },
+            )),
       ],
     ));
   }
@@ -336,8 +420,95 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                       backgroundColor: Colors.black);
                   Navigator.of(context).pop();
                 },
-                child: Text('Delete'),
+                child: Text('Sell'),
               )
+            ],
+          );
+        });
+  }
+
+  void _addItemToWishlist(context) {
+    Map itemsAvailable =
+        Provider.of<Shop>(context, listen: false).itemsToDisplay();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.black12,
+            title: OutlinedText.blackAndWhite('Add an item to your wish list'),
+            content: Container(
+                height: 350,
+                width: double.maxFinite,
+                child: ListView.builder(
+                    primary: false,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: itemsAvailable.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      int itemNumber = itemsAvailable.keys.toList()[index];
+                      return itemsAvailable[itemNumber]['stock'] > 0
+                          ? Padding(
+                              padding: EdgeInsets.only(left: 15, right: 15),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'images/items/${itemNumber}.png',
+                                    scale: 1,
+                                  ),
+                                  RaisedButton(
+                                    onPressed: () {
+                                      if (this.widget.character
+                                          .ownsItem(Item(itemNumber))) {
+                                        Fluttertoast.showToast(
+                                            msg: this.widget.character.name +
+                                                ' already owns ' +
+                                                items[itemNumber]['name'],
+                                            backgroundColor: Colors.red[900]);
+                                      } else {
+                                        setState(() {
+                                          this.widget.character.addWishListItem(itemNumber);
+                                        });
+                                        Provider.of<Characters>(context).save();
+                                        Navigator.pop(context);
+                                      }
+                                    },
+                                    child: Text(
+                                      "Add",
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                  )
+                                ],
+                              ))
+                          : ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                  Colors.grey, BlendMode.saturation),
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 15, right: 15),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        'images/items/${itemNumber}.png',
+                                        scale: 1.3,
+                                      ),
+                                      RaisedButton(
+                                        onPressed: () => null,
+                                        child: Text(
+                                          "OUT OF STOCK",
+                                          style: TextStyle(fontSize: 30),
+                                        ),
+                                      )
+                                    ],
+                                  )));
+                    })),
+            actions: <Widget>[
+              RaisedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'))
             ],
           );
         });

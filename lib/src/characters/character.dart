@@ -39,6 +39,7 @@ abstract class Character {
   IconData characterIcon;
   String backgroundImagePath;
   List<Item> _items = [];
+  List<int> _itemWishList = [];
 
   static final CLASS_LIST = [
     'Brute',
@@ -121,6 +122,16 @@ abstract class Character {
     return _items.contains(item);
   }
 
+  void addWishListItem(int itemNumber) {
+    if (!_itemWishList.contains(itemNumber)) {
+      _itemWishList.add(itemNumber);
+    }
+  }
+
+  void removeWishListItem(int itemNumber) {
+    _itemWishList.remove(itemNumber);
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'name': name,
@@ -128,7 +139,8 @@ abstract class Character {
       'isActive': isActive,
       'perks': perks.map<int>((perk) => perk.perksUsed).toList(),
       'extraMinusOneCards': attackModifierDeck.itemEffectMinusOneCards,
-      'items': _items.map((item) => item.itemNumber).toList()
+      'items': _items.map((item) => item.itemNumber).toList(),
+      'itemWishList': _itemWishList
     };
   }
 
@@ -141,6 +153,8 @@ abstract class Character {
     List<Item> savedItems = json['items'] == null
         ? []
         : json['items'].map<Item>((itemNumber) => Item(itemNumber)).toList();
+    List<int> itemWishList =
+        json['itemWishList'] == null ? [] : json['itemWishList'].cast<int>();
 
     Character character = createCharacter(className.titleCase, name);
     character.isActive = isActive;
@@ -158,9 +172,12 @@ abstract class Character {
     }
 
     character._items = savedItems;
+    character._itemWishList = itemWishList;
 
     return character;
   }
 
   List<Item> get items => _items;
+
+  List<int> get itemWishList => _itemWishList;
 }

@@ -196,6 +196,7 @@ class _ShopItemsState extends State<ShopItems> {
                           items[itemNumber]['name']);
                 } else {
                   character.addItem(Item(itemNumber));
+                  character.removeWishListItem(itemNumber);
                   characters.save();
                   shop.removeItem(itemNumber);
                   Fluttertoast.showToast(
