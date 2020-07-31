@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_perk_page/character_perk_page.dart';
 import 'package:gloomhaven_decks/src/ui/characters/new_character_page/new_character_page.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
@@ -87,14 +89,14 @@ class CharacterList extends StatelessWidget {
           )
           .toList();
 
-  void _confirmCharacterDeletion(characters, character, context) {
+  void _confirmCharacterDeletion(characters, Character character, context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Delete ' + character.name + '?'),
-            content:
-                Text('Are you sure you would like to delete this character?'),
+            content: Text(
+                'Are you sure you would like to delete this character? Owned items will be returned to the shop.'),
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
@@ -104,6 +106,8 @@ class CharacterList extends StatelessWidget {
               FlatButton(
                 color: Colors.red[700],
                 onPressed: () {
+                  Provider.of<Shop>(context, listen: false).returnItems(
+                      character.items.map((item) => item.itemNumber).toList());
                   characters.deleteCharacter(character);
                   Navigator.of(context).pop();
                 },

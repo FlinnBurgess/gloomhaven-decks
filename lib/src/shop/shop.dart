@@ -174,6 +174,12 @@ class Shop extends ChangeNotifier {
     notifyListeners();
   }
 
+  void returnItems(List<int> itemNumbers) {
+    itemNumbers.forEach((itemNumber) {
+      returnItem(itemNumber);
+    });
+  }
+
   void resetFilters() {
     _itemNameSearchTerm = null;
     _itemNumberSearchTerm = null;
