@@ -168,6 +168,12 @@ class Shop extends ChangeNotifier {
     notifyListeners();
   }
 
+  void returnItem(int itemNumber) {
+    _items[itemNumber]['stock'] = _items[itemNumber]['stock'] + 1;
+    save();
+    notifyListeners();
+  }
+
   void resetFilters() {
     _itemNameSearchTerm = null;
     _itemNumberSearchTerm = null;

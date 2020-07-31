@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/item/item.dart';
+import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_list_page/character_list_page.dart';
 import 'package:gloomhaven_decks/src/ui/navigation_drawer.dart';
@@ -119,7 +121,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
-              child: Text("Rest / Refresh Spent Items"),
+              child: Text("Refresh Spent Items"),
               onPressed: () => setState(() {
                 usedItems.forEach((item) {
                   if (items[item.itemNumber]['usage'] == 'spend') {
@@ -150,19 +152,49 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
               scrollDirection: Axis.horizontal,
               itemCount: availableItems.length,
               itemBuilder: (BuildContext context, int index) {
+                Item item = availableItems[index];
+                String itemName = items[item.itemNumber]['name'];
+
                 return Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Stack(alignment: Alignment.center, children: [
                       Image.asset(
-                        'images/items/${availableItems[index].itemNumber}.png',
+                        'images/items/${item.itemNumber}.png',
                         scale: 1.7,
                       ),
                       RaisedButton(
-                        onPressed: () =>
-                            setState(() => availableItems[index].used = true),
+                        onPressed: () => setState(() => item.used = true),
                         child: Text(
                           "Use",
                           style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                      Positioned(
+                        top: 70,
+                        left: 10,
+                        child: IconButton(
+                          icon: Icon(Icons.monetization_on),
+                          onPressed: () =>
+                              _confirmItemSale(item.itemNumber, context),
+                          iconSize: 50,
+                          color: Colors.green[700],
+                        ),
+                      ),
+                      Positioned(
+                        top: 70,
+                        right: 10,
+                        child: IconButton(
+                          icon: Icon(Icons.remove_circle),
+                          onPressed: () {
+                            setState(() {
+                              availableItems[index].equipped = false;
+                              Fluttertoast.showToast(
+                                  msg: itemName + ' unequipped.',
+                                  backgroundColor: Colors.black);
+                            });
+                          },
+                          iconSize: 50,
+                          color: Colors.red[900],
                         ),
                       )
                     ]));
@@ -180,19 +212,49 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
               scrollDirection: Axis.horizontal,
               itemCount: usedItems.length,
               itemBuilder: (BuildContext context, int index) {
+                Item item = usedItems[index];
+                String itemName = items[item.itemNumber]['name'];
                 return Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Stack(alignment: Alignment.center, children: [
                       Image.asset(
-                        'images/items/${usedItems[index].itemNumber}.png',
+                        'images/items/${item.itemNumber}.png',
                         scale: 1.7,
                       ),
                       RaisedButton(
                         onPressed: () =>
-                            setState(() => usedItems[index].used = false),
+                            setState(() => item.used = false),
                         child: Text(
                           "Refresh",
                           style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                      Positioned(
+                        top: 70,
+                        left: 10,
+                        child: IconButton(
+                          icon: Icon(Icons.monetization_on),
+                          onPressed: () => _confirmItemSale(
+                              usedItems[index].itemNumber, context),
+                          iconSize: 50,
+                          color: Colors.green[700],
+                        ),
+                      ),
+                      Positioned(
+                        top: 70,
+                        right: 10,
+                        child: IconButton(
+                          icon: Icon(Icons.remove_circle),
+                          onPressed: () {
+                            setState(() {
+                              usedItems[index].equipped = false;
+                              Fluttertoast.showToast(
+                                  msg: itemName + ' unequipped.',
+                                  backgroundColor: Colors.black);
+                            });
+                          },
+                          iconSize: 50,
+                          color: Colors.red[900],
                         ),
                       )
                     ]));
@@ -226,11 +288,57 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                           "Equip",
                           style: TextStyle(fontSize: 30),
                         ),
-                      )
+                      ),
+                      Positioned(
+                        top: 70,
+                        left: 10,
+                        child: IconButton(
+                          icon: Icon(Icons.monetization_on),
+                          onPressed: () => _confirmItemSale(
+                              unequippedItems[index].itemNumber, context),
+                          iconSize: 50,
+                          color: Colors.green[700],
+                        ),
+                      ),
                     ]));
               },
             )),
       ],
     ));
+  }
+
+  void _confirmItemSale(itemNumber, context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          String itemBeingSold = items[itemNumber]['name'];
+          return AlertDialog(
+            title: Text('Sell ' + itemBeingSold + '?'),
+            content: Text('Are you sure you would like to sell this item?'),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel')),
+              FlatButton(
+                color: Colors.red[700],
+                onPressed: () {
+                  Provider.of<Shop>(context, listen: false)
+                      .returnItem(itemNumber);
+                  Provider.of<Characters>(context, listen: false).save();
+                  setState(() {
+                    this.widget.character.removeItem(Item(itemNumber));
+                  });
+                  Fluttertoast.showToast(
+                      msg: itemBeingSold + ' sold.',
+                      backgroundColor: Colors.black);
+                  Navigator.of(context).pop();
+                },
+                child: Text('Delete'),
+              )
+            ],
+          );
+        });
   }
 }

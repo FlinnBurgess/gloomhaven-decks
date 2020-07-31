@@ -111,6 +111,16 @@ abstract class Character {
     }
   }
 
+  void removeItem(Item item) {
+    if (_items.contains(item)) {
+      _items.remove(item);
+    }
+  }
+
+  bool ownsItem(Item item) {
+    return _items.contains(item);
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'name': name,
