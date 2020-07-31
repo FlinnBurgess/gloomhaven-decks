@@ -176,8 +176,8 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                               ),
                             ),
                       Positioned(
-                        top: 70,
-                        left: 10,
+                        top: 110,
+                        left: 0,
                         child: IconButton(
                           icon: Icon(Icons.monetization_on),
                           onPressed: () =>
@@ -187,8 +187,8 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                         ),
                       ),
                       Positioned(
-                        top: 70,
-                        right: 10,
+                        top: 30,
+                        left: 0,
                         child: IconButton(
                           icon: Icon(Icons.remove_circle),
                           onPressed: () {
@@ -295,8 +295,8 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                         ),
                       ),
                       Positioned(
-                        top: 70,
-                        left: 10,
+                        top: 110,
+                        left: 0,
                         child: IconButton(
                           icon: Icon(Icons.monetization_on),
                           onPressed: () => _confirmItemSale(
