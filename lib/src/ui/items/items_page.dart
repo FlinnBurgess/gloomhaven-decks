@@ -162,13 +162,15 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                         'images/items/${item.itemNumber}.png',
                         scale: 1.7,
                       ),
-                      RaisedButton(
-                        onPressed: () => setState(() => item.used = true),
-                        child: Text(
-                          "Use",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
+                      items[item.itemNumber]['usage'] == 'passive'
+                          ? Container()
+                          : RaisedButton(
+                              onPressed: () => setState(() => item.used = true),
+                              child: Text(
+                                "Use",
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            ),
                       Positioned(
                         top: 70,
                         left: 10,
@@ -222,8 +224,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                         scale: 1.7,
                       ),
                       RaisedButton(
-                        onPressed: () =>
-                            setState(() => item.used = false),
+                        onPressed: () => setState(() => item.used = false),
                         child: Text(
                           "Refresh",
                           style: TextStyle(fontSize: 30),
