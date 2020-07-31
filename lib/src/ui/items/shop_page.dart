@@ -188,15 +188,23 @@ class _ShopItemsState extends State<ShopItems> {
           List<Widget> buyButtons = characters.characters.map((character) {
             return RaisedButton(
               onPressed: () {
-                character.addItem(Item(itemNumber));
-                characters.save();
-                shop.removeItem(itemNumber);
-                Fluttertoast.showToast(
-                    backgroundColor: Colors.black12,
-                    msg: character.name +
-                        ' gained ' +
-                        items[itemNumber]['name']);
-                Navigator.pop(context);
+                if (character.ownsItem(Item(itemNumber))) {
+                  Fluttertoast.showToast(
+                      backgroundColor: Colors.redAccent,
+                      msg: character.name +
+                          ' already owns ' +
+                          items[itemNumber]['name']);
+                } else {
+                  character.addItem(Item(itemNumber));
+                  characters.save();
+                  shop.removeItem(itemNumber);
+                  Fluttertoast.showToast(
+                      backgroundColor: Colors.black12,
+                      msg: character.name +
+                          ' gained ' +
+                          items[itemNumber]['name']);
+                  Navigator.pop(context);
+                }
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
