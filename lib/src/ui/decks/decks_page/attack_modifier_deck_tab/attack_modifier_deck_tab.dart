@@ -251,18 +251,15 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
 
   Widget getDeckStatus(AttackModifierDeck deck) {
     var rowItems = <Widget>[];
-    if (deck.isCursed()) {
-      rowItems.add(curseIcon);
-    }
-    if (deck.isBlessed()) {
-      rowItems.add(blessIcon);
-    }
-    if (deck.scenarioEffectMinusOneCards > 0) {
-      rowItems.add(Icon(
-        MiscIcons.minus_one,
-        color: Colors.red[700],
-      ));
-    }
+    rowItems.add(deck.isCursed() ? curseIcon : inactiveCurseIcon);
+    rowItems.add(deck.isBlessed() ? blessIcon : inactiveBlessIcon);
+    rowItems.add(deck.scenarioEffectMinusOneCards > 0 ? Icon(
+      MiscIcons.minus_one,
+      color: Colors.red[900],
+    ) : Icon(
+      MiscIcons.minus_one,
+      color: Colors.black45,
+    ));
 
     return rowItems.isEmpty
         ? Container()

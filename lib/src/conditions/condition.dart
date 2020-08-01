@@ -17,8 +17,12 @@ enum Condition {
 
 Icon blessIcon =
 Icon(ConditionIcons.bless, color: Color.fromRGBO(197, 159, 71, 1));
+Icon inactiveBlessIcon =
+Icon(ConditionIcons.bless, color: Colors.black45);
 Icon curseIcon =
 Icon(ConditionIcons.curse, color: Color.fromRGBO(125, 75, 191, 1));
+Icon inactiveCurseIcon =
+Icon(ConditionIcons.curse, color: Colors.black45);
 Icon disarmIcon = Icon(ConditionIcons.disarm, color: Colors.grey);
 Icon immobilizeIcon =
 Icon(ConditionIcons.immobilize, color: Color.fromRGBO(139, 46, 44, 1));
