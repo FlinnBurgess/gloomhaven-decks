@@ -395,7 +395,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
             padding: EdgeInsets.symmetric(vertical: 15),
             child: OutlinedText.blackAndWhite('Wish List:')),
         SizedBox(
-            height: 350,
+            height: wishList.isEmpty ? 100 : 350,
             child: ListView.builder(
               primary: false,
               shrinkWrap: true,
