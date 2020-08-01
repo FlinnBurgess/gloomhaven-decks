@@ -348,12 +348,18 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                       RaisedButton(
                         onPressed: () => setState(() {
                           if (itemEquipEffects.containsKey(itemNumber)) {
-                            itemEquipEffects[itemNumber]['equip'](
-                                this.widget.character.attackModifierDeck);
-                            Fluttertoast.showToast(
-                                msg:
-                                    'Item effect applied to attack modifier deck.',
-                                backgroundColor: Colors.black);
+                            if (this.widget.character.ignoreNegativeItemEffects && itemNumber != 101) {
+                              Fluttertoast.showToast(
+                                  msg: this.widget.character.name + ' ignores negative item effects.',
+                                  backgroundColor: Colors.black);
+                            } else {
+                              itemEquipEffects[itemNumber]['equip'](
+                                  this.widget.character.attackModifierDeck);
+                              Fluttertoast.showToast(
+                                  msg:
+                                  'Item effect applied to attack modifier deck.',
+                                  backgroundColor: Colors.black);
+                            }
                           }
                           unequippedItems[index].used = false;
                           unequippedItems[index].equipped = true;

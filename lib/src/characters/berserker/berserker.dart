@@ -36,7 +36,8 @@ class Berserker extends Character {
       Perk.addCard(
           DamageChangeCard.withInfusion(2, Infusion.fire, characterClass),
           TWO_AVAILABLE,
-          'Add one +2 [FIRE INFUSION] card')
+          'Add one +2 [FIRE INFUSION] card'),
+      Perk.ignoreNegativeItemEffects()
     ];
   }
 }

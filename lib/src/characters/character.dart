@@ -40,6 +40,7 @@ abstract class Character {
   String backgroundImagePath;
   List<Item> _items = [];
   List<int> _itemWishList = [];
+  bool _ignoreNegativeItemEffects = false;
 
   static final CLASS_LIST = [
     'Brute',
@@ -182,4 +183,10 @@ abstract class Character {
   List<Item> get items => _items;
 
   List<int> get itemWishList => _itemWishList;
+
+  bool get ignoreNegativeItemEffects => _ignoreNegativeItemEffects;
+
+  set ignoreNegativeItemEffects(bool value) {
+    _ignoreNegativeItemEffects = value;
+  }
 }

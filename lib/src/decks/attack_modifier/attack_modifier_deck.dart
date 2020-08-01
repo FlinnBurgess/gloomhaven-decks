@@ -20,32 +20,21 @@ class AttackModifierDeck {
   bool doubleDamageDrawn = false;
   bool nullDrawn = false;
   int _cardsRemovedBySecondSkin = 0;
+  int _itemEffectMinusOneCards = 0;
 
   AttackModifierDeck() {
-    for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
-      _cardsInDeck.add(
-          DamageChangeCard.base(0));
-    }
-
-    for (var i = 0; i < BASE_NUMBER_OF_PLUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(
-          DamageChangeCard.base(1));
-    }
-
-    for (var i = 0; i < BASE_NUMBER_OF_MINUS_ONE_MODIFIERS; i++) {
-      _cardsInDeck.add(
-          DamageChangeCard.base(-1));
-    }
-
-    _cardsInDeck.add(
-        DamageChangeCard.base(2));
-    _cardsInDeck.add(
-        DamageChangeCard.base(-2));
+    _cardsInDeck
+        .addAll(DamageChangeCard.base(0).times(BASE_NUMBER_OF_ZERO_MODIFIERS));
+    _cardsInDeck.addAll(
+        DamageChangeCard.base(1).times(BASE_NUMBER_OF_PLUS_ONE_MODIFIERS));
+    _cardsInDeck.addAll(
+        DamageChangeCard.base(-1).times(BASE_NUMBER_OF_MINUS_ONE_MODIFIERS));
+    _cardsInDeck.add(DamageChangeCard.base(2));
+    _cardsInDeck.add(DamageChangeCard.base(-2));
     _cardsInDeck.add(NullDamageCard());
     _cardsInDeck.add(DoubleDamageCard());
 
     shuffle();
-    _drawPile = [..._cardsInDeck];
   }
 
   void shuffle() {
@@ -125,7 +114,8 @@ class AttackModifierDeck {
   }
 
   void applySecondSkin() {
-    while (_cardsInDeck.contains(DamageChangeCard.base(-1)) && _cardsRemovedBySecondSkin < 2) {
+    while (_cardsInDeck.contains(DamageChangeCard.base(-1)) &&
+        _cardsRemovedBySecondSkin < 2) {
       _removeCard(DamageChangeCard.base(-1));
       _cardsRemovedBySecondSkin++;
     }
@@ -138,9 +128,14 @@ class AttackModifierDeck {
     }
   }
 
+  void addItemEffectMinusOneCards(int numberOfCards) {
+    addCards(DamageChangeCard.itemEffect(-1).times(numberOfCards));
+  }
+
   void removeItemEffectMinusOneCards(int numberOfCards) {
-    while (_cardsInDeck.contains(DamageChangeCard.base(-1)) && numberOfCards > 0) {
-      _removeCard(DamageChangeCard.base(-1));
+    while (_cardsInDeck.contains(DamageChangeCard.itemEffect(-1)) &&
+        numberOfCards > 0) {
+      _removeCard(DamageChangeCard.itemEffect(-1));
       numberOfCards--;
     }
   }

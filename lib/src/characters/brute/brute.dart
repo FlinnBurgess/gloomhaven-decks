@@ -46,8 +46,7 @@ class Brute extends Character {
               1, AttackEffect.shield, 1, characterClass),
           ONE_AVAILABLE,
           'Add one +1 Shield [SHIELD] 1, Self card'),
-      Perk.addCard(DamageChangeCard.forCharacter(1, characterClass),
-          ONE_AVAILABLE, 'Ignore negative item effects and add one +1 card')
+      Perk.ignoreNegativeItemEffectsAndAddOnePlusOneCard(characterClass)
     ];
   }
 }

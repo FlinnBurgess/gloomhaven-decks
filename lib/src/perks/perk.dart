@@ -41,31 +41,6 @@ var placeholderConversions = {
   '[ROLLING]': Icon(MiscIcons.rolling, color: Color.fromRGBO(77, 121, 68, 1)),
 };
 
-RichText perkText(String description) {
-  var textSections = description.split(RegExp(r"\[[A-Z0-9\s]+\]"));
-  var iconPlaceholders = RegExp(r"\[[A-Z0-9\s]+\]").allMatches(description);
-  var icons = iconPlaceholders.map<Widget>((match) {
-    return placeholderConversions.containsKey(match.group(0))
-        ? Container(child: placeholderConversions[match.group(0)],
-      decoration: BoxDecoration(color: Colors.black38, shape: BoxShape.circle),)
-        : OutlinedText.blackAndWhite(match.group(0));
-  }).toList();
-
-  var textSpanChildren = <InlineSpan>[];
-
-  for (int i = 0; i < textSections.length; i++) {
-    textSpanChildren
-        .add(WidgetSpan(child: OutlinedText.blackAndWhite(textSections[i])));
-    if (icons.length >= i + 1) {
-      textSpanChildren.add(WidgetSpan(child: icons[i]));
-    }
-  }
-
-  return RichText(
-    text: TextSpan(children: textSpanChildren),
-  );
-}
-
 class Perk {
   Function(Character) apply;
   Function(Character) unapply;
@@ -193,6 +168,36 @@ class Perk {
       ONE_AVAILABLE,
       'Ignore negative scenario effects and add two +1 cards');
 
+  Perk.ignoreNegativeItemEffects() {
+    apply = (Character character) {
+      character.ignoreNegativeItemEffects = true;
+      return true;
+    };
+    unapply = (Character character) {
+      character.ignoreNegativeItemEffects = false;
+      return true;
+    };
+    perksAvailable = 1;
+    description = 'Ignore negative item effects';
+  }
+
+  Perk.ignoreNegativeItemEffectsAndAddOnePlusOneCard(String characterClass) {
+    apply = (Character character) {
+      character.ignoreNegativeItemEffects = true;
+      character.attackModifierDeck.addCard(DamageChangeCard.forCharacter(1, characterClass));
+      return true;
+    };
+    unapply = (Character character) {
+      bool successful = character.attackModifierDeck.removeCards(DamageChangeCard.forCharacter(1, characterClass).times(1));
+      if (successful) {
+        character.ignoreNegativeItemEffects = false;
+      }
+      return successful;
+    };
+    perksAvailable = 1;
+    description = 'Ignore negative item effects and add one +1 card';
+  }
+
   Function _removeCardsFromDeck(List<AttackModifierCard> cards) {
     return (Character character) {
         bool successful = character.attackModifierDeck.removeCards(cards);
@@ -209,4 +214,29 @@ class Perk {
       return true;
     };
   }
+}
+
+RichText perkText(String description) {
+  var textSections = description.split(RegExp(r"\[[A-Z0-9\s]+\]"));
+  var iconPlaceholders = RegExp(r"\[[A-Z0-9\s]+\]").allMatches(description);
+  var icons = iconPlaceholders.map<Widget>((match) {
+    return placeholderConversions.containsKey(match.group(0))
+        ? Container(child: placeholderConversions[match.group(0)],
+      decoration: BoxDecoration(color: Colors.black38, shape: BoxShape.circle),)
+        : OutlinedText.blackAndWhite(match.group(0));
+  }).toList();
+
+  var textSpanChildren = <InlineSpan>[];
+
+  for (int i = 0; i < textSections.length; i++) {
+    textSpanChildren
+        .add(WidgetSpan(child: OutlinedText.blackAndWhite(textSections[i])));
+    if (icons.length >= i + 1) {
+      textSpanChildren.add(WidgetSpan(child: icons[i]));
+    }
+  }
+
+  return RichText(
+    text: TextSpan(children: textSpanChildren),
+  );
 }

@@ -51,6 +51,7 @@ flutter:
         - asset: fonts/PirataOne-Gloomhaven.ttf
   assets:
     - images/cards/base/
+    - images/cards/item_effect/
     - images/cards/beasttyrant/
     - images/cards/berserker/
     - images/cards/brute/
