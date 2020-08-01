@@ -5,8 +5,8 @@ import 'package:gloomhaven_decks/src/cards/attack_effect_card.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/condition_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
+import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
-import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/elemental_infusions.dart';
 import 'package:gloomhaven_decks/src/ui/misc_icons.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
@@ -67,8 +67,8 @@ RichText perkText(String description) {
 }
 
 class Perk {
-  Function(AttackModifierDeck) apply;
-  Function(AttackModifierDeck) unapply;
+  Function(Character) apply;
+  Function(Character) unapply;
   int perksAvailable = 0;
   int perksUsed = 0;
   String description;
@@ -91,13 +91,13 @@ class Perk {
       List<AttackModifierCard> replacementCards,
       this.perksAvailable,
       this.description) {
-    apply = (AttackModifierDeck attackModifierDeck) {
-      return attackModifierDeck.replaceCards(
+    apply = (Character character) {
+      return character.attackModifierDeck.replaceCards(
           cardsBeingReplaced, replacementCards);
     };
 
-    unapply = (AttackModifierDeck attackModifierDeck) {
-      return attackModifierDeck.replaceCards(
+    unapply = (Character character) {
+      return character.attackModifierDeck.replaceCards(
           replacementCards, cardsBeingReplaced);
     };
   }
@@ -194,14 +194,18 @@ class Perk {
       'Ignore negative scenario effects and add two +1 cards');
 
   Function _removeCardsFromDeck(List<AttackModifierCard> cards) {
-    return (AttackModifierDeck attackModifierDeck) =>
-        attackModifierDeck.removeCards(cards);
+    return (Character character) {
+        bool successful = character.attackModifierDeck.removeCards(cards);
+        if (successful) {
+          character.attackModifierDeck.shuffle();
+        }
+        return successful;
+    };
   }
 
   Function _addCardsToDeck(List<AttackModifierCard> cards) {
-    return (AttackModifierDeck attackModifierDeck) {
-      attackModifierDeck.addCards(cards);
-
+    return (Character character) {
+      character.attackModifierDeck.addCards(cards);
       return true;
     };
   }

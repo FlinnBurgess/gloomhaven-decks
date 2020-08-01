@@ -4,7 +4,6 @@ import 'package:gloomhaven_decks/src/cards/curse_card.dart';
 import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
 import 'package:gloomhaven_decks/src/cards/double_damage_card.dart';
 import 'package:gloomhaven_decks/src/cards/null_damage_card.dart';
-import 'package:gloomhaven_decks/src/perks/perk.dart';
 
 class AttackModifierDeck {
   static const BASE_NUMBER_OF_ZERO_MODIFIERS = 6;
@@ -47,26 +46,6 @@ class AttackModifierDeck {
 
     shuffle();
     _drawPile = [..._cardsInDeck];
-  }
-
-  bool applyPerk(Perk perk) {
-    bool successful = perk.apply(this);
-
-    if (successful) {
-      this.shuffle();
-    }
-
-    return successful;
-  }
-
-  bool unapplyPerk(Perk perk) {
-    bool successful = perk.unapply(this);
-
-    if (successful) {
-      this.shuffle();
-    }
-
-    return successful;
   }
 
   void shuffle() {

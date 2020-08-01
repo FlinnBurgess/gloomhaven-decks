@@ -41,7 +41,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
               value: true,
               onChanged: (value) {
                 bool successfullyUnapplied =
-                this.widget.character.attackModifierDeck.unapplyPerk(perk);
+                this.widget.character.unapplyPerk(perk);
                 if (successfullyUnapplied) {
                   characters.save();
                   setState(() {
@@ -58,7 +58,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
               value: false,
               onChanged: (value) {
                 bool successfullyApplied =
-                this.widget.character.attackModifierDeck.applyPerk(perk);
+                this.widget.character.applyPerk(perk);
                 if (successfullyApplied) {
                   characters.save();
                   setState(() {

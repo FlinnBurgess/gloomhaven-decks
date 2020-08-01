@@ -132,6 +132,14 @@ abstract class Character {
     _itemWishList.remove(itemNumber);
   }
 
+  bool applyPerk(Perk perk) {
+    return perk.apply(this);
+  }
+
+  bool unapplyPerk(Perk perk) {
+    return perk.unapply(this);
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'name': name,
@@ -159,7 +167,7 @@ abstract class Character {
 
     for (int currentPerk = 0; currentPerk < perks.length; currentPerk++) {
       for (int applied = 0; applied < perks[currentPerk]; applied++) {
-        character.perks[currentPerk].apply(character.attackModifierDeck);
+        character.applyPerk(character.perks[currentPerk]);
         character.perks[currentPerk].perksUsed++;
         character.perks[currentPerk].perksAvailable--;
       }
