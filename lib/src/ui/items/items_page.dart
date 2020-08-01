@@ -178,30 +178,46 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                       Positioned(
                         top: 110,
                         left: 0,
-                        child: IconButton(
-                          icon: Icon(Icons.monetization_on),
-                          onPressed: () =>
-                              _confirmItemSale(item.itemNumber, context),
-                          iconSize: 50,
-                          color: Colors.green[700],
-                        ),
+                        child: Stack(alignment: Alignment.center, children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.black, shape: BoxShape.circle),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.monetization_on),
+                            onPressed: () =>
+                                _confirmItemSale(item.itemNumber, context),
+                            iconSize: 50,
+                            color: Colors.green[700],
+                          )
+                        ]),
                       ),
                       Positioned(
                         top: 30,
                         left: 0,
-                        child: IconButton(
-                          icon: Icon(Icons.remove_circle),
-                          onPressed: () {
-                            setState(() {
-                              availableItems[index].equipped = false;
-                              Fluttertoast.showToast(
-                                  msg: itemName + ' unequipped.',
-                                  backgroundColor: Colors.black);
-                            });
-                          },
-                          iconSize: 50,
-                          color: Colors.red[900],
-                        ),
+                        child: Stack(alignment: Alignment.center, children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.black, shape: BoxShape.circle),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.remove_circle),
+                            onPressed: () {
+                              setState(() {
+                                availableItems[index].equipped = false;
+                                Fluttertoast.showToast(
+                                    msg: itemName + ' unequipped.',
+                                    backgroundColor: Colors.black);
+                              });
+                            },
+                            iconSize: 50,
+                            color: Colors.red[900],
+                          )
+                        ]),
                       )
                     ]));
               },
@@ -235,32 +251,48 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                         ),
                       ),
                       Positioned(
-                        top: 70,
-                        left: 10,
-                        child: IconButton(
-                          icon: Icon(Icons.monetization_on),
-                          onPressed: () => _confirmItemSale(
-                              usedItems[index].itemNumber, context),
-                          iconSize: 50,
-                          color: Colors.green[700],
-                        ),
+                        top: 110,
+                        left: 0,
+                        child: Stack(alignment: Alignment.center, children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.black, shape: BoxShape.circle),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.monetization_on),
+                            onPressed: () => _confirmItemSale(
+                                usedItems[index].itemNumber, context),
+                            iconSize: 50,
+                            color: Colors.green[700],
+                          )
+                        ]),
                       ),
                       Positioned(
-                        top: 70,
-                        right: 10,
-                        child: IconButton(
-                          icon: Icon(Icons.remove_circle),
-                          onPressed: () {
-                            setState(() {
-                              usedItems[index].equipped = false;
-                              Fluttertoast.showToast(
-                                  msg: itemName + ' unequipped.',
-                                  backgroundColor: Colors.black);
-                            });
-                          },
-                          iconSize: 50,
-                          color: Colors.red[900],
-                        ),
+                        top: 30,
+                        left: 0,
+                        child: Stack(alignment: Alignment.center, children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.black, shape: BoxShape.circle),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.remove_circle),
+                            onPressed: () {
+                              setState(() {
+                                usedItems[index].equipped = false;
+                                Fluttertoast.showToast(
+                                    msg: itemName + ' unequipped.',
+                                    backgroundColor: Colors.black);
+                              });
+                            },
+                            iconSize: 50,
+                            color: Colors.red[900],
+                          )
+                        ]),
                       )
                     ]));
               },
@@ -297,13 +329,21 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                       Positioned(
                         top: 110,
                         left: 0,
-                        child: IconButton(
-                          icon: Icon(Icons.monetization_on),
-                          onPressed: () => _confirmItemSale(
-                              unequippedItems[index].itemNumber, context),
-                          iconSize: 50,
-                          color: Colors.green[700],
-                        ),
+                        child: Stack(alignment: Alignment.center, children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.black, shape: BoxShape.circle),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.monetization_on),
+                            onPressed: () => _confirmItemSale(
+                                unequippedItems[index].itemNumber, context),
+                            iconSize: 50,
+                            color: Colors.green[700],
+                          )
+                        ]),
                       ),
                     ]));
               },
@@ -332,8 +372,8 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                                     height: 80,
                                     width: 100,
                                     child: IconButton(
-                                      onPressed: () => _addItemToWishlist(
-                                          context),
+                                      onPressed: () =>
+                                          _addItemToWishlist(context),
                                       icon: Icon(
                                         Icons.add_circle_outline,
                                         color: Colors.black,
@@ -349,9 +389,15 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                             RaisedButton(
                               onPressed: () => setState(() {
                                 Shop shop = Provider.of<Shop>(context);
-                                if (shop.itemsToDisplay().containsKey(itemNumber) && shop.itemsToDisplay()[itemNumber]['stock'] < 1) {
+                                if (shop
+                                        .itemsToDisplay()
+                                        .containsKey(itemNumber) &&
+                                    shop.itemsToDisplay()[itemNumber]['stock'] <
+                                        1) {
                                   Fluttertoast.showToast(
-                                      msg: items[itemNumber]['name'].toString() + ' out of stock.',
+                                      msg:
+                                          items[itemNumber]['name'].toString() +
+                                              ' out of stock.',
                                       backgroundColor: Colors.red[900]);
                                 } else {
                                   shop.removeItem(itemNumber);
@@ -459,7 +505,9 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                                   ),
                                   RaisedButton(
                                     onPressed: () {
-                                      if (this.widget.character
+                                      if (this
+                                          .widget
+                                          .character
                                           .ownsItem(Item(itemNumber))) {
                                         Fluttertoast.showToast(
                                             msg: this.widget.character.name +
@@ -468,7 +516,10 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                                             backgroundColor: Colors.red[900]);
                                       } else {
                                         setState(() {
-                                          this.widget.character.addWishListItem(itemNumber);
+                                          this
+                                              .widget
+                                              .character
+                                              .addWishListItem(itemNumber);
                                         });
                                         Provider.of<Characters>(context).save();
                                         Navigator.pop(context);

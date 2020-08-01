@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OutlinedText extends StatelessWidget {
-  Color bodyColour;
-  Color outlineColour;
-  String text;
-  TextAlign alignment;
+  final Color bodyColour;
+  final Color outlineColour;
+  final String text;
+  final TextAlign alignment;
 
   OutlinedText(this.text, this.bodyColour, this.outlineColour,
       [this.alignment = TextAlign.start]);
