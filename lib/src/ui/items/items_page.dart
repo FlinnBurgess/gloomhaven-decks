@@ -138,6 +138,13 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                   child: Text("Unequip all items"),
                   onPressed: () => setState(() {
                     this.widget.character.items.forEach((item) {
+                      if (itemEquipEffects.containsKey(item.itemNumber)) {
+                        itemEquipEffects[item.itemNumber]['unequip'](
+                            this.widget.character.attackModifierDeck);
+                        Fluttertoast.showToast(
+                            msg: 'Item effects removed from attack modified deck.',
+                            backgroundColor: Colors.black);
+                      }
                       item.equipped = false;
                     });
                   }),
@@ -207,10 +214,21 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                           IconButton(
                             icon: Icon(Icons.remove_circle),
                             onPressed: () {
+                              bool itemEffectNeedsRemoving =
+                                  itemEquipEffects.containsKey(item.itemNumber);
+                              if (itemEffectNeedsRemoving) {
+                                itemEquipEffects[item.itemNumber]['unequip'](
+                                    this.widget.character.attackModifierDeck);
+                              }
+
                               setState(() {
                                 availableItems[index].equipped = false;
                                 Fluttertoast.showToast(
-                                    msg: itemName + ' unequipped.',
+                                    msg: itemName +
+                                        ' unequipped' +
+                                        (itemEffectNeedsRemoving
+                                            ? ' and effect removed from attack modifier deck.'
+                                            : '.'),
                                     backgroundColor: Colors.black);
                               });
                             },
@@ -262,8 +280,8 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                           ),
                           IconButton(
                             icon: Icon(Icons.monetization_on),
-                            onPressed: () => _confirmItemSale(
-                                usedItems[index].itemNumber, context),
+                            onPressed: () =>
+                                _confirmItemSale(item.itemNumber, context),
                             iconSize: 50,
                             color: Colors.green[700],
                           )
@@ -282,10 +300,20 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                           IconButton(
                             icon: Icon(Icons.remove_circle),
                             onPressed: () {
+                              bool itemEffectNeedsRemoving =
+                                  itemEquipEffects.containsKey(item.itemNumber);
+                              if (itemEffectNeedsRemoving) {
+                                itemEquipEffects[item.itemNumber]['unequip'](
+                                    this.widget.character.attackModifierDeck);
+                              }
                               setState(() {
                                 usedItems[index].equipped = false;
                                 Fluttertoast.showToast(
-                                    msg: itemName + ' unequipped.',
+                                    msg: itemName +
+                                        ' unequipped' +
+                                        (itemEffectNeedsRemoving
+                                            ? ' and effect removed from attack modifier deck.'
+                                            : '.'),
                                     backgroundColor: Colors.black);
                               });
                             },
@@ -309,15 +337,24 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
               scrollDirection: Axis.horizontal,
               itemCount: unequippedItems.length,
               itemBuilder: (BuildContext context, int index) {
+                int itemNumber = unequippedItems[index].itemNumber;
                 return Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Stack(alignment: Alignment.center, children: [
                       Image.asset(
-                        'images/items/${unequippedItems[index].itemNumber}.png',
+                        'images/items/${itemNumber}.png',
                         scale: 1.7,
                       ),
                       RaisedButton(
                         onPressed: () => setState(() {
+                          if (itemEquipEffects.containsKey(itemNumber)) {
+                            itemEquipEffects[itemNumber]['equip'](
+                                this.widget.character.attackModifierDeck);
+                            Fluttertoast.showToast(
+                                msg:
+                                    'Item effect applied to attack modifier deck.',
+                                backgroundColor: Colors.black);
+                          }
                           unequippedItems[index].used = false;
                           unequippedItems[index].equipped = true;
                         }),
@@ -338,8 +375,8 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> {
                           ),
                           IconButton(
                             icon: Icon(Icons.monetization_on),
-                            onPressed: () => _confirmItemSale(
-                                unequippedItems[index].itemNumber, context),
+                            onPressed: () =>
+                                _confirmItemSale(itemNumber, context),
                             iconSize: 50,
                             color: Colors.green[700],
                           )

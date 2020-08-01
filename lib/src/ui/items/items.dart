@@ -1,3 +1,6 @@
+import 'package:gloomhaven_decks/src/cards/damage_change_card.dart';
+import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
+
 var items = {
   1: {
     'name': 'Boots of Striding',
@@ -1055,5 +1058,48 @@ var items = {
     'type': 'one handed',
     'usage': 'consume',
     'stock': 1
+  },
+};
+
+Map<int, Map<String, Function(AttackModifierDeck)>> itemEquipEffects = {
+  3: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(2)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(2),
+  },
+  22: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(1)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(1),
+  },
+  23: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(3)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(3),
+  },
+  38: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(2)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(2),
+  },
+  44: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(4)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(4),
+  },
+  50: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(2)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(2),
+  },
+  65: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(5)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(5),
+  },
+  74: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(4)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(4),
+  },
+  76: {
+    'equip': (deck) => deck.addCards(DamageChangeCard.base(-1).times(1)),
+    'unequip': (deck) => deck.removeItemEffectMinusOneCards(1),
+  },
+  101: {
+    'equip': (deck) => deck.applySecondSkin(),
+    'unequip': (deck) => deck.unapplySecondSkin(),
   },
 };

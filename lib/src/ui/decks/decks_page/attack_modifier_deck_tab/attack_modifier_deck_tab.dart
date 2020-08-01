@@ -183,25 +183,6 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Incrementer(
-                      label: '-1 item effect',
-                      incrementBehaviour: () {
-                        setState(() {
-                          this.widget.deck.addItemEffectMinusOneCard();
-                          this.widget.saveCharacters();
-                        });
-                      },
-                      decrementBehaviour: () {
-                        setState(() {
-                          this.widget.deck.removeItemEffectMinusOneCard();
-                          this.widget.saveCharacters();
-                        });
-                      },
-                      decrementEnabledCondition: () =>
-                      this.widget.deck.itemEffectMinusOneCards > 0,
-                      valueCalculation: () =>
-                      this.widget.deck.itemEffectMinusOneCards,
-                    ),
-                    Incrementer(
                       label: '-1 scenario effect',
                       incrementBehaviour: () {
                         setState(() {
@@ -276,8 +257,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab> {
     if (deck.isBlessed()) {
       rowItems.add(blessIcon);
     }
-    if (deck.itemEffectMinusOneCards > 0 ||
-        deck.scenarioEffectMinusOneCards > 0) {
+    if (deck.scenarioEffectMinusOneCards > 0) {
       rowItems.add(Icon(
         MiscIcons.minus_one,
         color: Colors.red[700],

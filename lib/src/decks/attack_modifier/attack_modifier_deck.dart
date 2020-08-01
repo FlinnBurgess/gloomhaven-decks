@@ -17,10 +17,10 @@ class AttackModifierDeck {
   List cardsDrawn = [];
   int blessCardCount = 0;
   int curseCardCount = 0;
-  int itemEffectMinusOneCards = 0;
   int scenarioEffectMinusOneCards = 0;
   bool doubleDamageDrawn = false;
   bool nullDrawn = false;
+  int _cardsRemovedBySecondSkin = 0;
 
   AttackModifierDeck() {
     for (var i = 0; i < BASE_NUMBER_OF_ZERO_MODIFIERS; i++) {
@@ -145,14 +145,25 @@ class AttackModifierDeck {
     return containsAllCards;
   }
 
-  void addItemEffectMinusOneCard() {
-    addCard(DamageChangeCard.extraMinusOne());
-    itemEffectMinusOneCards++;
+  void applySecondSkin() {
+    while (_cardsInDeck.contains(DamageChangeCard.base(-1)) && _cardsRemovedBySecondSkin < 2) {
+      _removeCard(DamageChangeCard.base(-1));
+      _cardsRemovedBySecondSkin++;
+    }
   }
 
-  void removeItemEffectMinusOneCard() {
-    _removeCard(DamageChangeCard.extraMinusOne());
-    itemEffectMinusOneCards--;
+  void unapplySecondSkin() {
+    while (_cardsRemovedBySecondSkin > 0) {
+      addCard(DamageChangeCard.base(-1));
+      _cardsRemovedBySecondSkin--;
+    }
+  }
+
+  void removeItemEffectMinusOneCards(int numberOfCards) {
+    while (_cardsInDeck.contains(DamageChangeCard.base(-1)) && numberOfCards > 0) {
+      _removeCard(DamageChangeCard.base(-1));
+      numberOfCards--;
+    }
   }
 
   void addScenarioEffectMinusOneCard() {
