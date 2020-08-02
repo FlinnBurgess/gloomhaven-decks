@@ -74,14 +74,14 @@ class AttackModifierResult {
   int shieldAmount = 0;
   int refreshItemAmount = 0;
 
-  Future<AttackModifierResult> applyCardEffect(AttackModifierCard card) async {
-    await card.applyEffect(this);
+  AttackModifierResult applyCardEffect(AttackModifierCard card, bool lessRandomness) {
+    lessRandomness ? card.applyLessRandomEffect(this) : card.applyEffect(this);
     return this;
   }
 
-  Future<AttackModifierResult> applyCards(
-      List<AttackModifierCard> cards) async {
-    cards.forEach((card) async => await applyCardEffect(card));
+  AttackModifierResult applyCards(
+      List<AttackModifierCard> cards, lessRandomness) {
+    cards.forEach((card) => applyCardEffect(card, lessRandomness));
     return this;
   }
 

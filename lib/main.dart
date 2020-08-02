@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/app_rating.dart';
 import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/settings/settings.dart';
 import 'package:gloomhaven_decks/src/ui/decks/decks_page/decks_page.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
 
-import 'src/settings/settings.dart';
 import 'src/shop/shop.dart';
 
 TextTheme customTextTheme = TextTheme(
@@ -24,7 +24,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Characters characters = await Characters.load();
   Shop shop = await Shop.load();
-  bool userHasSeenConsentMessage = await userHasSeenPrivacyConsentMessage();
+  Settings settings = await Settings.load();
 
   runZoned(
       () => runApp(MultiProvider(
@@ -34,9 +34,12 @@ Future<void> main() async {
               ),
               ChangeNotifierProvider(
                 create: (_) => shop,
-              )
+              ),
+              ChangeNotifierProvider(
+                create: (_) => settings,
+              ),
             ],
-            child: GloomhavenDeckTracker(userHasSeenConsentMessage),
+            child: GloomhavenDeckTracker(settings.userHasSeenConsentMessage),
           )), onError: (Object error, StackTrace stacktrace) {
     try {
       sentry.captureException(exception: error, stackTrace: stacktrace);

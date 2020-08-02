@@ -3,13 +3,23 @@ import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 
 abstract class AttackModifierCard {
   Function(AttackModifierResult) effect;
+  Function(AttackModifierResult) lessRandomEffect;
   bool isRolling;
   String cardImagePath;
 
-  AttackModifierCard(this.effect, this.isRolling, this.cardImagePath);
+  AttackModifierCard(this.effect, this.isRolling, this.cardImagePath) {
+    lessRandomEffect = effect;
+  }
+
+  AttackModifierCard.withLessRandomEffect(this.effect, this.lessRandomEffect, this.isRolling, this.cardImagePath);
 
   AttackModifierResult applyEffect(AttackModifierResult result) {
     effect(result);
+    return result;
+  }
+
+  AttackModifierResult applyLessRandomEffect(AttackModifierResult result) {
+    lessRandomEffect(result);
     return result;
   }
 

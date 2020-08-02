@@ -19,67 +19,50 @@ class NewCharacterFormState extends State<NewCharacterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Characters>(
-      builder: (context, characters, child) {
+    return Consumer2<Characters, Settings>(
+      builder: (context, characters, settings, _) {
         return Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
-              FutureBuilder<bool>(
-                  future: getHideUnlockableClassNamesSetting(),
-                  initialData: true,
-                  builder: (context, snapshot) =>
-                  snapshot.hasData
-                      ? Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.7,
-                      child: Theme(
-                          data: ThemeData(canvasColor: Colors.black54),
-                          child: DropdownButtonFormField(
-                            value: _selectedClass,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: Colors.white,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            onChanged: (value) =>
-                                this.setState(() => _selectedClass = value),
-                            items: _classes.map((String className) {
-                              return DropdownMenuItem(
-                                  value: className,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Icon(
-                                          Character
-                                              .createCharacter(
-                                              className, '')
-                                              .characterIcon,
-                                          color: Colors.white),
-                                      Padding(
-                                          padding:
-                                          EdgeInsets.only(left: 15),
-                                          child: OutlinedText.blackAndWhite(
-                                              snapshot.data == true &&
-                                                  !STARTING_CLASSES
-                                                      .contains(
-                                                      className)
-                                                  ? '???'
-                                                  : className))
-                                    ],
-                                  ));
-                            }).toList(),
-                          )))
-                      : Container()),
               Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.85,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: Theme(
+                      data: ThemeData(canvasColor: Colors.black54),
+                      child: DropdownButtonFormField(
+                        value: _selectedClass,
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
+                        iconSize: 24,
+                        elevation: 16,
+                        onChanged: (value) =>
+                            this.setState(() => _selectedClass = value),
+                        items: _classes.map((String className) {
+                          return DropdownMenuItem(
+                              value: className,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Icon(
+                                      Character.createCharacter(className, '')
+                                          .characterIcon,
+                                      color: Colors.white),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 15),
+                                      child: OutlinedText.blackAndWhite(
+                                          settings.hideUnlockableClassNamesSetting &&
+                                                  !STARTING_CLASSES
+                                                      .contains(className)
+                                              ? '???'
+                                              : className))
+                                ],
+                              ));
+                        }).toList(),
+                      ))),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.85,
                   child: TextFormField(
                     decoration: InputDecoration(
                       filled: true,
@@ -89,14 +72,14 @@ class NewCharacterFormState extends State<NewCharacterForm> {
                         borderSide: BorderSide(),
                       ),
                     ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Give your character a name';
-                  }
-                  return null;
-                },
-                onChanged: (value) =>
-                    this.setState(() => _newCharacterName = value),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Give your character a name';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) =>
+                        this.setState(() => _newCharacterName = value),
                   )),
               RaisedButton(
                 onPressed: () {

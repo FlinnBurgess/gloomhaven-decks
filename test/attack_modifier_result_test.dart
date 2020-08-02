@@ -19,10 +19,10 @@ void main() {
           'between two attack modifier cards with no additional effects, the one with lower damage is worse',
           () {
         DamageChangeCard twoDamage = DamageChangeCard.base(2);
-        firstResult.applyCardEffect(twoDamage);
+        firstResult.applyCardEffect(twoDamage, false);
 
         DamageChangeCard oneDamage = DamageChangeCard.base(1);
-        secondResult.applyCardEffect(oneDamage);
+        secondResult.applyCardEffect(oneDamage, false);
 
         expect(worseResult(firstResult, secondResult), secondResult);
       });
@@ -32,10 +32,10 @@ void main() {
           () {
         DamageChangeCard oneDamageWithWound =
             DamageChangeCard.withCondition(1, Condition.wound, "brute");
-        firstResult.applyCardEffect(oneDamageWithWound);
+        firstResult.applyCardEffect(oneDamageWithWound, false);
         DamageChangeCard twoDamageWithWound =
             DamageChangeCard.withCondition(2, Condition.wound, "brute");
-        secondResult.applyCardEffect(twoDamageWithWound);
+        secondResult.applyCardEffect(twoDamageWithWound, false);
 
         expect(worseResult(firstResult, secondResult), firstResult);
       });
@@ -45,12 +45,12 @@ void main() {
           () {
         DamageChangeCard oneDamageWithWound =
             DamageChangeCard.withCondition(1, Condition.wound, "brute");
-        firstResult.applyCardEffect(oneDamageWithWound);
+        firstResult.applyCardEffect(oneDamageWithWound, false);
 
         DamageChangeCard fiftyDamageWithPushOne =
             DamageChangeCard.withAttackEffect(
                 50, AttackEffect.push, 1, "brute");
-        secondResult.applyCardEffect(fiftyDamageWithPushOne);
+        secondResult.applyCardEffect(fiftyDamageWithPushOne, false);
 
         expect(worseResult(firstResult, secondResult), null);
       });
@@ -60,12 +60,12 @@ void main() {
           () {
         DamageChangeCard oneDamageWithImmobilize =
             DamageChangeCard.withCondition(1, Condition.immobilize, "brute");
-        firstResult.applyCardEffect(oneDamageWithImmobilize);
+        firstResult.applyCardEffect(oneDamageWithImmobilize, false);
 
         DamageChangeCard oneDamageWithShieldOne =
             DamageChangeCard.withAttackEffect(
                 1, AttackEffect.shield, 1, "brute");
-        secondResult.applyCardEffect(oneDamageWithShieldOne);
+        secondResult.applyCardEffect(oneDamageWithShieldOne, false);
 
         expect(worseResult(firstResult, secondResult), null);
       });
@@ -76,10 +76,10 @@ void main() {
           'between two attack modifier cards with no additional effects, the one with higher damage is better',
           () {
         DamageChangeCard twoDamage = DamageChangeCard.base(2);
-        firstResult.applyCardEffect(twoDamage);
+        firstResult.applyCardEffect(twoDamage, false);
 
         DamageChangeCard oneDamage = DamageChangeCard.base(1);
-        secondResult.applyCardEffect(oneDamage);
+        secondResult.applyCardEffect(oneDamage, false);
 
         expect(betterResult(firstResult, secondResult), firstResult);
       });
@@ -89,10 +89,10 @@ void main() {
           () {
         DamageChangeCard oneDamageWithWound =
             DamageChangeCard.withCondition(1, Condition.wound, "brute");
-        firstResult.applyCardEffect(oneDamageWithWound);
+        firstResult.applyCardEffect(oneDamageWithWound, false);
         DamageChangeCard twoDamageWithWound =
             DamageChangeCard.withCondition(2, Condition.wound, "brute");
-        secondResult.applyCardEffect(twoDamageWithWound);
+        secondResult.applyCardEffect(twoDamageWithWound, false);
 
         expect(betterResult(firstResult, secondResult), secondResult);
       });
@@ -102,12 +102,12 @@ void main() {
           () {
         DamageChangeCard oneDamageWithWound =
             DamageChangeCard.withCondition(1, Condition.wound, "brute");
-        firstResult.applyCardEffect(oneDamageWithWound);
+        firstResult.applyCardEffect(oneDamageWithWound, false);
 
         DamageChangeCard fiftyDamageWithPushOne =
             DamageChangeCard.withAttackEffect(
                 50, AttackEffect.push, 1, "brute");
-        secondResult.applyCardEffect(fiftyDamageWithPushOne);
+        secondResult.applyCardEffect(fiftyDamageWithPushOne, false);
 
         expect(betterResult(firstResult, secondResult), null);
       });
@@ -117,12 +117,12 @@ void main() {
           () {
         DamageChangeCard oneDamageWithImmobilize =
             DamageChangeCard.withCondition(1, Condition.immobilize, "brute");
-        firstResult.applyCardEffect(oneDamageWithImmobilize);
+        firstResult.applyCardEffect(oneDamageWithImmobilize, false);
 
         DamageChangeCard oneDamageWithShieldOne =
             DamageChangeCard.withAttackEffect(
                 1, AttackEffect.shield, 1, "brute");
-        secondResult.applyCardEffect(oneDamageWithShieldOne);
+        secondResult.applyCardEffect(oneDamageWithShieldOne, false);
 
         expect(betterResult(firstResult, secondResult), null);
       });

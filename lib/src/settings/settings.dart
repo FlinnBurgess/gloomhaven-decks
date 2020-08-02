@@ -1,46 +1,75 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const LESS_RANDOMNESS = 'lessRandomness';
-const HIDE_UNLOCKABLE_CLASS_NAMES = 'hideClassNames';
-const PERSONALIZED_ADS_CONSENT = 'privacyConsent';
+class Settings extends ChangeNotifier {
+  bool _lessRandomnessSetting;
+  bool _hideUnlockableClassNamesSetting;
+  var _personalizedAdConsentSetting;
+  bool _userHasSeenConsentMessage;
 
-Future<bool> getLessRandomnessSetting() async {
-  SharedPreferences settings = await SharedPreferences.getInstance();
-  return settings.containsKey(LESS_RANDOMNESS)
-      ? settings.getBool(LESS_RANDOMNESS)
-      : false;
-}
+  static const LESS_RANDOMNESS = 'lessRandomness';
+  static const HIDE_UNLOCKABLE_CLASS_NAMES = 'hideClassNames';
+  static const PERSONALIZED_ADS_CONSENT = 'privacyConsent';
 
-setLessRandomnessSetting(bool setting) async {
-  final SharedPreferences settings = await SharedPreferences.getInstance();
-  await settings.setBool(LESS_RANDOMNESS, setting);
-}
+  Settings(this._lessRandomnessSetting, this._hideUnlockableClassNamesSetting,
+      this._personalizedAdConsentSetting, this._userHasSeenConsentMessage);
 
-Future<bool> getHideUnlockableClassNamesSetting() async {
-  SharedPreferences settings = await SharedPreferences.getInstance();
-  return settings.containsKey(HIDE_UNLOCKABLE_CLASS_NAMES)
-      ? settings.getBool(HIDE_UNLOCKABLE_CLASS_NAMES)
-      : true;
-}
+  static Future<Settings> load() async {
+    SharedPreferences settings = await SharedPreferences.getInstance();
+    bool lessRandomnessSetting = settings.containsKey(LESS_RANDOMNESS)
+        ? settings.getBool(LESS_RANDOMNESS)
+        : false;
+    bool hideUnlockableClassNamesSetting =
+        settings.containsKey(HIDE_UNLOCKABLE_CLASS_NAMES)
+            ? settings.getBool(HIDE_UNLOCKABLE_CLASS_NAMES)
+            : true;
+    bool userHasSeenConsentMessage =
+        settings.containsKey(PERSONALIZED_ADS_CONSENT);
+    bool adConsentSetting = settings.containsKey(PERSONALIZED_ADS_CONSENT)
+        ? settings.getBool(PERSONALIZED_ADS_CONSENT)
+        : false;
 
-setHideUnlockableClassNamesSetting(bool setting) async {
-  final SharedPreferences settings = await SharedPreferences.getInstance();
-  await settings.setBool(HIDE_UNLOCKABLE_CLASS_NAMES, setting);
-}
+    return Settings(lessRandomnessSetting, hideUnlockableClassNamesSetting,
+        adConsentSetting, userHasSeenConsentMessage);
+  }
 
-Future<bool> userHasSeenPrivacyConsentMessage() async {
-  final SharedPreferences settings = await SharedPreferences.getInstance();
-  return settings.containsKey(PERSONALIZED_ADS_CONSENT);
-}
+  Future<void> save() async {
+    final SharedPreferences settings = await SharedPreferences.getInstance();
+    await settings.setBool(LESS_RANDOMNESS, _lessRandomnessSetting);
+    await settings.setBool(
+        HIDE_UNLOCKABLE_CLASS_NAMES, _hideUnlockableClassNamesSetting);
+    await settings.setBool(
+        PERSONALIZED_ADS_CONSENT, _personalizedAdConsentSetting);
+  }
 
-Future<bool> getPersonalizedAdsSetting() async {
-  final SharedPreferences settings = await SharedPreferences.getInstance();
-  return settings.containsKey(PERSONALIZED_ADS_CONSENT)
-      ? settings.getBool(PERSONALIZED_ADS_CONSENT)
-      : false;
-}
+  bool get userHasSeenConsentMessage => _userHasSeenConsentMessage;
 
-setPersonalizedAdsSetting(bool setting) async {
-  final SharedPreferences settings = await SharedPreferences.getInstance();
-  await settings.setBool(PERSONALIZED_ADS_CONSENT, setting);
+  set userHasSeenConsentMessage(bool value) {
+    _userHasSeenConsentMessage = value;
+    save();
+  }
+
+  get personalizedAdConsentSetting => _personalizedAdConsentSetting;
+
+  set personalizedAdConsentSetting(value) {
+    _personalizedAdConsentSetting = value;
+    save();
+    notifyListeners();
+  }
+
+  bool get hideUnlockableClassNamesSetting => _hideUnlockableClassNamesSetting;
+
+  set hideUnlockableClassNamesSetting(bool value) {
+    _hideUnlockableClassNamesSetting = value;
+    save();
+    notifyListeners();
+  }
+
+  bool get lessRandomnessSetting => _lessRandomnessSetting;
+
+  set lessRandomnessSetting(bool value) {
+    _lessRandomnessSetting = value;
+    save();
+    notifyListeners();
+  }
 }

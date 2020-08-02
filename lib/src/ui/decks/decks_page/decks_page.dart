@@ -117,7 +117,7 @@ class DecksPageState extends State<DecksPage> {
             actions: <Widget>[
               RaisedButton(
                   onPressed: () {
-                    setPersonalizedAdsSetting(true);
+                    Provider.of<Settings>(context).personalizedAdConsentSetting = false;
                     Navigator.pop(context);
                   },
                   child: Center(
