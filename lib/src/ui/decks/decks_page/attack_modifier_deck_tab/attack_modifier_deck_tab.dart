@@ -89,7 +89,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
             padding: EdgeInsets.only(top: 25),
             child: Column(children: <Widget>[
               resultDisplay == null
-                  ? OutlinedText.blackAndWhite("Draw cards to see results")
+                  ? Container(height: 178, child: Center(child: OutlinedText.blackAndWhite("Draw cards to see results")))
                   : Transform.scale(scale: _resultAnimation.value, child: resultDisplay),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 0),

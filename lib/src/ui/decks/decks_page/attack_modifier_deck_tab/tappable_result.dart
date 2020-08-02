@@ -23,57 +23,53 @@ class TappableResult extends StatelessWidget {
         child: Column(
           children: _extractInformationToDisplay(result) +
               [
-                RaisedButton(
-                  child: Text('See cards'),
-                  onPressed: () => showCardList(context, cardsApplied),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text('See cards'),
+                      onPressed: () => showCardList(context, cardsApplied),
+                    )
+                  ],
                 )
               ],
         ));
   }
 
   List<Widget> _extractInformationToDisplay(AttackModifierResult result) {
-    List<Widget> displayInformation = [
-      OutlinedText.blackAndWhite(
-          'Total damage: ' + result.totalDamage.toString()),
-      result.infusions.isEmpty ? null : infusionsDisplay(result.infusions),
-      result.conditions.isEmpty ? null : conditionsDisplay(result.conditions),
-      result.addTargetAmount == 0
-          ? null
-          : OutlinedText.blackAndWhite(
-          "Added targets: " + result.addTargetAmount.toString()),
-      result.pierceAmount == 0
-          ? null
-          : OutlinedText.blackAndWhite(
-          "Pierce: " + result.pierceAmount.toString()),
-      result.pullAmount == 0
-          ? null
-          : OutlinedText.blackAndWhite("Pull: " + result.pullAmount.toString()),
-      result.pushAmount == 0
-          ? null
-          : OutlinedText.blackAndWhite("Push: " + result.pushAmount.toString()),
-      result.healAmount == 0
-          ? null
-          : OutlinedText.blackAndWhite(
-          "Heal amount: " + result.healAmount.toString()),
-      result.shieldAmount == 0
-          ? null
-          : OutlinedText.blackAndWhite(
-          "Shield amount: " + result.shieldAmount.toString()),
-      result.refreshItemAmount == 0
-          ? null
-          : OutlinedText.blackAndWhite(
-          "Refreshed items: " + result.refreshItemAmount.toString())
+    return [
+      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            OutlinedText.blackAndWhite(
+                'Total damage: ' + result.totalDamage.toString()),
+            infusionsDisplay(result.infusions),
+            conditionsDisplay(result.conditions),
+            numericalDisplay(result.addTargetAmount, 'Added targets'),
+            numericalDisplay(result.pierceAmount, 'Pierce'),
+          ],
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            numericalDisplay(result.pullAmount, 'Pull'),
+            numericalDisplay(result.pushAmount, 'Push'),
+            numericalDisplay(result.healAmount, 'Heal amount'),
+            numericalDisplay(result.shieldAmount, 'Shield amount'),
+            numericalDisplay(result.refreshItemAmount, 'Refreshed items'),
+          ],
+        ),
+      ])
     ];
-
-    displayInformation.removeWhere((widget) => widget == null);
-
-    return displayInformation;
   }
 
   Widget infusionsDisplay(List infusions) {
+    if (infusions.isEmpty) {
+      return OutlinedText('Infusions: none', Colors.black45, Colors.black45);
+    }
     var children = infusions
-        .map<Widget>((infusion) =>
-        Padding(
+        .map<Widget>((infusion) => Padding(
             padding: EdgeInsets.symmetric(horizontal: 4),
             child: getInfusionIcon(infusion)))
         .toList();
@@ -85,16 +81,28 @@ class TappableResult extends StatelessWidget {
   }
 
   Widget conditionsDisplay(List conditions) {
+    if (conditions.isEmpty) {
+      return OutlinedText('Conditions: none', Colors.black38, Colors.black38);
+    }
     var children = conditions
-        .map<Widget>((condition) =>
-        Padding(
+        .map<Widget>((condition) => Padding(
             padding: EdgeInsets.symmetric(horizontal: 4),
             child: getConditionIcon(condition)))
         .toList();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[OutlinedText.blackAndWhite('Conditions: ')] + children,
     );
+  }
+
+  Widget numericalDisplay(int amount, String label) {
+    if (amount > 0) {
+      return OutlinedText.blackAndWhite(label + ': ' + amount.toString());
+    } else {
+      return OutlinedText(
+          label + ': ' + amount.toString(), Colors.black38, Colors.black38);
+    }
   }
 }
