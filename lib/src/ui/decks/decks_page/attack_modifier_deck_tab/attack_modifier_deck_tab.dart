@@ -29,7 +29,7 @@ class AttackModifierDeckTab extends StatefulWidget {
 }
 
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Widget resultDisplay;
   int initialDamage = 0;
   bool targetIsPoisoned = false;
@@ -41,16 +41,19 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
   AssetImage doubleDamageImage =
       AssetImage('images/attack_modifiers/double.png');
 
-  AnimationController _animationController;
+  AnimationController _scrollIndicatorAnimationController;
   Animation<double> _scrollIndicatorAnimation;
+
+  AnimationController _animationController;
+  Animation<double> _resultAnimation;
 
   AttackModifierDeckTabState() {
     _scrollController.addListener(_showScrollIndicator);
   }
 
-
   @override
   void dispose() {
+    _scrollIndicatorAnimationController.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -59,15 +62,22 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _showScrollIndicator());
-    _animationController = AnimationController(
+    _scrollIndicatorAnimationController = AnimationController(
         duration: Duration(milliseconds: 1500), vsync: this);
     _scrollIndicatorAnimation =
-        Tween<double>(begin: 0, end: 5).animate(_animationController)
+        Tween<double>(begin: 0, end: 5).animate(_scrollIndicatorAnimationController)
           ..addListener(() {
             setState(() {});
           });
+    _scrollIndicatorAnimationController.repeat(reverse: true);
 
-    _animationController.repeat(reverse: true);
+    _animationController = AnimationController(
+        duration: Duration(milliseconds: 100), vsync: this);
+    _resultAnimation =
+    Tween<double>(begin: 1, end: 1.1).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   @override
@@ -80,7 +90,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
             child: Column(children: <Widget>[
               resultDisplay == null
                   ? OutlinedText.blackAndWhite("Draw cards to see results")
-                  : resultDisplay,
+                  : Transform.scale(scale: _resultAnimation.value, child: resultDisplay),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Column(
@@ -147,13 +157,15 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
                       this.widget.deck.drawPileSize().toString() +
                       ')'),
                   splashColor: Colors.black,
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       resultDisplay = getResultsBasedOnSettings(
                           Provider.of<Settings>(context).lessRandomnessSetting);
                     });
+                    await _animationController.forward();
+                    _animationController.reverse();
                     this.widget.deck.discardCardsDrawn();
-                    _scrollController.animateTo(0.0,
+                    await _scrollController.animateTo(0.0,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeOut);
                   },
