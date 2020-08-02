@@ -18,7 +18,40 @@ class CharacterPerkPage extends StatefulWidget {
   _CharacterPerkPageState createState() => _CharacterPerkPageState();
 }
 
-class _CharacterPerkPageState extends State<CharacterPerkPage> {
+class _CharacterPerkPageState extends State<CharacterPerkPage>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation<double> _scrollIndicatorAnimation;
+  ScrollController _scrollController = ScrollController();
+  bool _canScrollDown = false;
+
+
+  _CharacterPerkPageState() {
+    _scrollController.addListener(_showScrollIndicator);
+  }
+
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showScrollIndicator());
+    _animationController = AnimationController(
+        duration: Duration(milliseconds: 1500), vsync: this);
+    _scrollIndicatorAnimation =
+        Tween<double>(begin: 0, end: 5).animate(_animationController)
+          ..addListener(() {
+            setState(() {});
+          });
+
+    _animationController.repeat(reverse: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Characters>(builder: (context, characters, child) {
@@ -26,10 +59,8 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           RaisedButton(
             child: Text("View deck"),
-            onPressed: () =>
-                showCardList(
-                    context,
-                    this.widget.character.attackModifierDeck.getDeck()),
+            onPressed: () => showCardList(
+                context, this.widget.character.attackModifierDeck.getDeck()),
           )
         ])
       ];
@@ -41,7 +72,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
               value: true,
               onChanged: (value) {
                 bool successfullyUnapplied =
-                this.widget.character.unapplyPerk(perk);
+                    this.widget.character.unapplyPerk(perk);
                 if (successfullyUnapplied) {
                   characters.save();
                   setState(() {
@@ -58,7 +89,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
               value: false,
               onChanged: (value) {
                 bool successfullyApplied =
-                this.widget.character.applyPerk(perk);
+                    this.widget.character.applyPerk(perk);
                 if (successfullyApplied) {
                   characters.save();
                   setState(() {
@@ -78,9 +109,9 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
         ));
         perkOptions.add(Flexible(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
-              child: perkText(perk.description),
-            )));
+          padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
+          child: perkText(perk.description),
+        )));
         perkRows.add(Align(
             alignment: Alignment.centerLeft,
             child: Row(
@@ -88,7 +119,18 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
                 children: perkOptions)));
       });
 
-      var perkList = ListView(children: perkRows);
+      var perkList = Stack(alignment: Alignment.bottomCenter, children: [
+        ListView(controller: _scrollController, children: perkRows),
+        Positioned(
+            bottom: _scrollIndicatorAnimation.value,
+            child: _canScrollDown
+                ? Icon(
+              Icons.keyboard_arrow_down,
+              size: 50,
+              color: Colors.white,
+            )
+                : Container())
+      ]);
 
       return Scaffold(
         extendBodyBehindAppBar: true,
@@ -98,16 +140,21 @@ class _CharacterPerkPageState extends State<CharacterPerkPage> {
           title: OutlinedText.blackAndWhite('Perks for ' +
               this.widget.character.name +
               ' the ' +
-              this.widget.character.runtimeType
-                  .toString()
-                  .titleCase),
+              this.widget.character.runtimeType.toString().titleCase),
         ),
         body: AppBackground(
             child: SafeArea(
                 child: Center(
-                  child: perkList,
-                ))),
+          child: perkList,
+        ))),
       );
+    });
+  }
+
+  _showScrollIndicator() {
+    setState(() {
+      _canScrollDown =
+          _scrollController.offset < _scrollController.position.maxScrollExtent;
     });
   }
 

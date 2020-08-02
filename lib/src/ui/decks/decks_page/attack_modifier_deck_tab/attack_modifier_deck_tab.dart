@@ -48,6 +48,13 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
     _scrollController.addListener(_showScrollIndicator);
   }
 
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
