@@ -38,8 +38,12 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
   ScrollController _scrollController = ScrollController();
   bool _canScrollDown = false;
   AssetImage nullImage = AssetImage('images/attack_modifiers/null.png');
+  AssetImage nullImageGrey =
+      AssetImage('images/attack_modifiers/null-grey.png');
   AssetImage doubleDamageImage =
       AssetImage('images/attack_modifiers/double.png');
+  AssetImage doubleDamageImageGrey =
+      AssetImage('images/attack_modifiers/double-grey.png');
 
   AnimationController _scrollIndicatorAnimationController;
   Animation<double> _scrollIndicatorAnimation;
@@ -64,20 +68,20 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
     WidgetsBinding.instance.addPostFrameCallback((_) => _showScrollIndicator());
     _scrollIndicatorAnimationController = AnimationController(
         duration: Duration(milliseconds: 1500), vsync: this);
-    _scrollIndicatorAnimation =
-        Tween<double>(begin: 0, end: 5).animate(_scrollIndicatorAnimationController)
+    _scrollIndicatorAnimation = Tween<double>(begin: 0, end: 5)
+        .animate(_scrollIndicatorAnimationController)
           ..addListener(() {
             setState(() {});
           });
     _scrollIndicatorAnimationController.repeat(reverse: true);
 
-    _animationController = AnimationController(
-        duration: Duration(milliseconds: 100), vsync: this);
+    _animationController =
+        AnimationController(duration: Duration(milliseconds: 100), vsync: this);
     _resultAnimation =
-    Tween<double>(begin: 1, end: 1.1).animate(_animationController)
-      ..addListener(() {
-        setState(() {});
-      });
+        Tween<double>(begin: 1, end: 1.1).animate(_animationController)
+          ..addListener(() {
+            setState(() {});
+          });
   }
 
   @override
@@ -89,8 +93,13 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
             padding: EdgeInsets.only(top: 25),
             child: Column(children: <Widget>[
               resultDisplay == null
-                  ? Container(height: 178, child: Center(child: OutlinedText.blackAndWhite("Draw cards to see results")))
-                  : Transform.scale(scale: _resultAnimation.value, child: resultDisplay),
+                  ? Container(
+                      height: 178,
+                      child: Center(
+                          child: OutlinedText.blackAndWhite(
+                              "Draw cards to see results")))
+                  : Transform.scale(
+                      scale: _resultAnimation.value, child: resultDisplay),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Column(
@@ -124,29 +133,9 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 RaisedButton(
-                  child: Column(
-                    children: <Widget>[
-                      Text('Shuffle deck (' +
-                          this.widget.deck.discardPileSize().toString() +
-                          ')'),
-                      Row(children: [
-                        this.widget.deck.doubleDamageDrawn
-                            ? Image(
-                                image: doubleDamageImage,
-                                width: 20,
-                                height: 20,
-                              )
-                            : Container(),
-                        this.widget.deck.nullDrawn
-                            ? Image(
-                                image: nullImage,
-                                width: 20,
-                                height: 20,
-                              )
-                            : Container(),
-                      ])
-                    ],
-                  ),
+                  child: Text('Shuffle deck (' +
+                      this.widget.deck.discardPileSize().toString() +
+                      ')'),
                   onPressed: () => setState(() {
                     this.widget.deck.shuffle();
                     resultDisplay = null;
@@ -171,8 +160,27 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
                   },
                 )
               ]),
+              Wrap(
+                spacing: 10,
+                children: <Widget>[
+                Icon(Icons.refresh, size: 50, color: (this.widget.deck.doubleDamageDrawn || this.widget.deck.nullDrawn) ? Colors.green : Colors.black38,),
+                  Image(
+                    image: this.widget.deck.doubleDamageDrawn
+                        ? doubleDamageImage
+                        : doubleDamageImageGrey,
+                    width: 50,
+                    height: 50,
+                  ),
+                  Image(
+                    image:
+                        this.widget.deck.nullDrawn ? nullImage : nullImageGrey,
+                    width: 50,
+                    height: 50,
+                  ),
+                ],
+              ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  padding: EdgeInsets.only(top: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
