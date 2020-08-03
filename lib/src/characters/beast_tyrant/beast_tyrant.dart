@@ -24,7 +24,8 @@ class BeastTyrant extends Character {
       Perk.addPlusOneAndImmobilizeCard(TWO_AVAILABLE, characterClass),
       Perk.addTwoRollingHealOneCards(THREE_AVAILABLE, characterClass),
       Perk.addCards(InfusionCard(Infusion.earth, characterClass).times(2),
-          ONE_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards')
+          ONE_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards'),
+      Perk.ignoreNegativeScenarioEffects()
     ];
   }
 }

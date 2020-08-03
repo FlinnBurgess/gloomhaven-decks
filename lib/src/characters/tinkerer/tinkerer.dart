@@ -41,7 +41,8 @@ class Tinkerer extends Character {
           DamageChangeCard.withAttackEffect(
               0, AttackEffect.addTarget, 1, characterClass),
           ONE_AVAILABLE,
-          'Add one +0 ADD TARGET [ADD TARGET] card')
+          'Add one +0 ADD TARGET [ADD TARGET] card'),
+      Perk.ignoreNegativeScenarioEffects()
     ];
   }
 }

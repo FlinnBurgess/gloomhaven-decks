@@ -50,7 +50,8 @@ class Mindthief extends Character {
         ConditionCard(Condition.disarm, characterClass),
         ConditionCard(Condition.muddle, characterClass)
       ], ONE_AVAILABLE,
-          'Add one [ROLLING] DISARM [DISARM] card and one [ROLLING] MUDDLE [MUDDLE] card')
+          'Add one [ROLLING] DISARM [DISARM] card and one [ROLLING] MUDDLE [MUDDLE] card'),
+      Perk.ignoreNegativeScenarioEffects()
     ];
   }
 }

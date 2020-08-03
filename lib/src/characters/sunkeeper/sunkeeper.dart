@@ -34,7 +34,8 @@ class Sunkeeper extends Character {
           ONE_AVAILABLE,
           'Add two [ROLLING] Shield [SHIELD] 1, Self cards'),
       Perk.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2),
-          ONE_AVAILABLE, 'Ignore negative item effects and add two +1 cards')
+          ONE_AVAILABLE, 'Ignore negative item effects and add two +1 cards'),
+      Perk.ignoreNegativeScenarioEffects()
     ];
   }
 }

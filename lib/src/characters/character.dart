@@ -41,6 +41,7 @@ abstract class Character {
   List<Item> _items = [];
   List<int> _itemWishList = [];
   bool _ignoreNegativeItemEffects = false;
+  bool _ignoreNegativeScenarioEffects = false;
 
   static final CLASS_LIST = [
     'Brute',
@@ -188,5 +189,11 @@ abstract class Character {
 
   set ignoreNegativeItemEffects(bool value) {
     _ignoreNegativeItemEffects = value;
+  }
+
+  bool get ignoreNegativeScenarioEffects => _ignoreNegativeScenarioEffects;
+
+  set ignoreNegativeScenarioEffects(bool value) {
+    _ignoreNegativeScenarioEffects = value;
   }
 }

@@ -36,10 +36,7 @@ class Plagueherald extends Character {
           ONE_AVAILABLE,
           'Add two [ROLLING] IMMOBILIZE [IMMOBILIZE] cards'),
       Perk.addOneRollingStunCard(TWO_AVAILABLE, characterClass),
-      Perk.addCards(
-          DamageChangeCard.forCharacter(1, characterClass).times(2),
-          ONE_AVAILABLE,
-          'Ignore negative scenario effects and add one +1 card'),
+      Perk.ignoreNegativeScenarioEffectsAndAddOnePlusOneCard(characterClass),
     ];
   }
 }

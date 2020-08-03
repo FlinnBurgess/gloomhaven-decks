@@ -36,7 +36,7 @@ class Quartermaster extends Character {
               0, AttackEffect.refreshItem, 1, characterClass),
           THREE_AVAILABLE,
           'Add one +0 refresh an item card'),
-      Perk.ignoreNegativeScenarioEffectsAndAddTwoPlusOneCards(characterClass)
+      Perk.ignoreNegativeItemEffectsAndAddTwoPlusOneCards(characterClass)
     ];
   }
 }

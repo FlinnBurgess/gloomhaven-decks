@@ -42,6 +42,7 @@ class Scoundrel extends Character {
           ConditionCard(Condition.invisible, characterClass),
           ONE_AVAILABLE,
           'Add one [ROLLING] INVISIBLE [INVISIBLE] perk'),
+      Perk.ignoreNegativeScenarioEffects()
     ];
   }
 }

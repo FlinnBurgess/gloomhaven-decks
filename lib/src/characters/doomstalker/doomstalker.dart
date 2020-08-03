@@ -34,7 +34,8 @@ class Doomstalker extends Character {
       Perk.addPlusOneAndWoundCard(ONE_AVAILABLE, characterClass),
       Perk.addPlusOneAndImmobilizeCard(ONE_AVAILABLE, characterClass),
       Perk.addOnePlusZeroAndStunCard(ONE_AVAILABLE, characterClass),
-      Perk.addOneRollingAddTargetCard(TWO_AVAILABLE, characterClass)
+      Perk.addOneRollingAddTargetCard(TWO_AVAILABLE, characterClass),
+      Perk.ignoreNegativeScenarioEffects()
     ];
   }
 }

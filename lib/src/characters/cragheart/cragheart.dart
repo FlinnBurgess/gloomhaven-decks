@@ -41,7 +41,8 @@ class Cragheart extends Character {
       Perk.addCards(InfusionCard(Infusion.earth, characterClass).times(2),
           TWO_AVAILABLE, 'Add two [ROLLING] [EARTH INFUSION] cards'),
       Perk.addCards(InfusionCard(Infusion.air, characterClass).times(2),
-          ONE_AVAILABLE, 'Add two [ROLLING] [AIR INFUSION] cards')
+          ONE_AVAILABLE, 'Add two [ROLLING] [AIR INFUSION] cards'),
+      Perk.ignoreNegativeScenarioEffects()
     ];
   }
 }

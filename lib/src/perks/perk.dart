@@ -162,11 +162,52 @@ class Perk {
       perksAvailable,
       'Add two [ROLLING] +1 cards');
 
-  Perk.ignoreNegativeScenarioEffectsAndAddTwoPlusOneCards(String characterClass)
-      : this.addCards(
-      DamageChangeCard.forCharacter(1, characterClass).times(2),
-      ONE_AVAILABLE,
-      'Ignore negative scenario effects and add two +1 cards');
+  Perk.ignoreNegativeScenarioEffects() {
+    apply = (Character character) {
+      character.ignoreNegativeScenarioEffects = true;
+      return true;
+    };
+    unapply = (Character character) {
+      character.ignoreNegativeScenarioEffects = false;
+      return true;
+    };
+    perksAvailable = 1;
+    description = 'Ignore negative scenario effects';
+  }
+
+  Perk.ignoreNegativeScenarioEffectsAndAddOnePlusOneCard(String characterClass) {
+    apply = (Character character) {
+      character.ignoreNegativeScenarioEffects = true;
+      character.attackModifierDeck.addCard(DamageChangeCard.forCharacter(1, characterClass));
+      return true;
+    };
+    unapply = (Character character) {
+      bool successful = character.attackModifierDeck.removeCards(DamageChangeCard.forCharacter(1, characterClass).times(1));
+      if (successful) {
+        character.ignoreNegativeScenarioEffects = false;
+      }
+      return successful;
+    };
+    perksAvailable = 1;
+    description = 'Ignore negative scenario effects and add one +1 card';
+  }
+
+  Perk.ignoreNegativeScenarioEffectsAndAddTwoPlusOneCards(String characterClass) {
+    apply = (Character character) {
+      character.ignoreNegativeScenarioEffects = true;
+      character.attackModifierDeck.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2));
+      return true;
+    };
+    unapply = (Character character) {
+      bool successful = character.attackModifierDeck.removeCards(DamageChangeCard.forCharacter(1, characterClass).times(2));
+      if (successful) {
+        character.ignoreNegativeScenarioEffects = false;
+      }
+      return successful;
+    };
+    perksAvailable = 1;
+    description = 'Ignore negative scenario effects and add two +1 cards';
+  }
 
   Perk.ignoreNegativeItemEffects() {
     apply = (Character character) {
@@ -196,6 +237,23 @@ class Perk {
     };
     perksAvailable = 1;
     description = 'Ignore negative item effects and add one +1 card';
+  }
+
+  Perk.ignoreNegativeItemEffectsAndAddTwoPlusOneCards(String characterClass) {
+    apply = (Character character) {
+      character.ignoreNegativeItemEffects = true;
+      character.attackModifierDeck.addCards(DamageChangeCard.forCharacter(1, characterClass).times(2));
+      return true;
+    };
+    unapply = (Character character) {
+      bool successful = character.attackModifierDeck.removeCards(DamageChangeCard.forCharacter(1, characterClass).times(2));
+      if (successful) {
+        character.ignoreNegativeItemEffects = false;
+      }
+      return successful;
+    };
+    perksAvailable = 1;
+    description = 'Ignore negative item effects and add two +1 cards';
   }
 
   Function _removeCardsFromDeck(List<AttackModifierCard> cards) {
