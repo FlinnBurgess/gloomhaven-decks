@@ -21,7 +21,7 @@ class DecksPage extends StatefulWidget {
   State<StatefulWidget> createState() => DecksPageState();
 }
 
-class DecksPageState extends State<DecksPage> with AutomaticKeepAliveClientMixin {
+class DecksPageState extends State<DecksPage> {
 
 
   @override
@@ -131,7 +131,4 @@ class DecksPageState extends State<DecksPage> with AutomaticKeepAliveClientMixin
           );
         });
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

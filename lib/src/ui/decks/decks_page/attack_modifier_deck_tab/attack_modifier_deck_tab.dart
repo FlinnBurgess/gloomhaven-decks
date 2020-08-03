@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gloomhaven_decks/src/attack_modifier_result.dart';
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/bless_card.dart';
@@ -15,11 +16,12 @@ import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 
 class AttackModifierDeckTab extends StatefulWidget {
+  final Character character;
   final AttackModifierDeck deck;
   final Function saveCharacters;
 
   AttackModifierDeckTab(
-      {Key key, @required Character character, @required this.saveCharacters})
+      {Key key, @required this.character, @required this.saveCharacters})
       : deck = character.attackModifierDeck,
         super(key: key);
 
@@ -28,7 +30,7 @@ class AttackModifierDeckTab extends StatefulWidget {
 }
 
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   Widget resultDisplay;
   int initialDamage = 0;
   bool targetIsPoisoned = false;
@@ -56,7 +58,10 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
 
   @override
   void dispose() {
+    _scrollController.dispose();
+    _scrollIndicatorAnimationController.stop();
     _scrollIndicatorAnimationController.dispose();
+    _animationController.stop();
     _animationController.dispose();
     super.dispose();
   }
@@ -221,13 +226,18 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
                   )),
               getDeckStatus(this.widget.deck),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                padding: EdgeInsets.only(top: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Incrementer(
                       label: '-1 scenario effect',
                       incrementBehaviour: () {
+                        if (this.widget.character.ignoreNegativeScenarioEffects) {
+                          Fluttertoast.showToast(
+                              msg: 'Reminder: ' + this.widget.character.name + ' should ignore negative scenario effects.',
+                              backgroundColor: Colors.black);
+                        }
                         setState(() {
                           this.widget.deck.addScenarioEffectMinusOneCard();
                         });
@@ -421,4 +431,7 @@ class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
       return TappableResult(result, cardsInPlay);
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -93,7 +93,7 @@ class CharacterItemsTab extends StatefulWidget {
   _CharacterItemsTabState createState() => _CharacterItemsTabState();
 }
 
-class _CharacterItemsTabState extends State<CharacterItemsTab> with SingleTickerProviderStateMixin {
+class _CharacterItemsTabState extends State<CharacterItemsTab> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
 
   AnimationController _animationController;
   Animation<double> _scrollIndicatorAnimation;
@@ -665,4 +665,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab> with SingleTicker
           _scrollController.offset < _scrollController.position.maxScrollExtent;
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
