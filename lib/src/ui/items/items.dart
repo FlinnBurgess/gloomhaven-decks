@@ -1102,3 +1102,58 @@ Map<int, Map<String, Function(AttackModifierDeck)>> itemEquipEffects = {
     'unequip': (deck) => deck.unapplySecondSkin(),
   },
 };
+
+Map multiUseItems = {
+  3: {
+    'uses': 2,
+    'locations': [
+      {'bottom': 60.0, 'left': 33.0},
+      {'bottom': 60.0, 'left': 105.0},
+    ]
+  },
+  23: {
+    'uses': 3,
+    'locations': [
+      {'bottom': 60.0, 'left': 25.0},
+      {'bottom': 60.0, 'left': 99.0},
+      {'bottom': 60.0, 'left': 173.0},
+    ]
+  },
+  44: {
+    'uses': 4,
+    'locations': [
+      {'bottom': 60.0, 'left': 16.0},
+      {'bottom': 60.0, 'left': 70.0},
+      {'bottom': 60.0, 'left': 123.0},
+      {'bottom': 60.0, 'left': 176.0},
+    ]
+  },
+  65: {
+    'uses': 5,
+    'locations': [
+      {'bottom': 74.0, 'left': 26.0},
+      {'bottom': 47.0, 'left': 60.0},
+      {'bottom': 74.0, 'left': 94.0},
+      {'bottom': 47.0, 'left': 128.0},
+      {'bottom': 74.0, 'left': 162.0},
+    ]
+  },
+  74: {
+    'uses': 3,
+    'locations': [
+      {'bottom': 60.0, 'left': 25.0},
+      {'bottom': 60.0, 'left': 99.0},
+      {'bottom': 60.0, 'left': 173.0},
+    ]
+  },
+  104: {
+    'uses': 5,
+    'locations': [
+      {'bottom': 74.0, 'left': 26.0},
+      {'bottom': 47.0, 'left': 60.0},
+      {'bottom': 74.0, 'left': 94.0},
+      {'bottom': 47.0, 'left': 128.0},
+      {'bottom': 74.0, 'left': 162.0},
+    ]
+  },
+};
