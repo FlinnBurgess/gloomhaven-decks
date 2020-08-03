@@ -439,6 +439,9 @@ class _CharacterItemsTabState extends State<CharacterItemsTab>
                                         backgroundColor: Colors.black);
                                   }
                                 }
+                                if (unequippedItems[index].isMultiUse) {
+                                  unequippedItems[index].timesUsed = 0;
+                                }
                                 unequippedItems[index].used = false;
                                 unequippedItems[index].equipped = true;
                               }),
