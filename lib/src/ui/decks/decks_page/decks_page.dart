@@ -21,7 +21,9 @@ class DecksPage extends StatefulWidget {
   State<StatefulWidget> createState() => DecksPageState();
 }
 
-class DecksPageState extends State<DecksPage> {
+class DecksPageState extends State<DecksPage> with AutomaticKeepAliveClientMixin {
+
+
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
@@ -52,7 +54,7 @@ class DecksPageState extends State<DecksPage> {
             .toList();
 
         return DefaultTabController(
-          length: activeCharacters.length,
+          length: characterDeckPages.length,
           child: Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -129,4 +131,7 @@ class DecksPageState extends State<DecksPage> {
           );
         });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -14,7 +14,6 @@ import 'package:gloomhaven_decks/src/ui/misc_icons.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 
-//TODO Animate the result when user draws cards, to make it more obvious that they tapped it when thee result is the same
 class AttackModifierDeckTab extends StatefulWidget {
   final AttackModifierDeck deck;
   final Function saveCharacters;
