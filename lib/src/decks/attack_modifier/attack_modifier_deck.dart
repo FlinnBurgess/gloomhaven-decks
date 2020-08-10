@@ -20,7 +20,6 @@ class AttackModifierDeck {
   bool doubleDamageDrawn = false;
   bool nullDrawn = false;
   int _cardsRemovedBySecondSkin = 0;
-  int _itemEffectMinusOneCards = 0;
 
   AttackModifierDeck() {
     _cardsInDeck

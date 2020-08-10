@@ -72,4 +72,5 @@ flutter:
     - images/backgrounds/
     - images/attack_modifiers/
     - images/items/
+    - images/
   uses-material-design: true

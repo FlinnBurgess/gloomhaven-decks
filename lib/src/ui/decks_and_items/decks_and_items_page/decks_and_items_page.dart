@@ -5,25 +5,24 @@ import 'package:gloomhaven_decks/src/characters/characters.dart';
 import 'package:gloomhaven_decks/src/settings/settings.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_list_page/character_list_page.dart';
-import 'package:gloomhaven_decks/src/ui/decks/decks_page/attack_modifier_deck_tab/attack_modifier_deck_tab.dart';
 import 'package:gloomhaven_decks/src/ui/navigation_drawer.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
 
-class DecksPage extends StatefulWidget {
+import 'deck_and_items_tab/deck_and_items_tab.dart';
+
+class DecksAndItemsPage extends StatefulWidget {
   final bool userHasSeenConsentMessage;
 
-  DecksPage(this.userHasSeenConsentMessage);
+  DecksAndItemsPage(this.userHasSeenConsentMessage);
 
   @override
-  State<StatefulWidget> createState() => DecksPageState();
+  State<StatefulWidget> createState() => DecksAndItemsPageState();
 }
 
-class DecksPageState extends State<DecksPage> {
-
-
+class DecksAndItemsPageState extends State<DecksAndItemsPage> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
@@ -60,7 +59,7 @@ class DecksPageState extends State<DecksPage> {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: OutlinedText.blackAndWhite('Decks'),
+              title: OutlinedText.blackAndWhite('Decks / Items'),
               bottom: TabBar(
                 tabs: characterTabs,
                 indicatorWeight: 3,
