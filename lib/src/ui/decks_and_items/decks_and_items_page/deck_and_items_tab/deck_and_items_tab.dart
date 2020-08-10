@@ -22,114 +22,93 @@ class AttackModifierDeckTab extends StatefulWidget {
 
 class AttackModifierDeckTabState extends State<AttackModifierDeckTab>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  ScrollController _scrollController = ScrollController();
-  bool _canScrollDown = false;
-
-  AnimationController _scrollIndicatorAnimationController;
-  Animation<double> _scrollIndicatorAnimation;
-
   bool _showDecks = true;
-
-  AttackModifierDeckTabState() {
-    _scrollController.addListener(_showScrollIndicator);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    _scrollIndicatorAnimationController.stop();
-    _scrollIndicatorAnimationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showScrollIndicator());
-    _scrollIndicatorAnimationController = AnimationController(
-        duration: Duration(milliseconds: 1500), vsync: this);
-    _scrollIndicatorAnimation = Tween<double>(begin: 0, end: 5)
-        .animate(_scrollIndicatorAnimationController)
-          ..addListener(() {
-            setState(() {});
-          });
-    _scrollIndicatorAnimationController.repeat(reverse: true);
-  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Stack(alignment: Alignment.bottomCenter, children: [
-      _showDecks
-          ? DeckDisplay(
-              character: this.widget.character,
-              scrollController: _scrollController)
-          : ItemsDisplay(
-              character: this.widget.character,
-              scrollController: _scrollController,
-            ),
-      Positioned(
-          bottom: _scrollIndicatorAnimation.value,
-          child: _canScrollDown
-              ? Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 50,
-                  color: Colors.white,
-                )
-              : Container()),
-      Positioned(
-          top: 70,
-          right: 0,
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                _showDecks = true;
-              });
-              _showScrollIndicator();
-            },
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(color: _showDecks ? Colors.yellow : Colors.transparent, width: 1.5),
-                  color: Colors.black45),
-              child: Image(
-                image: AssetImage('images/deck.png'),
-                color: Colors.white,
-              ),
-            ),
-          )),
-      Positioned(
-          top: 130,
-          right: 0,
-          child: GestureDetector(
-            onTap: () {
-              setState(() => _showDecks = false);
-              _showScrollIndicator();
-            },
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(color: _showDecks ? Colors.transparent : Colors.yellow, width: 1.5),
-                  color: Colors.black45),
-              child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Image(
-                    image: AssetImage('images/bag.png'),
-                    color: Colors.brown[300],
-                  )),
-            ),
-          )),
-    ]);
-  }
+    bool isWideScreen = MediaQuery.of(context).size.width > 1000;
+    Widget uiToDisplay;
 
-  _showScrollIndicator() {
-    setState(() {
-      _canScrollDown =
-          _scrollController.offset < _scrollController.position.maxScrollExtent;
-    });
+    if (isWideScreen) {
+      uiToDisplay = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Container(
+              width: MediaQuery.of(context).size.width * 0.45, child: DeckDisplay(character: this.widget.character)),
+          Container(
+              width: MediaQuery.of(context).size.width * 0.45,
+              child: ItemsDisplay(
+                character: this.widget.character,
+              )),
+        ],
+      );
+    } else if (_showDecks) {
+      uiToDisplay = DeckDisplay(
+        character: this.widget.character,
+      );
+    } else {
+      uiToDisplay = ItemsDisplay(
+        character: this.widget.character,
+      );
+    }
+
+    return Stack(alignment: Alignment.bottomCenter, children: [
+      uiToDisplay,
+      isWideScreen
+          ? Container()
+          : Positioned(
+              top: 70,
+              right: 0,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _showDecks = true;
+                  });
+                },
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color:
+                              _showDecks ? Colors.yellow : Colors.transparent,
+                          width: 1.5),
+                      color: Colors.black45),
+                  child: Image(
+                    image: AssetImage('images/deck.png'),
+                    color: Colors.white,
+                  ),
+                ),
+              )),
+      isWideScreen
+          ? Container()
+          : Positioned(
+              top: 130,
+              right: 0,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() => _showDecks = false);
+                },
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color:
+                              _showDecks ? Colors.transparent : Colors.yellow,
+                          width: 1.5),
+                      color: Colors.black45),
+                  child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Image(
+                        image: AssetImage('images/bag.png'),
+                        color: Colors.brown[300],
+                      )),
+                ),
+              )),
+    ]);
   }
 
   @override

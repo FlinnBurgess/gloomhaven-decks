@@ -19,18 +19,17 @@ import '../../../outlined_text.dart';
 class DeckDisplay extends StatefulWidget {
   final Character character;
   final AttackModifierDeck deck;
-  final ScrollController scrollController;
 
   @override
   _DeckDisplayState createState() => _DeckDisplayState();
 
   DeckDisplay(
-      {Key key, @required this.character, @required this.scrollController})
+      {Key key, @required this.character})
       : deck = character.attackModifierDeck;
 }
 
 class _DeckDisplayState extends State<DeckDisplay>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Widget resultDisplay;
   int initialDamage = 0;
   bool targetIsPoisoned = false;
@@ -48,16 +47,38 @@ class _DeckDisplayState extends State<DeckDisplay>
   AnimationController _animationController;
   Animation<double> _resultAnimation;
 
+  ScrollController _scrollController = ScrollController();
+  bool _canScrollDown = false;
+
+  AnimationController _scrollIndicatorAnimationController;
+  Animation<double> _scrollIndicatorAnimation;
+
+  _DeckDisplayState() {
+    _scrollController.addListener(_showScrollIndicator);
+  }
+
   @override
   void dispose() {
     _animationController.stop();
     _animationController.dispose();
+    _scrollIndicatorAnimationController.stop();
+    _scrollIndicatorAnimationController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showScrollIndicator());
+    _scrollIndicatorAnimationController = AnimationController(
+        duration: Duration(milliseconds: 1500), vsync: this);
+    _scrollIndicatorAnimation = Tween<double>(begin: 0, end: 5)
+        .animate(_scrollIndicatorAnimationController)
+          ..addListener(() {
+            setState(() {});
+          });
+    _scrollIndicatorAnimationController.repeat(reverse: true);
     _animationController =
         AnimationController(duration: Duration(milliseconds: 100), vsync: this);
     _resultAnimation =
@@ -69,224 +90,240 @@ class _DeckDisplayState extends State<DeckDisplay>
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        controller: this.widget.scrollController,
-        child: Padding(
-          padding: EdgeInsets.only(top: 25),
-          child: Column(children: <Widget>[
-            resultDisplay == null
-                ? Container(
-                    height: 178,
-                    child: Center(
-                        child: OutlinedText.blackAndWhite(
-                            "Draw cards to see results")))
-                : Transform.scale(
-                    scale: _resultAnimation.value, child: resultDisplay),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-              child: Column(
-                children: <Widget>[
-                  OutlinedText.blackAndWhite('Starting attack damage'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
+    return Stack(alignment: Alignment.topCenter, children: [
+      SingleChildScrollView(
+          controller: _scrollController,
+          child: Padding(
+            padding: EdgeInsets.only(top: 25),
+            child: Column(children: <Widget>[
+              resultDisplay == null
+                  ? Container(
+                      height: 178,
+                      child: Center(
+                          child: OutlinedText.blackAndWhite(
+                              "Draw cards to see results")))
+                  : Transform.scale(
+                      scale: _resultAnimation.value, child: resultDisplay),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                child: Column(
+                  children: <Widget>[
+                    OutlinedText.blackAndWhite('Starting attack damage'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                            icon: Icon(
+                              Icons.remove,
+                              color: Colors.white,
+                            ),
+                            onPressed: initialDamage == 0
+                                ? null
+                                : () => this.setState(
+                                      () => initialDamage--,
+                                    )),
+                        OutlinedText.blackAndWhite(initialDamage.toString()),
+                        IconButton(
                           icon: Icon(
-                            Icons.remove,
+                            Icons.add,
                             color: Colors.white,
                           ),
-                          onPressed: initialDamage == 0
-                              ? null
-                              : () => this.setState(
-                                    () => initialDamage--,
-                                  )),
-                      OutlinedText.blackAndWhite(initialDamage.toString()),
-                      IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => this.setState(() => initialDamage++),
-                      )
-                    ],
+                          onPressed: () => this.setState(() => initialDamage++),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                RaisedButton(
+                  child: Text('Shuffle deck (' +
+                      this.widget.deck.discardPileSize().toString() +
+                      ')'),
+                  onPressed: () => setState(() {
+                    this.widget.deck.shuffle();
+                    resultDisplay = null;
+                  }),
+                ),
+                RaisedButton(
+                  child: Text("Draw cards (" +
+                      this.widget.deck.drawPileSize().toString() +
+                      ')'),
+                  splashColor: Colors.black,
+                  onPressed: () async {
+                    setState(() {
+                      resultDisplay = getResultsBasedOnSettings(
+                          Provider.of<Settings>(context).lessRandomnessSetting);
+                    });
+                    await _animationController.forward();
+                    _animationController.reverse();
+                    this.widget.deck.discardCardsDrawn();
+                    await _scrollController.animateTo(0.0,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut);
+                  },
+                )
+              ]),
+              Wrap(
+                spacing: 10,
+                children: <Widget>[
+                  Icon(
+                    Icons.refresh,
+                    size: 50,
+                    color: (this.widget.deck.doubleDamageDrawn ||
+                            this.widget.deck.nullDrawn)
+                        ? Colors.green
+                        : Colors.black38,
+                  ),
+                  Image(
+                    image: this.widget.deck.doubleDamageDrawn
+                        ? doubleDamageImage
+                        : doubleDamageImageGrey,
+                    width: 50,
+                    height: 50,
+                  ),
+                  Image(
+                    image:
+                        this.widget.deck.nullDrawn ? nullImage : nullImageGrey,
+                    width: 50,
+                    height: 50,
                   ),
                 ],
               ),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              RaisedButton(
-                child: Text('Shuffle deck (' +
-                    this.widget.deck.discardPileSize().toString() +
-                    ')'),
-                onPressed: () => setState(() {
-                  this.widget.deck.shuffle();
-                  resultDisplay = null;
-                }),
-              ),
-              RaisedButton(
-                child: Text("Draw cards (" +
-                    this.widget.deck.drawPileSize().toString() +
-                    ')'),
-                splashColor: Colors.black,
-                onPressed: () async {
-                  setState(() {
-                    resultDisplay = getResultsBasedOnSettings(
-                        Provider.of<Settings>(context).lessRandomnessSetting);
-                  });
-                  await _animationController.forward();
-                  _animationController.reverse();
-                  this.widget.deck.discardCardsDrawn();
-                  await this.widget.scrollController.animateTo(0.0,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOut);
-                },
-              )
-            ]),
-            Wrap(
-              spacing: 10,
-              children: <Widget>[
-                Icon(
-                  Icons.refresh,
-                  size: 50,
-                  color: (this.widget.deck.doubleDamageDrawn ||
-                          this.widget.deck.nullDrawn)
-                      ? Colors.green
-                      : Colors.black38,
-                ),
-                Image(
-                  image: this.widget.deck.doubleDamageDrawn
-                      ? doubleDamageImage
-                      : doubleDamageImageGrey,
-                  width: 50,
-                  height: 50,
-                ),
-                Image(
-                  image: this.widget.deck.nullDrawn ? nullImage : nullImageGrey,
-                  width: 50,
-                  height: 50,
-                ),
-              ],
-            ),
-            Padding(
-                padding: EdgeInsets.only(top: 15),
+              Padding(
+                  padding: EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          OutlinedText.blackAndWhite("Target is poisoned"),
+                          Checkbox(
+                            value: targetIsPoisoned,
+                            onChanged: (value) =>
+                                setState(() => targetIsPoisoned = value),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          OutlinedText.blackAndWhite("Advantage"),
+                          Checkbox(
+                            value: characterHasAdvantage,
+                            onChanged: characterDisadvantaged
+                                ? null
+                                : (value) => setState(
+                                    () => characterHasAdvantage = value),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          OutlinedText.blackAndWhite("Disadvantage"),
+                          Checkbox(
+                            value: characterDisadvantaged,
+                            onChanged: characterHasAdvantage
+                                ? null
+                                : (value) => setState(
+                                    () => characterDisadvantaged = value),
+                          )
+                        ],
+                      )
+                    ],
+                  )),
+              getDeckStatus(this.widget.deck),
+              Padding(
+                padding: EdgeInsets.only(top: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        OutlinedText.blackAndWhite("Target is poisoned"),
-                        Checkbox(
-                          value: targetIsPoisoned,
-                          onChanged: (value) =>
-                              setState(() => targetIsPoisoned = value),
-                        )
-                      ],
+                    Incrementer(
+                      label: '-1 scenario effect',
+                      incrementBehaviour: () {
+                        if (this
+                            .widget
+                            .character
+                            .ignoreNegativeScenarioEffects) {
+                          Fluttertoast.showToast(
+                              msg: 'Reminder: ' +
+                                  this.widget.character.name +
+                                  ' should ignore negative scenario effects.',
+                              backgroundColor: Colors.black);
+                        }
+                        setState(() {
+                          this.widget.deck.addScenarioEffectMinusOneCard();
+                        });
+                      },
+                      decrementBehaviour: () {
+                        setState(() {
+                          this.widget.deck.removeScenarioEffectMinusOneCard();
+                        });
+                      },
+                      decrementEnabledCondition: () =>
+                          this.widget.deck.scenarioEffectMinusOneCards > 0,
+                      valueCalculation: () =>
+                          this.widget.deck.scenarioEffectMinusOneCards,
                     ),
-                    Column(
-                      children: <Widget>[
-                        OutlinedText.blackAndWhite("Advantage"),
-                        Checkbox(
-                          value: characterHasAdvantage,
-                          onChanged: characterDisadvantaged
-                              ? null
-                              : (value) =>
-                                  setState(() => characterHasAdvantage = value),
-                        )
-                      ],
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Incrementer(
+                      label: 'Curse Cards',
+                      incrementBehaviour: () {
+                        setState(() {
+                          this.widget.deck.addCard(CurseCard());
+                        });
+                      },
+                      incrementEnabledCondition: () =>
+                          CurseCard.totalCurseCardsInPlay < 10,
+                      decrementBehaviour: () {
+                        setState(() {
+                          this.widget.deck.removeCards([CurseCard()]);
+                        });
+                      },
+                      decrementEnabledCondition: () =>
+                          this.widget.deck.isCursed(),
+                      valueCalculation: () => this.widget.deck.curseCardCount,
                     ),
-                    Column(
-                      children: <Widget>[
-                        OutlinedText.blackAndWhite("Disadvantage"),
-                        Checkbox(
-                          value: characterDisadvantaged,
-                          onChanged: characterHasAdvantage
-                              ? null
-                              : (value) => setState(
-                                  () => characterDisadvantaged = value),
-                        )
-                      ],
+                    Incrementer(
+                      label: 'Bless Cards',
+                      incrementBehaviour: () {
+                        setState(() {
+                          this.widget.deck.addCard(BlessCard());
+                        });
+                      },
+                      incrementEnabledCondition: () =>
+                          BlessCard.totalBlessCardsInPlay < 10,
+                      decrementBehaviour: () {
+                        setState(() {
+                          this.widget.deck.removeCards([BlessCard()]);
+                        });
+                      },
+                      decrementEnabledCondition: () =>
+                          this.widget.deck.isBlessed(),
+                      valueCalculation: () => this.widget.deck.blessCardCount,
                     )
                   ],
-                )),
-            getDeckStatus(this.widget.deck),
-            Padding(
-              padding: EdgeInsets.only(top: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Incrementer(
-                    label: '-1 scenario effect',
-                    incrementBehaviour: () {
-                      if (this.widget.character.ignoreNegativeScenarioEffects) {
-                        Fluttertoast.showToast(
-                            msg: 'Reminder: ' +
-                                this.widget.character.name +
-                                ' should ignore negative scenario effects.',
-                            backgroundColor: Colors.black);
-                      }
-                      setState(() {
-                        this.widget.deck.addScenarioEffectMinusOneCard();
-                      });
-                    },
-                    decrementBehaviour: () {
-                      setState(() {
-                        this.widget.deck.removeScenarioEffectMinusOneCard();
-                      });
-                    },
-                    decrementEnabledCondition: () =>
-                        this.widget.deck.scenarioEffectMinusOneCards > 0,
-                    valueCalculation: () =>
-                        this.widget.deck.scenarioEffectMinusOneCards,
-                  ),
-                ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Incrementer(
-                    label: 'Curse Cards',
-                    incrementBehaviour: () {
-                      setState(() {
-                        this.widget.deck.addCard(CurseCard());
-                      });
-                    },
-                    incrementEnabledCondition: () =>
-                        CurseCard.totalCurseCardsInPlay < 10,
-                    decrementBehaviour: () {
-                      setState(() {
-                        this.widget.deck.removeCards([CurseCard()]);
-                      });
-                    },
-                    decrementEnabledCondition: () =>
-                        this.widget.deck.isCursed(),
-                    valueCalculation: () => this.widget.deck.curseCardCount,
-                  ),
-                  Incrementer(
-                    label: 'Bless Cards',
-                    incrementBehaviour: () {
-                      setState(() {
-                        this.widget.deck.addCard(BlessCard());
-                      });
-                    },
-                    incrementEnabledCondition: () =>
-                        BlessCard.totalBlessCardsInPlay < 10,
-                    decrementBehaviour: () {
-                      setState(() {
-                        this.widget.deck.removeCards([BlessCard()]);
-                      });
-                    },
-                    decrementEnabledCondition: () =>
-                        this.widget.deck.isBlessed(),
-                    valueCalculation: () => this.widget.deck.blessCardCount,
-                  )
-                ],
-              ),
-            ),
-          ]),
-        ));
+              Container(height: 30,)
+            ]),
+          )),
+      Positioned(
+          bottom: _scrollIndicatorAnimation.value,
+          child: _canScrollDown
+              ? Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 50,
+                  color: Colors.white,
+                )
+              : Container()),
+    ]);
   }
 
   Widget getDeckStatus(AttackModifierDeck deck) {
@@ -399,5 +436,12 @@ class _DeckDisplayState extends State<DeckDisplay>
           firstResult.applyCardEffect(cardsInPlay.last, lessRandomness);
       return TappableResult(result, cardsInPlay);
     }
+  }
+
+  _showScrollIndicator() {
+    setState(() {
+      _canScrollDown =
+          _scrollController.offset < _scrollController.position.maxScrollExtent;
+    });
   }
 }
