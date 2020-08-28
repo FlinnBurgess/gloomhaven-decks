@@ -18,6 +18,7 @@ import 'package:recase/recase.dart';
 
 import 'brute/brute.dart';
 import 'cragheart/cragheart.dart';
+import 'diviner/diviner.dart';
 import 'elementalist/elementalist.dart';
 import 'mindthief/mindthief.dart';
 import 'nightshroud/nightshroud.dart';
@@ -61,6 +62,7 @@ abstract class Character {
     'Soothsinger',
     'Summoner',
     'Sunkeeper',
+    'Diviner',
   ];
 
   static Character createCharacter(className, name) {
@@ -99,6 +101,8 @@ abstract class Character {
         return Summoner(name);
       case 'Elementalist':
         return Elementalist(name);
+      case 'Diviner':
+        return Diviner(name);
       default:
         throw Exception('Unrecognised class: $className');
     }

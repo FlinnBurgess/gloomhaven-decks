@@ -38,6 +38,7 @@ var placeholderConversions = {
   '[STRENGTHEN]': strengthenIcon,
   '[STUN]': stunIcon,
   '[WOUND]': woundIcon,
+  '[REGENERATE]': regenerateIcon,
   '[ROLLING]': Icon(MiscIcons.rolling, color: Color.fromRGBO(77, 121, 68, 1)),
 };
 

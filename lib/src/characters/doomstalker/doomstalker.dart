@@ -11,7 +11,7 @@ class Doomstalker extends Character {
   AttackModifierDeck attackModifierDeck = AttackModifierDeck();
 
   Doomstalker(this.name) {
-    characterIcon = CharacterIcons.doomstalker_icons;
+    characterIcon = CharacterIcons.doomstalker_icon;
     backgroundImagePath = 'images/backgrounds/doomstalker.png';
     var characterClass = this.runtimeType.toString();
 
