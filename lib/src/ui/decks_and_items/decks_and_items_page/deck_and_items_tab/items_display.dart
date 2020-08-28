@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/item/item.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/items/items.dart';
@@ -525,7 +525,7 @@ class _ItemsDisplayState extends State<ItemsDisplay>
                                             .widget
                                             .character
                                             .removeWishListItem(itemNumber);
-                                        Provider.of<Characters>(context).save();
+                                        Provider.of<PlayerCharacters>(context).save();
                                       }
                                     }),
                                     child: Text(
@@ -583,7 +583,7 @@ class _ItemsDisplayState extends State<ItemsDisplay>
                 onPressed: () {
                   Provider.of<Shop>(context, listen: false)
                       .returnItem(itemNumber);
-                  Provider.of<Characters>(context, listen: false).save();
+                  Provider.of<PlayerCharacters>(context, listen: false).save();
                   setState(() {
                     this.widget.character.removeItem(Item(itemNumber));
                   });
@@ -647,7 +647,7 @@ class _ItemsDisplayState extends State<ItemsDisplay>
                                               .character
                                               .addWishListItem(itemNumber);
                                         });
-                                        Provider.of<Characters>(context).save();
+                                        Provider.of<PlayerCharacters>(context).save();
                                         Navigator.pop(context);
                                       }
                                     },

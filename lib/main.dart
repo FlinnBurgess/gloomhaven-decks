@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/app_rating.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/settings/settings.dart';
 import 'package:gloomhaven_decks/src/ui/decks_and_items/decks_and_items_page/decks_and_items_page.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,7 @@ var sentry = SentryClient(
 //TODO IMPORTANT: app crashes after being closed for a while. No other side-effects at this point.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Characters characters = await Characters.load();
+  PlayerCharacters characters = await PlayerCharacters.load();
   Shop shop = await Shop.load();
   Settings settings = await Settings.load();
 

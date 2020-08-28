@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/settings/settings.dart';
 import 'package:gloomhaven_decks/src/ui/outlined_text.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,7 @@ class NewCharacterFormState extends State<NewCharacterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<Characters, Settings>(
+    return Consumer2<PlayerCharacters, Settings>(
       builder: (context, characters, settings, _) {
         return Form(
           key: _formKey,

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/item/item.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
@@ -16,7 +16,7 @@ import 'items.dart';
 class ItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Characters>(
+    return Consumer<PlayerCharacters>(
       builder: (context, characters, _) {
         List<Character> activeCharacters = characters.characters
             .where((character) => character.isActive)
@@ -536,7 +536,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab>
                                             .widget
                                             .character
                                             .removeWishListItem(itemNumber);
-                                        Provider.of<Characters>(context).save();
+                                        Provider.of<PlayerCharacters>(context).save();
                                       }
                                     }),
                                     child: Text(
@@ -594,7 +594,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab>
                 onPressed: () {
                   Provider.of<Shop>(context, listen: false)
                       .returnItem(itemNumber);
-                  Provider.of<Characters>(context, listen: false).save();
+                  Provider.of<PlayerCharacters>(context, listen: false).save();
                   setState(() {
                     this.widget.character.removeItem(Item(itemNumber));
                   });
@@ -658,7 +658,7 @@ class _CharacterItemsTabState extends State<CharacterItemsTab>
                                               .character
                                               .addWishListItem(itemNumber);
                                         });
-                                        Provider.of<Characters>(context).save();
+                                        Provider.of<PlayerCharacters>(context).save();
                                         Navigator.pop(context);
                                       }
                                     },

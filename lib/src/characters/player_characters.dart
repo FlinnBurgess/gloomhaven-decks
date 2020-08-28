@@ -6,7 +6,7 @@ import 'package:gloomhaven_decks/src/characters/character.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry/sentry.dart';
 
-class Characters extends ChangeNotifier {
+class PlayerCharacters extends ChangeNotifier {
   List<Character> _characters = [];
   static var sentry = SentryClient(
       dsn:
@@ -14,7 +14,7 @@ class Characters extends ChangeNotifier {
 
   List<Character> get characters => _characters;
 
-  Characters(this._characters);
+  PlayerCharacters(this._characters);
 
   void addCharacter(Character character) {
     _characters.add(character);
@@ -45,12 +45,12 @@ class Characters extends ChangeNotifier {
         Character.fromJson(jsonCharacter)).toList();
   }
 
-  static Future<Characters> load() async {
+  static Future<PlayerCharacters> load() async {
     try {
       final file = await _localFile;
       String encodedCharacters = await file.readAsString();
       List<dynamic> decodedCharacters = jsonDecode(encodedCharacters);
-      return Characters(fromJson(decodedCharacters));
+      return PlayerCharacters(fromJson(decodedCharacters));
     } catch (error, stackTrace) {
       try {
         await sentry.captureException(exception: error, stackTrace: stackTrace);
@@ -59,7 +59,7 @@ class Characters extends ChangeNotifier {
         print('Sending report to sentry.io failed: $e');
         print('Original error: $error');
       }
-      return Characters([]);
+      return PlayerCharacters([]);
     }
   }
 

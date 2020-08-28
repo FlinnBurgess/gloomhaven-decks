@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/perks/perk.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
 import 'package:gloomhaven_decks/src/ui/card_list.dart';
@@ -54,7 +54,7 @@ class _CharacterPerkPageState extends State<CharacterPerkPage>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Characters>(builder: (context, characters, child) {
+    return Consumer<PlayerCharacters>(builder: (context, characters, child) {
       List<Widget> perkRows = [
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           RaisedButton(

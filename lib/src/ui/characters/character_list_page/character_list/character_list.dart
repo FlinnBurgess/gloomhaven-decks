@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_perk_page/character_perk_page.dart';
 import 'package:gloomhaven_decks/src/ui/characters/new_character_page/new_character_page.dart';
@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class CharacterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Characters>(
+    return Consumer<PlayerCharacters>(
       builder: (context, characters, child) {
         List<Widget> options = List<Widget>();
 
@@ -38,7 +38,7 @@ class CharacterList extends StatelessWidget {
     );
   }
 
-  List<Widget> _getCharacterList(Characters characters, BuildContext context) =>
+  List<Widget> _getCharacterList(PlayerCharacters characters, BuildContext context) =>
       characters.characters
           .map<Widget>(
             (character) => Card(

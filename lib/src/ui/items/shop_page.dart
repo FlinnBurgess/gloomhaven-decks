@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/item/item.dart';
 import 'package:gloomhaven_decks/src/shop/shop.dart';
 import 'package:gloomhaven_decks/src/ui/incrementer.dart';
@@ -42,7 +42,7 @@ class _ShopItemsState extends State<ShopItems> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<Shop, Characters>(
+    return Consumer2<Shop, PlayerCharacters>(
       builder: (context, shop, characters, child) {
         itemsAvailable = shop.itemsToDisplay();
 
@@ -181,7 +181,7 @@ class _ShopItemsState extends State<ShopItems> {
   }
 
   _showBuyModal(
-      BuildContext context, int itemNumber, Characters characters, Shop shop) {
+      BuildContext context, int itemNumber, PlayerCharacters characters, Shop shop) {
     showDialog(
         context: context,
         builder: (BuildContext context) {

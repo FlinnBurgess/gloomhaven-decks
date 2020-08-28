@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
-import 'package:gloomhaven_decks/src/characters/characters.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/settings/settings.dart';
 import 'package:gloomhaven_decks/src/ui/app_background.dart';
 import 'package:gloomhaven_decks/src/ui/characters/character_list_page/character_list_page.dart';
@@ -32,7 +32,7 @@ class DecksAndItemsPageState extends State<DecksAndItemsPage> {
     });
 
     Wakelock.enable();
-    return Consumer<Characters>(
+    return Consumer<PlayerCharacters>(
       builder: (context, characters, child) {
         List<Character> activeCharacters = characters.characters
             .where((character) => character.isActive)
