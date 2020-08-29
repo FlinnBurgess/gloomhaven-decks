@@ -150,7 +150,31 @@ class _ShopItemsState extends State<ShopItems> {
                                     "Buy",
                                     style: TextStyle(fontSize: 30),
                                   ),
-                                )
+                                ),
+                                shop.isUnlockedItem(itemNumber)
+                                    ? Positioned(
+                                        top: 10,
+                                        right: 10,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              shop.removeUnlockedItem(
+                                                  itemNumber);
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      '${items[itemNumber]['name']} removed from shop.',
+                                                  backgroundColor:
+                                                      Colors.black);
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                            size: 40,
+                                          ),
+                                        ),
+                                      )
+                                    : Container()
                               ],
                             ))
                         : ColorFiltered(
@@ -180,8 +204,8 @@ class _ShopItemsState extends State<ShopItems> {
     );
   }
 
-  _showBuyModal(
-      BuildContext context, int itemNumber, PlayerCharacters characters, Shop shop) {
+  _showBuyModal(BuildContext context, int itemNumber,
+      PlayerCharacters characters, Shop shop) {
     showDialog(
         context: context,
         builder: (BuildContext context) {

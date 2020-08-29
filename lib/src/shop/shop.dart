@@ -70,6 +70,16 @@ class Shop extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeUnlockedItem(int itemNumber) {
+    _unlockedItems.remove(itemNumber);
+    notifyListeners();
+  }
+
+  isUnlockedItem(int itemNumber) {
+    return _unlockedItems.contains(itemNumber) &&
+        itemNumber > _prosperityItems[prosperity];
+  }
+
   static Future<Shop> load() async {
     try {
       final file = await _localFile;
@@ -85,10 +95,8 @@ class Shop extends ChangeNotifier {
             MapEntry(int.parse(itemNumber), itemDetails));
       }
 
-      return Shop(
-          decodedShopInfo['unlockedItems'].cast<int>(),
-          decodedShopInfo['prosperity'],
-          decodedItems);
+      return Shop(decodedShopInfo['unlockedItems'].cast<int>(),
+          decodedShopInfo['prosperity'], decodedItems);
     } catch (error) {
       try {
         print('Error sent to sentry.io: $error');
