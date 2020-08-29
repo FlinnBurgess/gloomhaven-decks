@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/bless_card.dart';
 import 'package:gloomhaven_decks/src/cards/curse_card.dart';
@@ -211,5 +213,23 @@ class AttackModifierDeck {
 
   int discardPileSize() {
     return _discardPile.length;
+  }
+
+  List<AttackModifierCard> getCardsToRearrange(int numberOfCards) {
+    return _drawPile
+        .sublist(0, min(numberOfCards, _drawPile.length - 1))
+        .cast<AttackModifierCard>();
+  }
+
+  void rearrangeCards(
+      {List<AttackModifierCard> toTopDeck,
+      List<AttackModifierCard> toGoOnBottom}) {
+    _drawPile.removeRange(0, toTopDeck.length + toGoOnBottom.length);
+    toTopDeck.forEach((card) {
+      _drawPile.insert(0, card);
+    });
+    toGoOnBottom.forEach((card) {
+      _drawPile.add(card);
+    });
   }
 }

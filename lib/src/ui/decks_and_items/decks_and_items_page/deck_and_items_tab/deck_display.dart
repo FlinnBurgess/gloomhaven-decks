@@ -5,9 +5,11 @@ import 'package:gloomhaven_decks/src/cards/attack_modifier_card.dart';
 import 'package:gloomhaven_decks/src/cards/bless_card.dart';
 import 'package:gloomhaven_decks/src/cards/curse_card.dart';
 import 'package:gloomhaven_decks/src/characters/character.dart';
+import 'package:gloomhaven_decks/src/characters/player_characters.dart';
 import 'package:gloomhaven_decks/src/conditions/condition.dart';
 import 'package:gloomhaven_decks/src/decks/attack_modifier/attack_modifier_deck.dart';
 import 'package:gloomhaven_decks/src/settings/settings.dart';
+import 'package:gloomhaven_decks/src/ui/card_list.dart';
 import 'package:gloomhaven_decks/src/ui/decks_and_items/decks_and_items_page/deck_and_items_tab/tappable_result.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +25,7 @@ class DeckDisplay extends StatefulWidget {
   @override
   _DeckDisplayState createState() => _DeckDisplayState();
 
-  DeckDisplay(
-      {Key key, @required this.character})
+  DeckDisplay({Key key, @required this.character})
       : deck = character.attackModifierDeck;
 }
 
@@ -35,6 +36,7 @@ class _DeckDisplayState extends State<DeckDisplay>
   bool targetIsPoisoned = false;
   bool characterHasAdvantage = false;
   bool characterDisadvantaged = false;
+  int numberOfCardsToReorder = 1;
 
   AssetImage nullImage = AssetImage('images/attack_modifiers/null.png');
   AssetImage nullImageGrey =
@@ -231,6 +233,36 @@ class _DeckDisplayState extends State<DeckDisplay>
                       )
                     ],
                   )),
+              widget.character.runtimeType.toString() == 'Diviner'
+                  ? Padding(padding: EdgeInsets.only(top: 30), child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      RaisedButton(
+                        onPressed: () => _rearrangeAttackModifierDeck(
+                            context,
+                            numberOfCardsToReorder,
+                            Provider.of<PlayerCharacters>(context,
+                                    listen: false)
+                                .characters),
+                        child: Text(
+                          'Rearrange cards\n(Diviner)',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Incrementer(
+                        label: 'Number of cards',
+                        incrementBehaviour: () =>
+                            setState(() => numberOfCardsToReorder++),
+                        incrementEnabledCondition: () => true,
+                        decrementBehaviour: () =>
+                            setState(() => numberOfCardsToReorder--),
+                        decrementEnabledCondition: () =>
+                            numberOfCardsToReorder > 1,
+                        valueCalculation: () => numberOfCardsToReorder,
+                      )
+                    ])
+)                  : Container(),
               getDeckStatus(this.widget.deck),
               Padding(
                 padding: EdgeInsets.only(top: 30),
@@ -311,7 +343,9 @@ class _DeckDisplayState extends State<DeckDisplay>
                   ],
                 ),
               ),
-              Container(height: 30,)
+              Container(
+                height: 30,
+              )
             ]),
           )),
       Positioned(
@@ -443,5 +477,30 @@ class _DeckDisplayState extends State<DeckDisplay>
       _canScrollDown =
           _scrollController.offset < _scrollController.position.maxScrollExtent;
     });
+  }
+
+  _rearrangeAttackModifierDeck(
+      context, int numberOfCardsToReorder, List<Character> characters) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text('Choose a character'),
+            children: characters
+                .map((character) => SimpleDialogOption(
+                      onPressed: () => showDivinerRearrangeableCardList(context, character, numberOfCardsToReorder),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(character.characterIcon),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(character.name)
+                          ]),
+                    ))
+                .toList(),
+          );
+        });
   }
 }
