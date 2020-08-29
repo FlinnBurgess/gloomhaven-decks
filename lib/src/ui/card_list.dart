@@ -72,34 +72,42 @@ class _DivinerRearrangeableCardListState
       backgroundColor: Colors.transparent,
       title: OutlinedText.blackAndWhite(
           'Rearrange ${widget.character.name}\'s deck'),
-      children: cardsToDisplay
-              .map((card) => Padding(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: Stack(children: [
-                    card.getImage(),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            RaisedButton(
-                              onPressed: () => setState(() {
-                                toTopDeck.add(card);
-                                cardsToDisplay.remove(card);
-                              }),
-                              child: Text('Top'),
-                            ),
-                            RaisedButton(
-                              onPressed: () => setState(() {
-                                toGoOnBottom.add(card);
-                                cardsToDisplay.remove(card);
-                              }),
-                              child: Text('Bottom'),
-                            ),
-                          ],
-                        ))
-                  ])))
-              .toList() +
+      children: (cardsToDisplay.isEmpty
+              ? [
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      child: OutlinedText.blackAndWhite(
+                          'Click confirm to lock in your choices.',
+                          TextAlign.center))
+                ]
+              : cardsToDisplay
+                  .map((card) => Padding(
+                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      child: Stack(children: [
+                        card.getImage(),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                RaisedButton(
+                                  onPressed: () => setState(() {
+                                    toTopDeck.add(card);
+                                    cardsToDisplay.remove(card);
+                                  }),
+                                  child: Text('Top'),
+                                ),
+                                RaisedButton(
+                                  onPressed: () => setState(() {
+                                    toGoOnBottom.add(card);
+                                    cardsToDisplay.remove(card);
+                                  }),
+                                  child: Text('Bottom'),
+                                ),
+                              ],
+                            ))
+                      ])))
+                  .toList()) +
           [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
