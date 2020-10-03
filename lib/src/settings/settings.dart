@@ -6,13 +6,19 @@ class Settings extends ChangeNotifier {
   bool _hideUnlockableClassNamesSetting;
   var _personalizedAdConsentSetting;
   bool _userHasSeenConsentMessage;
+  bool _autoCalculateResultsSetting;
 
   static const LESS_RANDOMNESS = 'lessRandomness';
   static const HIDE_UNLOCKABLE_CLASS_NAMES = 'hideClassNames';
+  static const AUTO_CALCULATE_RESULTS = 'autoCalculateResults';
   static const PERSONALIZED_ADS_CONSENT = 'privacyConsent';
 
-  Settings(this._lessRandomnessSetting, this._hideUnlockableClassNamesSetting,
-      this._personalizedAdConsentSetting, this._userHasSeenConsentMessage);
+  Settings(
+      this._lessRandomnessSetting,
+      this._hideUnlockableClassNamesSetting,
+      this._personalizedAdConsentSetting,
+      this._userHasSeenConsentMessage,
+      this._autoCalculateResultsSetting);
 
   static Future<Settings> load() async {
     SharedPreferences settings = await SharedPreferences.getInstance();
@@ -28,9 +34,12 @@ class Settings extends ChangeNotifier {
     bool adConsentSetting = settings.containsKey(PERSONALIZED_ADS_CONSENT)
         ? settings.getBool(PERSONALIZED_ADS_CONSENT)
         : false;
+    bool autoCalculateResults = settings.containsKey(AUTO_CALCULATE_RESULTS)
+        ? settings.getBool(AUTO_CALCULATE_RESULTS)
+        : true;
 
     return Settings(lessRandomnessSetting, hideUnlockableClassNamesSetting,
-        adConsentSetting, userHasSeenConsentMessage);
+        adConsentSetting, userHasSeenConsentMessage, autoCalculateResults);
   }
 
   Future<void> save() async {
@@ -40,6 +49,8 @@ class Settings extends ChangeNotifier {
         HIDE_UNLOCKABLE_CLASS_NAMES, _hideUnlockableClassNamesSetting);
     await settings.setBool(
         PERSONALIZED_ADS_CONSENT, _personalizedAdConsentSetting);
+    await settings.setBool(
+        AUTO_CALCULATE_RESULTS, _autoCalculateResultsSetting);
   }
 
   bool get userHasSeenConsentMessage => _userHasSeenConsentMessage;
@@ -69,6 +80,14 @@ class Settings extends ChangeNotifier {
 
   set lessRandomnessSetting(bool value) {
     _lessRandomnessSetting = value;
+    save();
+    notifyListeners();
+  }
+
+  bool get autoCalculateResultsSetting => _autoCalculateResultsSetting;
+
+  set autoCalculateResultsSetting(bool value) {
+    _autoCalculateResultsSetting = value;
     save();
     notifyListeners();
   }

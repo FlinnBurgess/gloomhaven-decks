@@ -92,51 +92,80 @@ class _DeckDisplayState extends State<DeckDisplay>
 
   @override
   Widget build(BuildContext context) {
+    bool autoCalculateResults =
+        Provider.of<Settings>(context).autoCalculateResultsSetting;
+
     return Stack(alignment: Alignment.topCenter, children: [
       SingleChildScrollView(
           controller: _scrollController,
           child: Padding(
             padding: EdgeInsets.only(top: 25),
             child: Column(children: <Widget>[
-              resultDisplay == null
-                  ? Container(
-                      height: 178,
-                      child: Center(
-                          child: OutlinedText.blackAndWhite(
-                              "Draw cards to see results")))
-                  : Transform.scale(
-                      scale: _resultAnimation.value, child: resultDisplay),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: Column(
-                  children: <Widget>[
-                    OutlinedText.blackAndWhite('Starting attack damage'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        IconButton(
-                            icon: Icon(
-                              Icons.remove,
-                              color: Colors.white,
-                            ),
-                            onPressed: initialDamage == 0
-                                ? null
-                                : () => this.setState(
-                                      () => initialDamage--,
-                                    )),
-                        OutlinedText.blackAndWhite(initialDamage.toString()),
-                        IconButton(
-                          icon: Icon(
-                            Icons.add,
-                            color: Colors.white,
+              autoCalculateResults
+                  ? (resultDisplay == null
+                      ? Container(
+                          height: 178,
+                          child: Center(
+                              child: OutlinedText.blackAndWhite(
+                                  "Draw cards to see results")))
+                      : Transform.scale(
+                          scale: _resultAnimation.value, child: resultDisplay))
+                  : (widget.deck.discardPile.isEmpty
+                      ? Container(
+                          height: 178,
+                          child: Center(
+                              child: OutlinedText.blackAndWhite(
+                                  "No cards drawn yet")))
+                      : Container(
+                          height: 178,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: widget.deck.discardPile.reversed
+                                .cast<AttackModifierCard>()
+                                .map((card) => Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15),
+                                    child: card.getImage()))
+                                .toList(),
                           ),
-                          onPressed: () => this.setState(() => initialDamage++),
-                        )
-                      ],
+                        )),
+              autoCalculateResults
+                  ? (Padding(
+                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      child: Column(
+                        children: <Widget>[
+                          OutlinedText.blackAndWhite('Starting attack damage'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.remove,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: initialDamage == 0
+                                      ? null
+                                      : () => this.setState(
+                                            () => initialDamage--,
+                                          )),
+                              OutlinedText.blackAndWhite(
+                                  initialDamage.toString()),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () =>
+                                    this.setState(() => initialDamage++),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ))
+                  : SizedBox(
+                      height: 20,
                     ),
-                  ],
-                ),
-              ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 RaisedButton(
                   child: Text('Shuffle deck (' +
@@ -154,6 +183,12 @@ class _DeckDisplayState extends State<DeckDisplay>
                   splashColor: Colors.black,
                   onPressed: () async {
                     setState(() {
+                      if (!autoCalculateResults) {
+                        characterHasAdvantage = false;
+                        characterDisadvantaged = false;
+                        targetIsPoisoned = false;
+                      }
+
                       resultDisplay = getResultsBasedOnSettings(
                           Provider.of<Settings>(context).lessRandomnessSetting);
                     });
@@ -192,77 +227,83 @@ class _DeckDisplayState extends State<DeckDisplay>
                   ),
                 ],
               ),
-              Padding(
-                  padding: EdgeInsets.only(top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
+              autoCalculateResults
+                  ? (Padding(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          OutlinedText.blackAndWhite("Target is poisoned"),
-                          Checkbox(
-                            value: targetIsPoisoned,
-                            onChanged: (value) =>
-                                setState(() => targetIsPoisoned = value),
+                          Column(
+                            children: <Widget>[
+                              OutlinedText.blackAndWhite("Target is poisoned"),
+                              Checkbox(
+                                value: targetIsPoisoned,
+                                onChanged: (value) =>
+                                    setState(() => targetIsPoisoned = value),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              OutlinedText.blackAndWhite("Advantage"),
+                              Checkbox(
+                                value: characterHasAdvantage,
+                                onChanged: characterDisadvantaged
+                                    ? null
+                                    : (value) => setState(
+                                        () => characterHasAdvantage = value),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              OutlinedText.blackAndWhite("Disadvantage"),
+                              Checkbox(
+                                value: characterDisadvantaged,
+                                onChanged: characterHasAdvantage
+                                    ? null
+                                    : (value) => setState(
+                                        () => characterDisadvantaged = value),
+                              )
+                            ],
                           )
                         ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          OutlinedText.blackAndWhite("Advantage"),
-                          Checkbox(
-                            value: characterHasAdvantage,
-                            onChanged: characterDisadvantaged
-                                ? null
-                                : (value) => setState(
-                                    () => characterHasAdvantage = value),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          OutlinedText.blackAndWhite("Disadvantage"),
-                          Checkbox(
-                            value: characterDisadvantaged,
-                            onChanged: characterHasAdvantage
-                                ? null
-                                : (value) => setState(
-                                    () => characterDisadvantaged = value),
-                          )
-                        ],
-                      )
-                    ],
-                  )),
+                      )))
+                  : Container(),
               widget.character.runtimeType.toString() == 'Diviner'
-                  ? Padding(padding: EdgeInsets.only(top: 30), child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      RaisedButton(
-                        onPressed: () => _rearrangeAttackModifierDeck(
-                            context,
-                            numberOfCardsToReorder,
-                            Provider.of<PlayerCharacters>(context,
-                                    listen: false)
-                                .characters),
-                        child: Text(
-                          'Rearrange cards\n(Diviner)',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Incrementer(
-                        label: 'Number of cards',
-                        incrementBehaviour: () =>
-                            setState(() => numberOfCardsToReorder++),
-                        incrementEnabledCondition: () => true,
-                        decrementBehaviour: () =>
-                            setState(() => numberOfCardsToReorder--),
-                        decrementEnabledCondition: () =>
-                            numberOfCardsToReorder > 1,
-                        valueCalculation: () => numberOfCardsToReorder,
-                      )
-                    ])
-)                  : Container(),
+                  ? Padding(
+                      padding: EdgeInsets.only(top: 30),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RaisedButton(
+                              onPressed: () => _rearrangeAttackModifierDeck(
+                                  context,
+                                  numberOfCardsToReorder,
+                                  Provider.of<PlayerCharacters>(context,
+                                          listen: false)
+                                      .characters),
+                              child: Text(
+                                'Rearrange cards\n(Diviner)',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Incrementer(
+                              label: 'Number of cards',
+                              incrementBehaviour: () =>
+                                  setState(() => numberOfCardsToReorder++),
+                              incrementEnabledCondition: () => true,
+                              decrementBehaviour: () =>
+                                  setState(() => numberOfCardsToReorder--),
+                              decrementEnabledCondition: () =>
+                                  numberOfCardsToReorder > 1,
+                              valueCalculation: () => numberOfCardsToReorder,
+                            )
+                          ]))
+                  : Container(),
               getDeckStatus(this.widget.deck),
               Padding(
                 padding: EdgeInsets.only(top: 30),
@@ -488,7 +529,8 @@ class _DeckDisplayState extends State<DeckDisplay>
             title: Text('Choose a character'),
             children: characters
                 .map((character) => SimpleDialogOption(
-                      onPressed: () => showDivinerRearrangeableCardList(context, character, numberOfCardsToReorder),
+                      onPressed: () => showDivinerRearrangeableCardList(
+                          context, character, numberOfCardsToReorder),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -232,4 +232,6 @@ class AttackModifierDeck {
       _drawPile.add(card);
     });
   }
+
+  List get discardPile => _discardPile;
 }

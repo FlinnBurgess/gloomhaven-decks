@@ -68,6 +68,30 @@ class SettingsPageState extends State<SettingsPage> {
                     })
               ],
             ),
+            Column(
+              children: <Widget>[
+                Wrap(children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: OutlinedText.blackAndWhite(
+                      'Auto-calculate attack modifier results',
+                      TextAlign.center,
+                    ),
+                  )
+                ]),
+                Switch(
+                    inactiveTrackColor: Colors.red,
+                    inactiveThumbColor: Colors.grey,
+                    activeTrackColor: Colors.green,
+                    activeColor: Colors.grey,
+                    value: settings.autoCalculateResultsSetting,
+                    onChanged: (value) {
+                      setState(() {
+                        settings.autoCalculateResultsSetting = value;
+                      });
+                    })
+              ],
+            ),
           ],
         );
       }))),
